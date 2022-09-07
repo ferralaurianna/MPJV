@@ -15,8 +15,7 @@ const float PI=3.14159;
 
 GameGUI::GameGUI(QWidget *parent): QOpenGLWidget(parent)
 {
-
-
+    //Initialize the instance of the objects to render (particules...)
 }
 
 GameGUI::~GameGUI(){
@@ -24,17 +23,17 @@ GameGUI::~GameGUI(){
 }
 
 
-// Fonction d'initialisation
+// Initialize OpenGL parameters before the first rendering
 void GameGUI::initializeGL()
 {
-    // Reglage de la couleur de fond
-    // ...
-    fond=QColor(0,0,0,1);
-    glClearColor(fond.redF(),fond.greenF(),fond.blueF(),fond.alphaF());
+    // Background color
+    background=QColor(0,0,0,1);
+    glClearColor(background.redF(),background.greenF(),background.blueF(),background.alphaF());
 
+    // VERY IMPORTANT :: allow to draw with an automatic management of depth. DO NOT REMOVE.
     glEnable(GL_DEPTH_TEST);
 
-    //Initialise la lumière directionnelle
+    // Ambiant light
     glLightfv(GL_LIGHT0,GL_AMBIENT,light_tab);
     glLightfv(GL_LIGHT0,GL_DIFFUSE,light_tab);
     glLightfv(GL_LIGHT0,GL_SPECULAR,light_tab);
@@ -44,39 +43,65 @@ void GameGUI::initializeGL()
 }
 
 
-// Fonction de redimensionnement
+
 void GameGUI::resizeGL(int width, int height)
 {
-    // Definition du viewport (zone d'affichage)
+    // Viewport definition
     glViewport(0, 0, width, height);
 }
 
 
-// Fonction d'affichage
+// General rendering management
 void GameGUI::paintGL()
 {
-    glClearColor(fond.redF(),fond.greenF(),fond.blueF(),fond.alphaF());
-    // Reinitialisation du tampon de couleur
+    // Clear background
+    glClearColor(background.redF(),background.greenF(),background.blueF(),background.alphaF());
+    // Clear depth
     glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
 
-    // Reinitialisation de la matrice courante
+    // Reinitializisation of the current projection matrix
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(80.f, this->width()/this->height(), 5.f, 800.f);
 
+    // Reinitializisation of the camera
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(cameraX_,cameraY_,cameraZ_, pointCentralX_,pointCentralY_,pointCentralZ_, 0.,dirY,0.);
-    glPushMatrix();
+    gluLookAt(cameraX_,cameraY_,cameraZ_, centralX_,centralY_,centralZ_, 0.,dirY,0.);
 
+    // Colorize every single objects after that in white
     glColor3f(1, 1, 1);
 
-    //Affichage des primitives
-    glEnable(GL_LIGHTING);
+    // Where to put the render methods to render object on the screen
 
-    //Où doit être le vaisseau une fois finalisé
+}
 
-    glDisable(GL_LIGHTING);
-    glPopMatrix();
-
+// Camera controls
+void GameGUI::forwardCamera() {
+    cameraX_ += cos(angleCamera_*PI/180);
+    cameraZ_ -= sin(angleCamera_*PI/180);
+    centralX_ += cos(angleCamera_*PI/180);
+    centralZ_ -= sin(angleCamera_*PI/180);
+}
+void GameGUI::backwardCamera() {
+    cameraX_ -= cos(angleCamera_*PI/180);
+    cameraZ_ += sin(angleCamera_*PI/180);
+    centralX_ -= cos(angleCamera_*PI/180);
+    centralZ_ += sin(angleCamera_*PI/180);
+}
+void GameGUI::turnRightCamera() {
+    angleCamera_ += 5;
+    if (angleCamera_ > 360) {
+        angleCamera_ -= 360;
+    }
+    cameraX_ = centralX_ - distanceCamera_*cos((angleCamera_)*PI/180);
+    cameraZ_ = centralZ_ + distanceCamera_*sin((angleCamera_)*PI/180);
+}
+void GameGUI::turnLeftCamera() {
+    angleCamera_ -= 5;
+    if (angleCamera_ < 0) {
+        angleCamera_ += 360;
+    }
+    cameraX_ = centralX_ - distanceCamera_*cos((angleCamera_)*PI/180);
+    cameraZ_ = centralZ_ + distanceCamera_*sin((angleCamera_)*PI/180);
 }
