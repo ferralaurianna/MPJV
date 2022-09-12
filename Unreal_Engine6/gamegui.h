@@ -12,8 +12,8 @@ public:
     ~GameGUI();
 
 
-    QColor fond;
-    float pointCentralX_=0., pointCentralY_=0., pointCentralZ_=0.;
+    QColor background;
+    float centralX_=0., centralY_=0., centralZ_=0.;
     float angleCamera_ = 90.;
     float distanceCamera_ = -8.;
     float cameraX_ = 0., cameraY_ = 0., cameraZ_ = distanceCamera_;
@@ -23,11 +23,12 @@ public:
     GLfloat light_tab[4]={1.0,1.0,1.0,1.0};
     GLfloat light_tab_pos[4]= {0.0,0.0,1.0,0.0};
 
-private:
-    void avancerCamera();
-    void reculerCamera();
-    void tournerCameraDroite();
-    void tournerCameraGauche();
+    //Camera controls to help for a better drawing of objects
+    void forwardCamera();
+    void backwardCamera();
+    void turnRightCamera();
+    void turnLeftCamera();
+
 
 protected:
     // Fonction d'initialisation
