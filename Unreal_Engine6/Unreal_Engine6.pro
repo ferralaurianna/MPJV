@@ -23,11 +23,13 @@ else {
 SOURCES += \
     gamegui.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    particules.cpp
 
 HEADERS += \
     gamegui.h \
-    mainwindow.h
+    mainwindow.h \
+    particules.h
 
 FORMS += \
     mainwindow.ui
