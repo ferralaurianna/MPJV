@@ -114,6 +114,13 @@ Vector3D Vector3D::operator/(float scalar){
     return result;
 }
 
+Vector3D Vector3D::operator=(const Vector3D &other){
+    _x = other._x;
+    _y = other._y;
+    _z = other._z;
+    return *this;
+}
+
 float Vector3D::norm() const {
     float result = _x *_x + _y * _y + _z * _z;
     return sqrt(result);

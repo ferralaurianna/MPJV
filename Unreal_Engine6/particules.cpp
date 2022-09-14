@@ -1,12 +1,13 @@
 #include "particules.h"
 
-Particules::Particules(float posX,float posY,float posZ,float radius,float inverseMass,float initialVelocity,ProjectileType type)
+Particules::Particules(float posX,float posY,float posZ,float radius,float inverseMass,float initialVelocity,float angle,ProjectileType type)
 {
     position_=new Vector3D(posX,posY,posZ);
 
     radius_=radius;
     inverseMass_=inverseMass;
-    initialVelocity_=initialVelocity;
+    angle_=angle;
+    initialVelocity_=new Vector3D(initialVelocity*qCos(qDegreesToRadians(angle_)),initialVelocity*qSin(qDegreesToRadians(angle_)),0);
     type_=type;
 }
 
@@ -29,4 +30,8 @@ void Particules::display(){
     //Getting back the world matrix before the translation from the stack
     glPopMatrix();
 
+}
+
+void Particules::integrer(float temps){
+    (*position_)=(*initialVelocity_)*temps+(*gravity)*0.5*qPow(temps,2);
 }

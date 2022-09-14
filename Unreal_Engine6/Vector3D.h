@@ -47,6 +47,7 @@ public:
     Vector3D operator*(float scalar);
     Vector3D operator*(Matrix const& matrix);
     Vector3D operator/(float scalar);
+    Vector3D operator=(const Vector3D & other);
 
     //Method
     float norm() const;
