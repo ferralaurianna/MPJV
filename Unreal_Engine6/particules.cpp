@@ -1,7 +1,9 @@
 #include "particules.h"
 
-Particules::Particules(float radius,float inverseMass,float initialVelocity,ProjectileType type)
+Particules::Particules(float posX,float posY,float posZ,float radius,float inverseMass,float initialVelocity,ProjectileType type)
 {
+    position_=new Vector3D(posX,posY,posZ);
+
     radius_=radius;
     inverseMass_=inverseMass;
     initialVelocity_=initialVelocity;
@@ -13,7 +15,7 @@ void Particules::display(){
     //Pushing the current world matrix in the stack
     glPushMatrix();
     //When position vector added, correct this line and uncomment
-    //glTranslatef(positionX,positionY,positionZ);
+    glTranslatef(position_->getX(),position_->getY(),position_->getZ());
 
     //Drawing of the particule
     GLUquadric *quadric=gluNewQuadric();

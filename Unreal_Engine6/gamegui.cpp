@@ -16,6 +16,8 @@ const float PI=3.14159;
 GameGUI::GameGUI(QWidget *parent): QOpenGLWidget(parent)
 {
     //Initialize the instance of the objects to render (particules...)
+    //example with one particule
+    particule=new Particules(5,0,0,0.5);
 }
 
 GameGUI::~GameGUI(){
@@ -62,7 +64,7 @@ void GameGUI::paintGL()
     // Reinitializisation of the current projection matrix
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(80.f, this->width()/this->height(), 5.f, 800.f);
+    gluPerspective(80.f, this->width()/this->height(), 5.f, 75.f);
 
     // Reinitializisation of the camera
     glMatrixMode(GL_MODELVIEW);
@@ -73,6 +75,7 @@ void GameGUI::paintGL()
     glColor3f(1, 1, 1);
 
     // Where to put the render methods to render object on the screen
+    particule->display();
 
 }
 

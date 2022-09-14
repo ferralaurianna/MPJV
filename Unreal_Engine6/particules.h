@@ -3,6 +3,7 @@
 
 #include <QtOpenGLWidgets/QOpenGLWidget>
 #include <GL/glu.h>
+#include <Vector3D.h>
 
 enum ProjectileType {BALL,CANONBALL,LASER,FIREBALL};
 
@@ -10,7 +11,7 @@ class Particules
 {
 public:
     //Constructor (do not forget to add the x,y and z position at the beggining of the constructor)
-    Particules(float radius=1,float inverseMass=1,float initialVelocity=1,ProjectileType type=BALL);
+    Particules(float posX=0,float posY=0,float posZ=0,float radius=1,float inverseMass=1,float initialVelocity=1,ProjectileType type=BALL);
 
     //Render method
     void display();
@@ -29,6 +30,7 @@ public:
 
 private:
     //Add here a position handmade vector
+    Vector3D *position_;
 
     float radius_;
     float inverseMass_;

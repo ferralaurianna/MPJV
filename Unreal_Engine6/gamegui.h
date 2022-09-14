@@ -4,6 +4,7 @@
 
 #include <QObject>
 #include <QWidget>
+#include <particules.h>
 
 class GameGUI:public QOpenGLWidget
 {
@@ -11,12 +12,14 @@ public:
     GameGUI(QWidget *parent=nullptr);
     ~GameGUI();
 
+    Particules *particule;
+
 
     QColor background;
     float centralX_=0., centralY_=0., centralZ_=0.;
     float angleCamera_ = 90.;
-    float distanceCamera_ = -8.;
-    float cameraX_ = 0., cameraY_ = 0., cameraZ_ = distanceCamera_;
+    float distanceCamera_ = -10.;
+    float cameraX_ = 0., cameraY_ = 3., cameraZ_ = distanceCamera_;
     float dirY=1;
 
 

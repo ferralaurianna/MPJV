@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>750</width>
+    <height>750</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <widget class="GameGUI" name="gameGUI">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>781</width>
-      <height>551</height>
+      <x>0</x>
+      <y>0</y>
+      <width>750</width>
+      <height>750</height>
      </rect>
     </property>
    </widget>
@@ -30,7 +30,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>750</width>
      <height>25</height>
     </rect>
    </property>
