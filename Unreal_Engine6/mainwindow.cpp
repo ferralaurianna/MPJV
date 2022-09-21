@@ -45,6 +45,66 @@ void MainWindow::keyPressEvent(QKeyEvent * event)
                 ui->gameGUI->turnRightCamera();
                 break;
             }
+            case Qt::Key_Z:
+            {
+                ui->gameGUI->forwardCamera();
+                break;
+            }
+            case Qt::Key_A:
+            {
+                ui->gameGUI->turnLeftCamera();
+                break;
+            }
+            case Qt::Key_S:
+            {
+                ui->gameGUI->backwardCamera();
+                break;
+            }
+            case Qt::Key_E:
+            {
+                ui->gameGUI->turnRightCamera();
+                break;
+            }
+            case Qt::Key_W:
+            {
+                ui->gameGUI->zoomIn();
+                break;
+            }
+            case Qt::Key_X:
+            {
+                ui->gameGUI->zoomOut();
+                break;
+            }
+            case Qt::Key_Control:
+            {
+                ui->gameGUI->goDown();
+                break;
+            }
+            case Qt::Key_Space:
+            {
+                ui->gameGUI->goUp();
+                break;
+            }
+            case Qt::Key_Left:
+            {
+                ui->gameGUI->gun->angGunIncr(1);
+                break;
+            }
+            case Qt::Key_Right:
+            {
+                ui->gameGUI->gun->angGunIncr(0);
+                break;
+            }
+            case Qt::Key_Up:
+            {
+                ui->gameGUI->gun->elevationGunIncr(1);
+                break;
+            }
+            case Qt::Key_Down:
+            {
+                ui->gameGUI->gun->elevationGunIncr(0);
+                break;
+            }
 
         // Default case
         default:

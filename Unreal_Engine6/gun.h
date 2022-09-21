@@ -91,6 +91,13 @@ public:
      */
     void angGunIncr(int sens);
 
+    /**
+     * @brief angGunIncr
+     * @param sens
+     * elevationGunIncr permet de faire varier la hauteur du cannon dans les limites existantes dans un sens ou dans l'autre selon le paramètre.
+     */
+    void elevationGunIncr(int sens);
+
     // Destructeur
     ~Gun();
 

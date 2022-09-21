@@ -10,13 +10,14 @@
 
 using namespace std;
 
-const float PI=3.14159;
+//const float PI=3.14159;
 
 
 GameGUI::GameGUI(QWidget *parent): QOpenGLWidget(parent)
 {
     //Initialize the instance of the objects to render (particules...)
     //example with one particule
+    gun=new Gun();
     particule=new Particules(-5,0,0,0.1,1/100,30,0.7);
 }
 
@@ -41,6 +42,7 @@ void GameGUI::initializeGL()
     glLightfv(GL_LIGHT0,GL_SPECULAR,light_tab);
 
     glLightfv(GL_LIGHT0,GL_POSITION,light_tab_pos);
+    glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
 }
 
@@ -75,7 +77,7 @@ void GameGUI::paintGL()
     glColor3f(1, 1, 1);
 
     // Where to put the render methods to render object on the screen
-    particule->display();
+    gun->Display();
 
 }
 
@@ -107,4 +109,22 @@ void GameGUI::turnLeftCamera() {
     }
     cameraX_ = centralX_ - distanceCamera_*cos((angleCamera_)*PI/180);
     cameraZ_ = centralZ_ + distanceCamera_*sin((angleCamera_)*PI/180);
+}
+void GameGUI::zoomIn() {
+    cameraX_ -= cos(angleCamera_*PI/180);
+    cameraZ_ += sin(angleCamera_*PI/180);
+    distanceCamera_+=1;
+}
+void GameGUI::zoomOut() {
+    cameraX_ += cos(angleCamera_*PI/180);
+    cameraZ_ -= sin(angleCamera_*PI/180);
+    distanceCamera_-=1;
+}
+void GameGUI::goUp() {
+    cameraY_+=1;
+    centralY_+=1;
+}
+void GameGUI::goDown() {
+    cameraY_-=1;
+    centralY_-=1;
 }

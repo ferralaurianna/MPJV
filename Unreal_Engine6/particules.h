@@ -35,6 +35,8 @@ public:
     Vector3D* getPosition(){return position_;};
     void setPosition(Vector3D *position){position_=position;};
 
+    Vector3D *gravity = new Vector3D(0,-9.8,0);
+
 private:
     //Add here a position handmade vector
     Vector3D *position_;

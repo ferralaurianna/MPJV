@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QWidget>
 #include <particules.h>
+#include <gun.h>
 
 class GameGUI:public QOpenGLWidget
 {
@@ -13,6 +14,7 @@ public:
     ~GameGUI();
 
     Particules *particule;
+    Gun* gun;
 
 
     QColor background;
@@ -31,6 +33,10 @@ public:
     void backwardCamera();
     void turnRightCamera();
     void turnLeftCamera();
+    void zoomIn();
+    void zoomOut();
+    void goUp();
+    void goDown();
 
 
 protected:
