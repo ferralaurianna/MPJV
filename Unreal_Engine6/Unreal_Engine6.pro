@@ -27,7 +27,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     matrix.cpp \
-    particules.cpp
+    particules.cpp \
+    gun.cpp
 
 HEADERS += \
     frameupdate.h \
@@ -35,7 +36,8 @@ HEADERS += \
     gamegui.h \
     mainwindow.h \
     matrix.h \
-    particules.h
+    particules.h \
+    gun.h
 
 FORMS += \
     mainwindow.ui
