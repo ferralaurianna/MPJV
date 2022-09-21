@@ -17,7 +17,7 @@ GameGUI::GameGUI(QWidget *parent): QOpenGLWidget(parent)
 {
     //Initialize the instance of the objects to render (particules...)
     //example with one particule
-    particule=new Particules(5,0,0,0.5);
+    particule=new Particules(-5,0,0,0.1,1/100,30);
 }
 
 GameGUI::~GameGUI(){

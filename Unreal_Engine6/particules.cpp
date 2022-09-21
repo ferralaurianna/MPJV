@@ -1,4 +1,7 @@
 #include "particules.h"
+#include <iostream>
+
+using namespace std;
 
 Particules::Particules(float posX,float posY,float posZ,float radius,float inverseMass,float velocity,float angle,ProjectileType type)
 {
@@ -33,9 +36,22 @@ void Particules::display(){
 }
 
 void Particules::integrer(float duration){
-    //Update of the current velocity
-    (*velocity_)=(*velocity_)+(*gravity)*duration;
 
-    //Udpate of the current position
-    (*position_)=(*position_)*(*velocity_)*duration+(*gravity)*0.5*qPow(duration,2);
+    if(!hasReachedGround)
+    {
+        //Update of the current velocity
+        (*velocity_)=(*velocity_)+(*gravity)*duration;
+
+        //Udpate of the current position
+        (*position_)=(*position_)+(*velocity_)*duration;
+
+        cout<<"velocity: x="<<(*velocity_).getX()<<"|y="<<(*velocity_).getY()<<"|z="<<(*velocity_).getZ()<<endl;
+        cout<<"position: x="<<(*position_).getX()<<"|y="<<(*position_).getY()<<"|z="<<(*position_).getZ()<<endl;
+
+        if(position_->getY()<0){
+            position_->setY(0);
+            hasReachedGround = true;
+        }
+    }
+
 }

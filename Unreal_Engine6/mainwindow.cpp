@@ -1,14 +1,17 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QKeyEvent>
+#include <iostream>
+
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    deltatime = 100;
-    connect(this->timer, SIGNAL(timeout()), this, SLOT(UpdateFrame()));
+    deltatime = 1/60;
+    connect(this->timer, &QTimer::timeout, this, &MainWindow::UpdateFrame);
     timer->start(deltatime);
 }
 
@@ -58,21 +61,25 @@ void MainWindow::keyPressEvent(QKeyEvent * event)
 }
 
 // Updating the position and speed of the particle, timing it to get framerate
-void MainWindow::UpdateFrame(QVector3D position, QVector3D speed, QVector3D acceleration)
+void MainWindow::UpdateFrame()
 {
+
     // Record start time
     auto start = std::chrono::high_resolution_clock::now();
 
-    QVector3D newpos = position + speed * deltatime + 0.5 * acceleration * deltatime * deltatime ;
-    QVector3D newspeed = speed + acceleration * deltatime;
-    position = newpos;
-    speed = newspeed;
+    // Update the position of the particule
+    ui->gameGUI->particule->integrer(deltatime);
+
+    ui->gameGUI->update();
 
     // Record end time
     auto finish = std::chrono::high_resolution_clock::now();
 
     // Calculate time elapsed
     std::chrono::duration<double> elapsed = finish - start;
-    deltatime = elapsed.count();
+    deltatime = elapsed.count()*10;
+
+    //cout<<"deltaTime"<<deltatime<<endl;
+
     timer->setInterval(deltatime);
 }
