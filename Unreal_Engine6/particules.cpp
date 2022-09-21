@@ -1,13 +1,13 @@
 #include "particules.h"
 
-Particules::Particules(float posX,float posY,float posZ,float radius,float inverseMass,float initialVelocity,float angle,ProjectileType type)
+Particules::Particules(float posX,float posY,float posZ,float radius,float inverseMass,float velocity,float angle,ProjectileType type)
 {
     position_=new Vector3D(posX,posY,posZ);
 
     radius_=radius;
     inverseMass_=inverseMass;
     angle_=angle;
-    initialVelocity_=new Vector3D(initialVelocity*qCos(qDegreesToRadians(angle_)),initialVelocity*qSin(qDegreesToRadians(angle_)),0);
+    velocity_=new Vector3D(velocity*qCos(qDegreesToRadians(angle_)),velocity*qSin(qDegreesToRadians(angle_)),0);
     type_=type;
 }
 
@@ -32,6 +32,10 @@ void Particules::display(){
 
 }
 
-void Particules::integrer(float temps){
-    (*position_)=(*initialVelocity_)*temps+(*gravity)*0.5*qPow(temps,2);
+void Particules::integrer(float duration){
+    //Update of the current velocity
+    (*velocity_)=(*velocity_)+(*gravity)*duration;
+
+    //Udpate of the current position
+    (*position_)=(*position_)*(*velocity_)*duration+(*gravity)*0.5*qPow(duration,2);
 }
