@@ -38,6 +38,8 @@ public:
     void goUp();
     void goDown();
 
+    void launchPart();
+
 
 protected:
     // Fonction d'initialisation

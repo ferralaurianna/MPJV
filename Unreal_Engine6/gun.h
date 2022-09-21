@@ -106,6 +106,11 @@ public:
      * Display permet d'afficher le vaisseau.
      */
     void Display();
+
+    float getElevation(){return elevation;}
+
+    float getAngle(){return elevation;}
+
 };
 
 #endif // SHIP_H

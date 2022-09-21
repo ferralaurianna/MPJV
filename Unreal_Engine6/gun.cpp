@@ -6,7 +6,7 @@ Gun::Gun()
     posX_=0;
     posY_=0;
     posZ_=0;
-    angY_=180;
+    angY_=90;
     angGun_=0;
     elevation=10;
 }

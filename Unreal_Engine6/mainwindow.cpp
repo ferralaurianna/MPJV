@@ -105,6 +105,11 @@ void MainWindow::keyPressEvent(QKeyEvent * event)
                 ui->gameGUI->gun->elevationGunIncr(0);
                 break;
             }
+            case Qt::Key_Enter:
+            {
+                ui->gameGUI->launchPart();
+                break;
+            }
 
         // Default case
         default:
