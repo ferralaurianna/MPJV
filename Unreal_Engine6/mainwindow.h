@@ -18,10 +18,11 @@ public:
     ~MainWindow();
     QTimer *timer = new QTimer(this);
     float deltatime;
+    bool hasFinishedLoop_=true;
 
 private:
     Ui::MainWindow *ui;
-    void UpdateFrame(QVector3D position, QVector3D speed, QVector3D acceleration);
+    void UpdateFrame();
 
 protected:
     void keyPressEvent(QKeyEvent * event);

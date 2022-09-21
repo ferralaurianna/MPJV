@@ -7,16 +7,19 @@
 #include <QtMath>
 
 enum ProjectileType {BALL,CANONBALL,LASER,FIREBALL};
-Vector3D *gravity = new Vector3D(0,-9.8,0);
 
 class Particules
 {
 public:
     //Constructor (do not forget to add the x,y and z position at the beggining of the constructor)
-    Particules(float posX=0,float posY=0,float posZ=0,float radius=1,float inverseMass=1,float velocity=1,float angle_=45,ProjectileType type=BALL);
+    Particules(float posX=0,float posY=0,float posZ=0,float radius=1,float inverseMass=1,float velocity=1,float damping=1,float angle_=45,ProjectileType type=BALL);
 
     //Render method
     void display();
+
+
+    //Euler integrer
+    void integrer(float temps);
 
     //Getters/setters
     float getInverseMass(){return inverseMass_;};
@@ -35,15 +38,17 @@ public:
 private:
     //Add here a position handmade vector
     Vector3D *position_;
+    Vector3D *velocity_;
+    Vector3D *gravity = new Vector3D(0,-98.0,0);
+
+    float inverseMass_;
+    float damping_;
 
     float radius_;
-    float inverseMass_;
-    Vector3D *velocity_;
     float angle_;
     ProjectileType type_;
 
-    //Euler integrer
-    void integrer(float temps);
+    bool hasReachedGround=false;
 
 };
 
