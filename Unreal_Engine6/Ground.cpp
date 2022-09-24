@@ -42,9 +42,9 @@ void Ground::Display() const
 
     glEnd();
 
-    GLfloat colorAmbientS_tab[] = {0.25,0.25,0.25,1.0};
+    GLfloat colorAmbientS_tab[] = {0.5,0.5,0.5,1.0};
     glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbientS_tab);
-    GLfloat colorDiffuseS_tab[] = {0.5,0.5,0.5,0.0};
+    GLfloat colorDiffuseS_tab[] = {0.9,0.9,0.9,0.0};
     glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuseS_tab);
     GLfloat colorSpecularS_tab[] = {0.0,0.0,0.0,0.0};
     glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecularS_tab);
