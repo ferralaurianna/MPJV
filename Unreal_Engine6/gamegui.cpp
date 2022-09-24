@@ -18,7 +18,7 @@ GameGUI::GameGUI(QWidget *parent): QOpenGLWidget(parent)
     //Initialize the instance of the objects to render (particules...)
     //example with one particule
     gun=new Gun();
-    particule=new Particules(-5,0,0,0.1,1/100,30,0.7);
+    scene=new Ground();
 }
 
 GameGUI::~GameGUI(){
@@ -44,6 +44,49 @@ void GameGUI::initializeGL()
     glLightfv(GL_LIGHT0,GL_POSITION,light_tab_pos);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
+
+    QImage texGrass = QImage(":/grass.jpg").convertToFormat(QImage::Format_RGBA8888);
+    QImage texSky = QImage(":/sky.jpg").convertToFormat(QImage::Format_RGBA8888);
+    QImage texWood = QImage(":/wood.jpg").convertToFormat(QImage::Format_RGBA8888);
+    QImage texMetal = QImage(":/metal.jpg").convertToFormat(QImage::Format_RGBA8888);
+
+    texturesScene = new GLuint[2];
+
+    glGenTextures(2,texturesScene);
+    glBindTexture(GL_TEXTURE_2D,texturesScene[0]);
+    glTexImage2D(GL_TEXTURE_2D, 0, 4,texGrass.width(),texGrass.height(),0,GL_RGBA,GL_UNSIGNED_BYTE,texGrass.bits());
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+
+    glBindTexture(GL_TEXTURE_2D,texturesScene[1]);
+    glTexImage2D(GL_TEXTURE_2D, 0, 4,texSky.width(),texSky.height(),0,GL_RGBA,GL_UNSIGNED_BYTE,texSky.bits());
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_MIRRORED_REPEAT);
+
+    scene->sendTextures(texturesScene);
+
+    texturesGun = new GLuint[2];
+
+    glGenTextures(2,texturesGun);
+    glBindTexture(GL_TEXTURE_2D,texturesGun[0]);
+    glTexImage2D(GL_TEXTURE_2D, 0, 4,texWood.width(),texWood.height(),0,GL_RGBA,GL_UNSIGNED_BYTE,texWood.bits());
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+
+    glBindTexture(GL_TEXTURE_2D,texturesGun[1]);
+    glTexImage2D(GL_TEXTURE_2D, 0, 4,texMetal.width(),texMetal.height(),0,GL_RGBA,GL_UNSIGNED_BYTE,texMetal.bits());
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_MIRRORED_REPEAT);
+
+    gun->sendTextures(texturesGun);
 }
 
 
@@ -66,7 +109,7 @@ void GameGUI::paintGL()
     // Reinitializisation of the current projection matrix
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(80.f, this->width()/this->height(), 5.f, 75.f);
+    gluPerspective(80.f, this->width()/this->height(), 5.f, 10000.f);
 
     // Reinitializisation of the camera
     glMatrixMode(GL_MODELVIEW);
@@ -77,13 +120,20 @@ void GameGUI::paintGL()
     glColor3f(1, 1, 1);
 
     // Where to put the render methods to render object on the screen
-    particule->display();
+    scene->Display();
+    for(Particules* particule : particules)
+    {
+        particule->display();
+    }
     gun->Display();
+
+    scene->slideSky();
 }
 
 void GameGUI::launchPart()
 {
-    particule=new Particules(0.f,gun->getElevation(),0.f,1,1,1,1,45);
+    Particules* particule=new Particules(100.f,gun->getElevation(),0.f,0.5f,1,1000.f,1.f,-180.f-gun->getAngle());
+    particules.push_back(particule);
 }
 
 // Camera controls

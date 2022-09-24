@@ -39,7 +39,7 @@ private:
     //Add here a position handmade vector
     Vector3D *position_;
     Vector3D *velocity_;
-    Vector3D *gravity = new Vector3D(0,-98.0,0);
+    Vector3D *gravity = new Vector3D(0,-5000.0,0);
 
     float inverseMass_;
     float damping_;

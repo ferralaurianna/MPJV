@@ -3,7 +3,7 @@
 Gun::Gun()
 {
     quadrique = gluNewQuadric();
-    posX_=0;
+    posX_=100;
     posY_=0;
     posZ_=0;
     angY_=90;
@@ -75,10 +75,10 @@ void Gun::DrawSupport(int direction)
     glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tabEngine);
     glMaterialf(GL_FRONT, GL_SHININESS, 76.8f);
 
-//    glEnable(GL_TEXTURE_2D);
-//    gluQuadricTexture(quadrique,GLU_TRUE);
+    glEnable(GL_TEXTURE_2D);
+    gluQuadricTexture(quadrique,GLU_TRUE);
 
-//    glBindTexture(GL_TEXTURE_2D,textures[0]);
+    glBindTexture(GL_TEXTURE_2D,textures[0]);
 
     glMatrixMode(GL_TEXTURE);
     glPushMatrix();
@@ -93,8 +93,8 @@ void Gun::DrawSupport(int direction)
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
 
-//    glDisable(GL_TEXTURE_2D);
-//    gluQuadricTexture(quadrique,GLU_FALSE);
+    glDisable(GL_TEXTURE_2D);
+    gluQuadricTexture(quadrique,GLU_FALSE);
 
     glPopMatrix();
 }
@@ -116,10 +116,10 @@ void Gun::DrawGun(float recoil, float angleGun, float elevation)
     glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tabEngine);
     glMaterialf(GL_FRONT, GL_SHININESS, 76.8f);
 
-//    glEnable(GL_TEXTURE_2D);
-//    gluQuadricTexture(quadrique,GLU_TRUE);
+    glEnable(GL_TEXTURE_2D);
+    gluQuadricTexture(quadrique,GLU_TRUE);
 
-//    glBindTexture(GL_TEXTURE_2D,textures[1]);
+    glBindTexture(GL_TEXTURE_2D,textures[1]);
 
     glMatrixMode(GL_TEXTURE);
     glPushMatrix();
@@ -141,8 +141,8 @@ void Gun::DrawGun(float recoil, float angleGun, float elevation)
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
 
-//    glDisable(GL_TEXTURE_2D);
-//    gluQuadricTexture(quadrique,GLU_FALSE);
+    glDisable(GL_TEXTURE_2D);
+    gluQuadricTexture(quadrique,GLU_FALSE);
 
     glPopMatrix();
 }
@@ -162,10 +162,10 @@ void Gun::DrawMechanics(float elevation, float angleGun, float direction)
     glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tab);
     glMaterialf(GL_FRONT, GL_SHININESS, 76.8f);
 
-//    glEnable(GL_TEXTURE_2D);
-//    gluQuadricTexture(quadrique,GLU_TRUE);
+    glEnable(GL_TEXTURE_2D);
+    gluQuadricTexture(quadrique,GLU_TRUE);
 
-//    glBindTexture(GL_TEXTURE_2D,textures[0]);
+    glBindTexture(GL_TEXTURE_2D,textures[0]);
 
     glMatrixMode(GL_TEXTURE);
     glPushMatrix();
@@ -183,8 +183,8 @@ void Gun::DrawMechanics(float elevation, float angleGun, float direction)
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
 
-//    glDisable(GL_TEXTURE_2D);
-//    gluQuadricTexture(quadrique,GLU_FALSE);
+    glDisable(GL_TEXTURE_2D);
+    gluQuadricTexture(quadrique,GLU_FALSE);
 
     glPopMatrix();
 
@@ -201,10 +201,10 @@ void Gun::DrawMechanics(float elevation, float angleGun, float direction)
     glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tab2);
     glMaterialf(GL_FRONT, GL_SHININESS, 76.8f);
 
-//    glEnable(GL_TEXTURE_2D);
-//    gluQuadricTexture(quadrique,GLU_TRUE);
+    glEnable(GL_TEXTURE_2D);
+    gluQuadricTexture(quadrique,GLU_TRUE);
 
-//    glBindTexture(GL_TEXTURE_2D,textures[1]);
+    glBindTexture(GL_TEXTURE_2D,textures[1]);
 
     glMatrixMode(GL_TEXTURE);
     glPushMatrix();
@@ -220,8 +220,8 @@ void Gun::DrawMechanics(float elevation, float angleGun, float direction)
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
 
-//    glDisable(GL_TEXTURE_2D);
-//    gluQuadricTexture(quadrique,GLU_FALSE);
+    glDisable(GL_TEXTURE_2D);
+    gluQuadricTexture(quadrique,GLU_FALSE);
 
     glPopMatrix();
 }
@@ -232,40 +232,40 @@ void Gun::DrawCube(float posX,float posY,float posZ, float lX, float lY, float l
     glBegin(GL_QUADS);
 
     glNormal3f(0.0,0.0,1.0);
-    glVertex3f(posX,posY,posZ);
-    glVertex3f(posX+lX,posY,posZ);
-    glVertex3f(posX+lX,posY+lY,posZ);
-    glVertex3f(posX,posY+lY,posZ);
+    glTexCoord2f(0,0);glVertex3f(posX,posY,posZ);
+    glTexCoord2f(0,10);glVertex3f(posX+lX,posY,posZ);
+    glTexCoord2f(10,10);glVertex3f(posX+lX,posY+lY,posZ);
+    glTexCoord2f(10,0);glVertex3f(posX,posY+lY,posZ);
 
     glNormal3f(1.0,0.0,0.0);
-    glVertex3f(posX,posY,posZ);
-    glVertex3f(posX,posY,posZ+lZ);
-    glVertex3f(posX,posY+lY,posZ+lZ);
-    glVertex3f(posX,posY+lY,posZ);
+    glTexCoord2f(0,0);glVertex3f(posX,posY,posZ);
+    glTexCoord2f(0,10);glVertex3f(posX,posY,posZ+lZ);
+    glTexCoord2f(10,10);glVertex3f(posX,posY+lY,posZ+lZ);
+    glTexCoord2f(10,0);glVertex3f(posX,posY+lY,posZ);
 
     glNormal3f(0.0,0.0,-1.0);
-    glVertex3f(posX,posY,posZ+lZ);
-    glVertex3f(posX+lX,posY,posZ+lZ);
-    glVertex3f(posX+lX,posY+lY,posZ+lZ);
-    glVertex3f(posX,posY+lY,posZ+lZ);
+    glTexCoord2f(0,0);glVertex3f(posX,posY,posZ+lZ);
+    glTexCoord2f(0,10);glVertex3f(posX+lX,posY,posZ+lZ);
+    glTexCoord2f(10,10);glVertex3f(posX+lX,posY+lY,posZ+lZ);
+    glTexCoord2f(10,0);glVertex3f(posX,posY+lY,posZ+lZ);
 
     glNormal3f(-1.0,0.0,0.0);
-    glVertex3f(posX+lX,posY,posZ);
-    glVertex3f(posX+lX,posY,posZ+lZ);
-    glVertex3f(posX+lX,posY+lY,posZ+lZ);
-    glVertex3f(posX+lX,posY+lY,posZ);
+    glTexCoord2f(0,0);glVertex3f(posX+lX,posY,posZ);
+    glTexCoord2f(0,10);glVertex3f(posX+lX,posY,posZ+lZ);
+    glTexCoord2f(1,10);glVertex3f(posX+lX,posY+lY,posZ+lZ);
+    glTexCoord2f(10,0);glVertex3f(posX+lX,posY+lY,posZ);
 
     glNormal3f(0.0,1.0,0.0);
-    glVertex3f(posX,posY,posZ);
-    glVertex3f(posX+lX,posY,posZ);
-    glVertex3f(posX+lX,posY,posZ+lZ);
-    glVertex3f(posX,posY,posZ+lZ);
+    glTexCoord2f(0,0);glVertex3f(posX,posY,posZ);
+    glTexCoord2f(0,10);glVertex3f(posX+lX,posY,posZ);
+    glTexCoord2f(10,10);glVertex3f(posX+lX,posY,posZ+lZ);
+    glTexCoord2f(10,0);glVertex3f(posX,posY,posZ+lZ);
 
     glNormal3f(0.0,-1.0,0.0);
-    glVertex3f(posX,posY+lY,posZ);
-    glVertex3f(posX+lX,posY+lY,posZ);
-    glVertex3f(posX+lX,posY+lY,posZ+lZ);
-    glVertex3f(posX,posY+lY,posZ+lZ);
+    glTexCoord2f(0,0);glVertex3f(posX,posY+lY,posZ);
+    glTexCoord2f(0,10);glVertex3f(posX+lX,posY+lY,posZ);
+    glTexCoord2f(10,10);glVertex3f(posX+lX,posY+lY,posZ+lZ);
+    glTexCoord2f(10,0);glVertex3f(posX,posY+lY,posZ+lZ);
 
     glEnd();
 }

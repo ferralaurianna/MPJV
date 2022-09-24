@@ -109,7 +109,7 @@ public:
 
     float getElevation(){return elevation;}
 
-    float getAngle(){return elevation;}
+    float getAngle(){return angGun_;}
 
 };
 

@@ -28,7 +28,8 @@ SOURCES += \
     mainwindow.cpp \
     matrix.cpp \
     particules.cpp \
-    gun.cpp
+    gun.cpp \
+    Ground.cpp
 
 HEADERS += \
     frameupdate.h \
@@ -37,7 +38,11 @@ HEADERS += \
     mainwindow.h \
     matrix.h \
     particules.h \
-    gun.h
+    gun.h \
+    Ground.h
+
+RESOURCES += \
+    ../res/textures.qrc
 
 FORMS += \
     mainwindow.ui

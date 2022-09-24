@@ -132,9 +132,11 @@ void MainWindow::UpdateFrame()
     // Record start time
     auto start = std::chrono::high_resolution_clock::now();
 
+    for(Particules* particule : ui->gameGUI->particules)
+    {
+        particule->integrer(deltatime);
+    }
     // Update the position of the particule
-    ui->gameGUI->particule->integrer(deltatime);
-
     ui->gameGUI->update();
 
     // Record end time
