@@ -35,6 +35,8 @@ public:
     Vector3D* getPosition(){return position_;};
     void setPosition(Vector3D *position){position_=position;};
 
+    bool isOnGround(){return hasReachedGround;}
+
 private:
     //Add here a position handmade vector
     Vector3D *position_;
@@ -49,7 +51,6 @@ private:
     ProjectileType type_;
 
     bool hasReachedGround=false;
-
 };
 
 #endif // PARTICULES_H

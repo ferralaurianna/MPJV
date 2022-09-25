@@ -4,5 +4,6 @@
 	    <file>sky.jpg</file>
         <file>metal.jpg</file>
 	    <file>wood.jpg</file>
+        <file>rocks.jpg</file>
     </qresource>
 </RCC>

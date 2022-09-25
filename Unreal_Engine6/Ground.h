@@ -2,6 +2,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <QColor>
+#include <QRandomGenerator>
 
 // Classe dediee pour la gestion du sol
 class Ground
@@ -20,8 +21,15 @@ public:
 
     // Methode d'affichage
     void Display() const;
+
+    float getPosTarget(){return posTarget;}
+
+    void moveTarget();
+
 private:
     GLuint* textures;
     float posRoad;
     float posCiel;
+    float posTarget;
+    QRandomGenerator* random;
 };

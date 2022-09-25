@@ -19,6 +19,7 @@ GameGUI::GameGUI(QWidget *parent): QOpenGLWidget(parent)
     //example with one particule
     gun=new Gun();
     scene=new Ground();
+    score = 0;
 }
 
 GameGUI::~GameGUI(){
@@ -49,10 +50,12 @@ void GameGUI::initializeGL()
     QImage texSky = QImage(":/sky.jpg").convertToFormat(QImage::Format_RGBA8888);
     QImage texWood = QImage(":/wood.jpg").convertToFormat(QImage::Format_RGBA8888);
     QImage texMetal = QImage(":/metal.jpg").convertToFormat(QImage::Format_RGBA8888);
+    QImage texRocks = QImage(":/rocks.jpg").convertToFormat(QImage::Format_RGBA8888);
 
-    texturesScene = new GLuint[2];
 
-    glGenTextures(2,texturesScene);
+    texturesScene = new GLuint[3];
+
+    glGenTextures(3,texturesScene);
     glBindTexture(GL_TEXTURE_2D,texturesScene[0]);
     glTexImage2D(GL_TEXTURE_2D, 0, 4,texGrass.width(),texGrass.height(),0,GL_RGBA,GL_UNSIGNED_BYTE,texGrass.bits());
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
@@ -66,6 +69,13 @@ void GameGUI::initializeGL()
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_MIRRORED_REPEAT);
+
+    glBindTexture(GL_TEXTURE_2D,texturesScene[2]);
+    glTexImage2D(GL_TEXTURE_2D, 0, 4,texRocks.width(),texRocks.height(),0,GL_RGBA,GL_UNSIGNED_BYTE,texRocks.bits());
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
 
     scene->sendTextures(texturesScene);
 
@@ -127,6 +137,7 @@ void GameGUI::paintGL()
     }
     gun->Display();
 
+    updateScore();
     scene->slideSky();
 }
 
@@ -134,6 +145,31 @@ void GameGUI::launchPart()
 {
     Particules* particule=new Particules(100.f,gun->getElevation(),0.f,0.5f,1,1000.f,1.f,-180.f-gun->getAngle());
     particules.push_back(particule);
+}
+
+void GameGUI::updateScore()
+{
+    score = 0;
+    for(Particules* particule : particules)
+    {
+       if(particule->isOnGround())
+       {
+           Vector3D* pos = particule->getPosition();
+           float cible = scene->getPosTarget();
+           if((pos->getX()>cible-5) && (pos->getX()<cible+5))
+           {
+               score+=20;
+           }
+           else if((pos->getX()>cible-10) && (pos->getX()<cible+10))
+           {
+               score+=10;
+           }
+           else if((pos->getX()>cible-15) && (pos->getX()<cible+15))
+           {
+               score+=5;
+           }
+       }
+    }
 }
 
 // Camera controls

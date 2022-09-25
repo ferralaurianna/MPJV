@@ -19,18 +19,6 @@ public:
     Gun* gun;
     Ground* scene;
 
-
-    QColor background;
-    float centralX_=-20., centralY_=0., centralZ_=0.;
-    float angleCamera_ = 90.;
-    float distanceCamera_ = -200.;
-    float cameraX_ = -20., cameraY_ = 25., cameraZ_ = distanceCamera_;
-    float dirY=1;
-
-
-    GLfloat light_tab[4]={1.0,1.0,1.0,1.0};
-    GLfloat light_tab_pos[4]= {0.0,0.0,1.0,0.0};
-
     //Camera controls to help for a better drawing of objects
     void forwardCamera();
     void backwardCamera();
@@ -43,6 +31,8 @@ public:
 
     void launchPart();
 
+    int getScore(){return score;}
+
 
 protected:
     // Fonction d'initialisation
@@ -54,8 +44,25 @@ protected:
     // Fonction d'affichage
     void paintGL();
 
+
+
+private:
+    int score;
+
     GLuint* texturesScene;
     GLuint* texturesGun;
+
+    void updateScore();
+
+    QColor background;
+    float centralX_=-20., centralY_=0., centralZ_=0.;
+    float angleCamera_ = 90.;
+    float distanceCamera_ = -200.;
+    float cameraX_ = -20., cameraY_ = 25., cameraZ_ = distanceCamera_;
+    float dirY=1;
+
+    GLfloat light_tab[4]={1.0,1.0,1.0,1.0};
+    GLfloat light_tab_pos[4]= {0.0,0.0,1.0,0.0};
 
 };
 
