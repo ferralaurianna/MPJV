@@ -4,10 +4,12 @@
 
 #include <QObject>
 #include <QWidget>
-#include <particules.h>
+#include <particles.h>
 #include <gun.h>
 #include <vector>
 #include <Ground.h>
+#include <iostream>
+using namespace std;
 
 class GameGUI:public QOpenGLWidget
 {
@@ -15,7 +17,7 @@ public:
     GameGUI(QWidget *parent=nullptr);
     ~GameGUI();
 
-    vector<Particules*> particules;
+    vector<Particles*> particles;
     Gun* gun;
     Ground* scene;
 
@@ -31,7 +33,11 @@ public:
 
     void launchPart();
 
+    void switchPartType();
+
     int getScore(){return score;}
+
+    int getPartType(){return partType;}
 
 
 protected:
@@ -48,6 +54,8 @@ protected:
 
 private:
     int score;
+    int scoreBase;
+    int partType;
 
     GLuint* texturesScene;
     GLuint* texturesGun;

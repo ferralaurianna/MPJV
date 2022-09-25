@@ -6,7 +6,7 @@ Ground::Ground()
     quadrique = gluNewQuadric();
     posRoad=0;
     posCiel=0;
-    posTarget=random->bounded(100);
+    posTarget=-random->bounded(200);
 }
 
 void Ground::sendTextures(GLuint* text)
@@ -56,14 +56,14 @@ void Ground::Display() const
     glBegin(GL_QUADS);
 
     glNormal3f(0.0,1.0,0.0);
-    glTexCoord2f(0+posCiel,0);glVertex3f(4928.0f,3390.0f,3500.0f);
-    glTexCoord2f(0+posCiel,1);glVertex3f(4928.0f,-2.0f,3500.0f);
-    glTexCoord2f(1+posCiel,1);glVertex3f(-4928.0f,-2.0f,3500.0f);
-    glTexCoord2f(1+posCiel,0);glVertex3f(-4928.0f,3390.0f,3500.0f);
+    glTexCoord2f(0+posCiel,0);glVertex3f(6160.0f,4239.0f,3500.0f);
+    glTexCoord2f(0+posCiel,1);glVertex3f(6160.0f,-1.0f,3500.0f);
+    glTexCoord2f(1+posCiel,1);glVertex3f(-6160.0f,-1.0f,3500.0f);
+    glTexCoord2f(1+posCiel,0);glVertex3f(-6160.0f,4239.0f,3500.0f);
 
     glEnd();
 
-    glTranslated(-posTarget,0.01f,0.f);
+    glTranslated(posTarget,0.01f,0.f);
     glRotated(90.f,1.f,0.f,0.f);
 
     gluQuadricTexture(quadrique,GLU_TRUE);
@@ -122,5 +122,5 @@ void Ground::slideSky()
 
 void Ground::moveTarget()
 {
-    posTarget=random->bounded(100);
+    posTarget=-random->bounded(200);
 }

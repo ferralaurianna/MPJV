@@ -1,5 +1,5 @@
-#ifndef PARTICULES_H
-#define PARTICULES_H
+#ifndef PARTICLES_H
+#define PARTICLES_H
 
 #include <QtOpenGLWidgets/QOpenGLWidget>
 #include <GL/glu.h>
@@ -8,11 +8,11 @@
 
 enum ProjectileType {BALL,CANONBALL,LASER,FIREBALL};
 
-class Particules
+class Particles
 {
 public:
     //Constructor (do not forget to add the x,y and z position at the beggining of the constructor)
-    Particules(float posX=0,float posY=0,float posZ=0,float radius=1,float inverseMass=1,float velocity=1,float damping=1,float angle_=45,ProjectileType type=BALL);
+    Particles(float posX=0,float posY=0,float posZ=0,float radius=1,float inverseMass=1,float velocity=1,float damping=1,float angle_=45,ProjectileType type=BALL);
 
     //Render method
     void display();
@@ -41,7 +41,7 @@ private:
     //Add here a position handmade vector
     Vector3D *position_;
     Vector3D *velocity_;
-    Vector3D *gravity = new Vector3D(0,-5000.0,0);
+    Vector3D *gravity = new Vector3D(0,-2500.0,0);
 
     float inverseMass_;
     float damping_;
@@ -53,4 +53,4 @@ private:
     bool hasReachedGround=false;
 };
 
-#endif // PARTICULES_H
+#endif // PARTICLES_H

@@ -115,9 +115,14 @@ void MainWindow::keyPressEvent(QKeyEvent * event)
             ui->gameGUI->launchPart();
             break;
         }
-        case Qt::Key_T:
+//        case Qt::Key_T:
+//        {
+//            ui->gameGUI->scene->moveTarget();
+//            break;
+//        }
+        case Qt::Key_Control:
         {
-            ui->gameGUI->scene->moveTarget();
+            ui->gameGUI->switchPartType();
             break;
         }
 
@@ -142,11 +147,11 @@ void MainWindow::UpdateFrame()
     // Record start time
     auto start = std::chrono::high_resolution_clock::now();
 
-    for(Particules* particule : ui->gameGUI->particules)
+    for(Particles* particle : ui->gameGUI->particles)
     {
-        particule->integrer(deltatime);
+        particle->integrer(deltatime);
     }
-    // Update the position of the particule
+    // Update the position of the particle
     ui->gameGUI->update();
 
     // Record end time
@@ -157,6 +162,35 @@ void MainWindow::UpdateFrame()
     deltatime = elapsed.count()*10;
 
     //cout<<"deltaTime"<<deltatime<<endl;
+
+    ui->gameGUI->setFocus();
+    ui->score->setText("SCORE : " + QString::number(ui->gameGUI->getScore()));
+
+    switch(ui->gameGUI->getPartType())
+    {
+        case 0:
+        {
+            ui->indicPart->setStyleSheet("border-image: url(:/ballLogo.png)");
+            break;
+        }
+        case 1:
+        {
+            ui->indicPart->setStyleSheet("border-image: url(:/canonballLogo.png)");
+            break;
+        }
+        case 2:
+        {
+            ui->indicPart->setStyleSheet("border-image: url(:/fireballLogo.png)");
+            break;
+        }
+        case 3:
+        {
+            ui->indicPart->setStyleSheet("border-image: url(:/laserballLogo.png)");
+            break;
+        }
+    }
+
+
 
     timer->setInterval(deltatime);
 }

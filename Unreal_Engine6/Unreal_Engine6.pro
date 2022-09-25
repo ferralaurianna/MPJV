@@ -26,18 +26,18 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     matrix.cpp \
-    particules.cpp \
     gun.cpp \
-    Ground.cpp
+    Ground.cpp \
+    particles.cpp
 
 HEADERS += \
     Vector3D.h \
     gamegui.h \
     mainwindow.h \
     matrix.h \
-    particules.h \
     gun.h \
-    Ground.h
+    Ground.h \
+    particles.h
 
 RESOURCES += \
     ../res/textures.qrc

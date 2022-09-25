@@ -15,15 +15,19 @@ using namespace std;
 
 GameGUI::GameGUI(QWidget *parent): QOpenGLWidget(parent)
 {
-    //Initialize the instance of the objects to render (particules...)
-    //example with one particule
+    //Initialize the instance of the objects to render (particles...)
     gun=new Gun();
     scene=new Ground();
     score = 0;
+    scoreBase=0;
+    partType=0;
 }
 
 GameGUI::~GameGUI(){
-
+    for(Particles* part : particles)
+    {
+        delete part;
+    }
 }
 
 
@@ -133,9 +137,9 @@ void GameGUI::paintGL()
 
     // Where to put the render methods to render object on the screen
     scene->Display();
-    for(Particules* particule : particules)
+    for(Particles* particle : particles)
     {
-        particule->display();
+        particle->display();
     }
     gun->Display();
 
@@ -145,32 +149,83 @@ void GameGUI::paintGL()
 
 void GameGUI::launchPart()
 {
-    Particules* particule=new Particules(100.f,gun->getElevation(),0.f,0.5f,1,1000.f,1.f,-180.f-gun->getAngle());
-    particules.push_back(particule);
+    Particles* particle;
+    switch(partType)
+    {
+        case 0:
+        {
+            particle=new Particles(gun->getposX(),gun->getElevation(),0.f,0.5f,1,1000.f,1.f,-180.f-gun->getAngle(),BALL);
+            break;
+        }
+        case 1:
+        {
+            particle=new Particles(gun->getposX(),gun->getElevation(),0.f,0.5f,1,1000.f,0.8f,-180.f-gun->getAngle(),BALL);
+            break;
+        }
+        case 2:
+        {
+            particle=new Particles(gun->getposX(),gun->getElevation(),0.f,0.5f,1,1000.f,0.5f,-180.f-gun->getAngle(),BALL);
+            break;
+        }
+        case 3:
+        {
+            particle=new Particles(gun->getposX(),gun->getElevation(),0.f,0.5f,1,100000.f,1.f,-180.f-gun->getAngle(),BALL);
+            break;
+        }
+    }
+
+    particles.push_back(particle);
 }
 
 void GameGUI::updateScore()
 {
     score = 0;
-    for(Particules* particule : particules)
+    score+=scoreBase;
+    int compteur = 0;
+    for(Particles* particle : particles)
     {
-       if(particule->isOnGround())
+       if(particle->isOnGround())
        {
-           Vector3D* pos = particule->getPosition();
+           compteur++;
+           Vector3D* pos = particle->getPosition();
            float cible = scene->getPosTarget();
-           if((pos->getX()>cible-5) && (pos->getX()<cible+5))
+           if((pos->getX()>cible-10) && (pos->getX()<cible+10))
            {
                score+=20;
            }
-           else if((pos->getX()>cible-10) && (pos->getX()<cible+10))
+           else if((pos->getX()>cible-20) && (pos->getX()<cible+20))
            {
                score+=10;
            }
-           else if((pos->getX()>cible-15) && (pos->getX()<cible+15))
+           else if((pos->getX()>cible-30) && (pos->getX()<cible+30))
            {
                score+=5;
            }
        }
+    }
+    if(compteur>2)
+    {
+        scoreBase=score;
+        for(Particles* part : particles)
+        {
+            delete part;
+        }
+        particles.clear();
+        scene->moveTarget();
+    }
+
+    cout<<score<<endl;
+}
+
+void GameGUI::switchPartType()
+{
+    if(partType<3)
+    {
+        partType++;
+    }
+    else
+    {
+        partType=0;
     }
 }
 

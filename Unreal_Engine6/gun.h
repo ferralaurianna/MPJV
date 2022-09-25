@@ -58,7 +58,7 @@ private:
     /**
      * @brief DrawGun
      * @param dir
-     * DrawWing gère le tracé du cannon, avec la possiblité d'afficher un recul suite au tir en pourcentage et de changer l'angle du cannon.
+     * DrawMechanics gère le tracé du cannon, avec la possiblité d'afficher un recul suite au tir en pourcentage et de changer l'angle du cannon.
      */
     void DrawMechanics(float elevation, float angleGun, float direction);
     /**
@@ -110,6 +110,8 @@ public:
     float getElevation(){return elevation;}
 
     float getAngle(){return angGun_;}
+
+    float getposX(){return posX_;}
 
 };
 

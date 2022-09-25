@@ -3,7 +3,7 @@
 Gun::Gun()
 {
     quadrique = gluNewQuadric();
-    posX_=100;
+    posX_=200;
     posY_=0;
     posZ_=0;
     angY_=90;
