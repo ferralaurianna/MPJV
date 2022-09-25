@@ -97,6 +97,8 @@ void GameGUI::initializeGL()
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_MIRRORED_REPEAT);
 
     gun->sendTextures(texturesGun);
+
+    resizeGL(width(),height());
 }
 
 

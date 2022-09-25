@@ -1,9 +1,17 @@
 <RCC>
     <qresource prefix="/">
         <file>grass.jpg</file>
-	    <file>sky.jpg</file>
+        <file>sky.jpg</file>
         <file>metal.jpg</file>
-	    <file>wood.jpg</file>
+        <file>wood.jpg</file>
         <file>rocks.jpg</file>
+        <file>barreScore.png</file>
+        <file>ballLogo.png</file>
+        <file>canonballLogo.png</file>
+        <file>fireballLogo.png</file>
+        <file>laserballLogo.png</file>
+        <file>canonAngleLogo.png</file>
+        <file>canonHeightLogo.png</file>
+        <file>shotLogo.png</file>
     </qresource>
 </RCC>
