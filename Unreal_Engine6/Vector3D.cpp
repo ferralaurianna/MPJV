@@ -121,6 +121,10 @@ Vector3D Vector3D::operator=(const Vector3D &other){
     return *this;
 }
 
+bool Vector3D::operator==(const Vector3D &other){
+    return (abs(_x - other._x) < 0.01) && (abs(_y - other._y) < 0.01) && (abs(_z - other._z) < 0.01);
+}
+
 float Vector3D::norm() const {
     float result = _x *_x + _y * _y + _z * _z;
     return sqrt(result);

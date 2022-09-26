@@ -1,5 +1,5 @@
 QT       += core gui openglwidgets
-QT       += core gui
+QT       += core gui testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -28,7 +28,8 @@ SOURCES += \
     matrix.cpp \
     gun.cpp \
     Ground.cpp \
-    particles.cpp
+    particles.cpp \
+    testVector.cpp
 
 HEADERS += \
     Vector3D.h \
@@ -37,7 +38,8 @@ HEADERS += \
     matrix.h \
     gun.h \
     Ground.h \
-    particles.h
+    particles.h \
+    testVector.h
 
 RESOURCES += \
     ../res/textures.qrc
