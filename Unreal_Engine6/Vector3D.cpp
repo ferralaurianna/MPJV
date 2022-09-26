@@ -1,19 +1,21 @@
 #include "Vector3D.h"
 #include <math.h>
 
-//Constructor
+//Constructor by default, all the values are set to 0.
 Vector3D::Vector3D(){
     _x = 0;
     _y = 0;
     _z = 0;
 }
 
+//Constructor using the 3 default value given by the user.
 Vector3D::Vector3D(float x, float y, float z){
     _x = x;
     _y = y;
     _z = z;
 }
 
+//Constructors using other Vectors.
 Vector3D::Vector3D(const Vector3D &other){
     _x = other._x;
     _y = other._y;
@@ -26,6 +28,13 @@ Vector3D::Vector3D(Vector3D && other){
     _z = other._z;
 }
 
+/*
+    An operation that give a coordinate depending of an integer.
+    0 => x
+    1 => y
+    2 => z
+    Any other integer return an error.
+*/
 float Vector3D::operator[](int i) const{
     switch (i)
     {
@@ -44,6 +53,7 @@ float Vector3D::operator[](int i) const{
     }
 }
 
+// Addition operator.
 Vector3D Vector3D::operator+(Vector3D const& other){
     Vector3D result = Vector3D();
     result._x = _x + other._x;
@@ -52,6 +62,7 @@ Vector3D Vector3D::operator+(Vector3D const& other){
     return result;
 }
 
+// Unary operator. Give the oposite of the vector.
 Vector3D Vector3D::operator-(){
     Vector3D result = Vector3D();
     result._x = -_x;
@@ -60,6 +71,7 @@ Vector3D Vector3D::operator-(){
     return result;
 }
 
+// Substraction operator.
 Vector3D Vector3D::operator-(Vector3D const& other){
     Vector3D result = Vector3D();
     result._x = _x - other._x;
@@ -68,6 +80,7 @@ Vector3D Vector3D::operator-(Vector3D const& other){
     return result;
 }
 
+// Vector product.
 Vector3D Vector3D::operator^(Vector3D const& other){
     Vector3D result = Vector3D();
     result._x = _y * other._z - _z * other._y;
@@ -76,6 +89,7 @@ Vector3D Vector3D::operator^(Vector3D const& other){
     return result;
 }
 
+// Product per component.
 Vector3D Vector3D::operator*(Vector3D const& other){
     Vector3D result = Vector3D();
     result._x = _x * other._x;
@@ -84,6 +98,7 @@ Vector3D Vector3D::operator*(Vector3D const& other){
     return result;
 }
 
+// Product between a vector and a matrix. If the matrix has not a size 3, it return an error.
 Vector3D Vector3D::operator*(Matrix const& other){
     Vector3D result = Vector3D();
     if(other.getSize() != 3){
@@ -97,7 +112,7 @@ Vector3D Vector3D::operator*(Matrix const& other){
     return result;
 }
 
-
+// Product between a vector and a scalar.
 Vector3D Vector3D::operator*(float scalar){
     Vector3D result = Vector3D();
     result._x = _x * scalar;
@@ -106,6 +121,7 @@ Vector3D Vector3D::operator*(float scalar){
     return result;
 }
 
+// Division between a vector and a scalar.
 Vector3D Vector3D::operator/(float scalar){
     Vector3D result = Vector3D();
     result._x = _x / scalar;
@@ -114,6 +130,7 @@ Vector3D Vector3D::operator/(float scalar){
     return result;
 }
 
+// Assignment operator
 Vector3D Vector3D::operator=(const Vector3D &other){
     _x = other._x;
     _y = other._y;
@@ -121,19 +138,23 @@ Vector3D Vector3D::operator=(const Vector3D &other){
     return *this;
 }
 
+// Equality operator
 bool Vector3D::operator==(const Vector3D &other){
     return (abs(_x - other._x) < 0.01) && (abs(_y - other._y) < 0.01) && (abs(_z - other._z) < 0.01);
 }
 
+// Calculation of the norm.
 float Vector3D::norm() const {
     float result = _x *_x + _y * _y + _z * _z;
     return sqrt(result);
 }
 
+// Calculation of the square norm.
 float Vector3D::squareNorm() const {
     return _x *_x + _y * _y + _z * _z;
 }
 
+// Normalize a vector.
 Vector3D Vector3D::normalize() const {
     float norm = this->norm();
     Vector3D result;
@@ -143,6 +164,7 @@ Vector3D Vector3D::normalize() const {
     return result;
 }
 
+// Scalar product between two vectors.
 float Vector3D::scalarProduct(Vector3D const& other) const{
     return _x * other._x + _y * other._y + _z * other._z;
 }
