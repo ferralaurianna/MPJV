@@ -21,18 +21,22 @@ else {
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    frameupdate.cpp \
+    ball.cpp \
     Vector3D.cpp \
+    cannonball.cpp \
     gamegui.cpp \
+    laser.cpp \
     main.cpp \
     mainwindow.cpp \
     matrix.cpp \
     particules.cpp
 
 HEADERS += \
-    frameupdate.h \
+    ball.h \
     Vector3D.h \
+    cannonball.h \
     gamegui.h \
+    laser.h \
     mainwindow.h \
     matrix.h \
     particules.h

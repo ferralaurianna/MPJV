@@ -3,16 +3,13 @@
 
 using namespace std;
 
-Particules::Particules(float posX,float posY,float posZ,float radius,float inverseMass,float velocity,float damping,float angle,ProjectileType type)
+Particules::Particules(float posX,float posY,float posZ,float radius,float inverseMass,float velocity,float angle)
 {
     position_=new Vector3D(posX,posY,posZ);
-
     radius_=radius;
     inverseMass_=inverseMass;
     angle_=angle;
     velocity_=new Vector3D(velocity*qCos(qDegreesToRadians(angle_)),velocity*qSin(qDegreesToRadians(angle_)),0);
-    damping_=damping;
-    type_=type;
 }
 
 void Particules::display(){
