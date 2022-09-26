@@ -41,7 +41,7 @@ public:
 
     //Method
     Matrix transpose();
-
+    float determinant();
     //Static method
     static Matrix identity(long int n){
         Matrix result = Matrix(n);

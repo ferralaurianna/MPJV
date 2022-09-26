@@ -164,3 +164,13 @@ Matrix Matrix::transpose(){
     }
     return result;
 }
+
+float Matrix::determinant(){
+    float result = 0.f;
+    if(_size == 3){
+        result += _matrix[0] * (_matrix[4] * _matrix[8] - _matrix[7] * _matrix[5]);
+        result -= _matrix[3] * (_matrix[2] * _matrix[8] - _matrix[7] * _matrix[2]);
+        result += _matrix[6] * (_matrix[1] * _matrix[5] - _matrix[4] * _matrix[2]);
+    }
+    return result;
+}
