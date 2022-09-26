@@ -29,7 +29,8 @@ SOURCES += \
     gun.cpp \
     Ground.cpp \
     particles.cpp \
-    testVector.cpp
+    testVector.cpp \
+    testMatrix.cpp
 
 HEADERS += \
     Vector3D.h \
@@ -39,7 +40,8 @@ HEADERS += \
     gun.h \
     Ground.h \
     particles.h \
-    testVector.h
+    testVector.h \
+    testMatrix.h
 
 RESOURCES += \
     ../res/textures.qrc

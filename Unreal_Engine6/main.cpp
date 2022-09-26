@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "testVector.h"
+#include "testMatrix.h"
 #include <QApplication>
 #include <QTest>
 
@@ -11,6 +12,9 @@ int main(int argc, char *argv[])
 
     TestVector t1;
     QTest::qExec(&t1, argc, argv);
+
+    TestMatrix t2;
+    QTest::qExec(&t2, argc, argv);
 
     MainWindow w;
     w.show();

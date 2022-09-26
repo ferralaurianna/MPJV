@@ -29,7 +29,6 @@ void TestVector::operationByScalar(){
         Vector3D resultMult(r2, 2*r2, 5*r2);
         QVERIFY(resultMult == (vect*r2));
         Vector3D resultDiv(1/r2, 2/r2, 5/r2);
-        Vector3D tmp = vect/r2;
         QVERIFY(resultDiv == (vect/r2));
     }
 }

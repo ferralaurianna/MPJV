@@ -20,7 +20,6 @@ public:
     Matrix(const Matrix &other);
     Matrix(Matrix && other);
     ~Matrix();
-    void display();
 
     //Getter
     long int getSize() const {
@@ -42,7 +41,6 @@ public:
 
     //Method
     Matrix transpose();
-    Matrix orthogonalize();
 
     //Static method
     static Matrix identity(long int n){
@@ -82,9 +80,5 @@ public:
 
 };
 
-
-// TODO: determinant et inversion, le faire pour le cas 2, 3 et 4 direcement d'integere, a voir pour le faire pour les autres si beson
-// Matrice de rotation de taille 2 et 3 en méthode static.
-// Orthogonaliser une matrice.
 
 #endif /* MATRIX_H */
