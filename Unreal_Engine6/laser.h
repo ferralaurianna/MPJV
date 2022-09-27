@@ -1,11 +1,12 @@
 #ifndef LASER_H
 #define LASER_H
-#include "particules.h"
+#include "particles.h"
 
-class Laser : Particules
+class Laser : public Particles
 {
 public:
-    Laser();
+    Laser(float posX=0,float posY=0,float posZ=0,float radius=1,float inverseMass=1,float velocity=1,float angle_=45);
+
 
 };
 

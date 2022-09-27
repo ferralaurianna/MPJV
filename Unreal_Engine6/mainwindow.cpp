@@ -159,7 +159,7 @@ void MainWindow::UpdateFrame()
 
     // Calculate time elapsed
     std::chrono::duration<double> elapsed = finish - start;
-    deltatime = elapsed.count()*10;
+    deltatime = elapsed.count()*20;
 
     //cout<<"deltaTime"<<deltatime<<endl;
 

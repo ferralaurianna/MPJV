@@ -5,10 +5,14 @@
 #include <QObject>
 #include <QWidget>
 #include <particles.h>
+#include "ball.h"
+#include "cannonball.h"
+#include "laser.h"
 #include <gun.h>
 #include <vector>
 #include <Ground.h>
 #include <iostream>
+
 using namespace std;
 
 class GameGUI:public QOpenGLWidget
