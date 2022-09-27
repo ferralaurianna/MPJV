@@ -1,0 +1,15 @@
+GameObject: Plusieurs rigid bodies
+
+Rigid Body: Objet formant un tout indéformable
+		Masse
+		Tenseur d'inertie
+		Centre de masse
+		Géométrie de collision
+		Position
+		Géométrie de collision
+		Vélocité linéaire
+		Vélocité angulaire
+
+Inverse de la masse: Impossible de créer un particule de masse nulle
+			   Getter/Setter avec la masse standard
+			   Les positions et vélocités ne sont modifiables que par la simulation physique, pas directement par le reste du programme.

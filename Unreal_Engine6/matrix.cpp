@@ -40,24 +40,6 @@ Matrix::~Matrix(){
     delete [] _matrix;
 }
 
-
-void Matrix::display(){
-    cout << "[";
-    for(int i = 0; i<_size; i++){
-        cout << "[";
-        for(int j = 0; j<_size-1; j++){
-            cout << _matrix[i*_size+j] << ", ";
-        }
-        cout << _matrix[i*_size+_size-1];
-        cout << "]";
-        if(i != _size-1){
-            cout << ", ";
-        }
-        
-    }
-    cout << "]"<< endl;
-}
-
 Matrix Matrix::operator=(const Matrix &other){
     _size = other._size;
     return *this;
@@ -140,7 +122,7 @@ Matrix Matrix::operator*(Matrix const& other){
 
 Matrix Matrix::operator*(float scalar){
     Matrix result = Matrix(_size);
-    for(int i = 0; i < result._size; i++){
+    for(int i = 0; i < result._size*result._size; i++){
         result._matrix[i] = _matrix[i] * scalar;
     }
     return result;
@@ -148,7 +130,7 @@ Matrix Matrix::operator*(float scalar){
 
 Matrix Matrix::operator/(float scalar){
     Matrix result = Matrix(_size);
-    for(int i = 0; i < result._size; i++){
+    for(int i = 0; i < result._size* result._size; i++){
         result._matrix[i] = _matrix[i] / scalar;
     }
     return result;
@@ -183,8 +165,12 @@ Matrix Matrix::transpose(){
     return result;
 }
 
-Matrix Matrix::orthogonalize(){
-    Matrix result = Matrix(_size);
-    // TO BE DONE.
+float Matrix::determinant(){
+    float result = 0.f;
+    if(_size == 3){
+        result += _matrix[0] * (_matrix[4] * _matrix[8] - _matrix[7] * _matrix[5]);
+        result -= _matrix[3] * (_matrix[2] * _matrix[8] - _matrix[7] * _matrix[2]);
+        result += _matrix[6] * (_matrix[1] * _matrix[5] - _matrix[4] * _matrix[2]);
+    }
     return result;
 }

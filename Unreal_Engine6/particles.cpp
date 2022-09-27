@@ -1,25 +1,35 @@
-#include "particules.h"
+#include "particles.h"
 #include <iostream>
 
 using namespace std;
 
-Particules::Particules(float posX,float posY,float posZ,float radius,float inverseMass,float velocity,float angle)
+Particles::Particles(float posX,float posY,float posZ,float radius,float inverseMass,float velocity,float damping,float angle,ProjectileType type)
 {
     position_=new Vector3D(posX,posY,posZ);
+
     radius_=radius;
     inverseMass_=inverseMass;
     angle_=angle;
     velocity_=new Vector3D(velocity*qCos(qDegreesToRadians(angle_)),velocity*qSin(qDegreesToRadians(angle_)),0);
+
 }
 
-void Particules::display(){
+void Particles::display(){
 
     //Pushing the current world matrix in the stack
     glPushMatrix();
     //When position vector added, correct this line and uncomment
     glTranslatef(position_->getX(),position_->getY(),position_->getZ());
 
-    //Drawing of the particule
+    GLfloat colorAmbient_tab[] = {0.5f,0.25f,0.f,1.0};
+    glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient_tab);
+    GLfloat colorDiffuse_tab[] = {1.f,0.5f,0.f,1.0};
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuse_tab);
+    GLfloat colorSpecular_tab[] = {0.774597,0.774597,0.774597,1.0};
+    glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tab);
+    glMaterialf(GL_FRONT, GL_SHININESS, 76.8f);
+
+    //Drawing of the particle
     GLUquadric *quadric=gluNewQuadric();
     gluQuadricDrawStyle(quadric,GLU_FILL);
 
@@ -33,7 +43,7 @@ void Particules::display(){
 
 }
 
-void Particules::integrer(float duration){
+void Particles::integrer(float duration){
 
     if(!hasReachedGround)
     {
