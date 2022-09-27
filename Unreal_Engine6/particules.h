@@ -6,6 +6,8 @@
 #include <Vector3D.h>
 #include <QtMath>
 
+enum ProjectileType {BALL,CANNONBALL,LASER,FIREBALL,PARTICLE};
+
 class Particules
 {
 public:
@@ -32,8 +34,10 @@ public:
 
 protected:
 
+    //Initialize the gravity, damping and type of Particles (protected to have access in derived class)
     float damping_ = 0;
     Vector3D *gravity = new Vector3D(0,-9.8,0);
+    ProjectileType type_ = PARTICLE;
 
 private:
     //Add here a position handmade vector
