@@ -3,22 +3,24 @@
 
 using namespace std;
 
-Particles::Particles(float posX,float posY,float posZ,float radius,float mass,float velocity,float angle)
+<<<<<<< HEAD:Unreal_Engine6/particules.cpp
+Particules::Particules(float posX,float posY,float posZ,float radius,float inverseMass,float velocity,float angle)
+=======
+Particles::Particles(float posX,float posY,float posZ,float radius,float inverseMass,float velocity,float damping,float angle,ProjectileType type)
+>>>>>>> main:Unreal_Engine6/particles.cpp
 {
     position_=new Vector3D(posX,posY,posZ);
-
     radius_=radius;
-    inverseMass_=1/mass;
+    inverseMass_=inverseMass;
     angle_=angle;
     velocity_=new Vector3D(velocity*qCos(qDegreesToRadians(angle_)),velocity*qSin(qDegreesToRadians(angle_)),0);
-
 }
 
 void Particles::display(){
 
     //Pushing the current world matrix in the stack
     glPushMatrix();
-    //When position vector added, correct this line and uncomment
+
     glTranslatef(position_->getX(),position_->getY(),position_->getZ());
 
     GLfloat colorAmbient_tab[] = {0.5f,0.25f,0.f,1.0};
