@@ -1,32 +1,32 @@
-#include "laser.h"
+#include "fireball.h"
 
-Laser::Laser(float posX,float posY,float posZ,float angle)
+FireBall::FireBall(float posX,float posY,float posZ,float angle)
 {
     position_=new Vector3D(posX,posY,posZ);
 
 
-    inverseMass_=1/0.0001;
+    inverseMass_=1/100;
     angle_=angle;
-    float velocity=4000;
+    float velocity=400;
     velocity_=new Vector3D(velocity*qCos(qDegreesToRadians(angle_)),velocity*qSin(qDegreesToRadians(angle_)),0);
 
-    damping_ = 1;
-    *gravity = Vector3D();
+    damping_ = 0.5;
+    *gravity = Vector3D(0,-200,0);
     type_=LASER;
 
-    radius_=0.5;
+    radius_=1.0;
 }
 
-void Laser::display(){
+void FireBall::display(){
 
     //Pushing the current world matrix in the stack
     glPushMatrix();
     //When position vector added, correct this line and uncomment
     glTranslatef(position_->getX(),position_->getY(),position_->getZ());
 
-    GLfloat colorAmbient_tab[] = {0.5f,0.f,0.f,1.0};
+    GLfloat colorAmbient_tab[] = {0.5f,0.5f,0.f,1.0};
     glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient_tab);
-    GLfloat colorDiffuse_tab[] = {1.f,0.f,0.f,1.0};
+    GLfloat colorDiffuse_tab[] = {1.f,1.f,0.f,1.0};
     glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuse_tab);
     GLfloat colorSpecular_tab[] = {0.774597,0.774597,0.774597,1.0};
     glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tab);
@@ -36,9 +36,7 @@ void Laser::display(){
     GLUquadric *quadric=gluNewQuadric();
     gluQuadricDrawStyle(quadric,GLU_FILL);
 
-    glRotated(angle_,1.f,0.f,0.f);
-
-    gluCylinder(quadric,radius_,radius_,5.0,50,50);
+    gluSphere(quadric,radius_,50,50);
 
     //Getting back memory after the drawing
     gluDeleteQuadric(quadric);

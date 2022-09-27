@@ -8,6 +8,7 @@
 #include "ball.h"
 #include "cannonball.h"
 #include "laser.h"
+#include "fireball.h"
 #include <gun.h>
 #include <vector>
 #include <Ground.h>

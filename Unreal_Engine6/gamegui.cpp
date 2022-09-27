@@ -154,22 +154,22 @@ void GameGUI::launchPart()
     {
         case 0:
         {
-            particle=new Ball(gun->getposX(),gun->getElevation(),0.f,0.5,1000.f,200,-180.f-gun->getAngle());
+            particle=new Ball(gun->getposX(),gun->getElevation(),0.f,-180.f-gun->getAngle());
             break;
         }
         case 1:
         {
-            particle=new Cannonball(gun->getposX(),gun->getElevation(),0.f,1,1000.f,200,-180.f-gun->getAngle());
+            particle=new Cannonball(gun->getposX(),gun->getElevation(),0.f,-180.f-gun->getAngle());
             break;
         }
         case 2:
         {
-            particle=new Laser(gun->getposX(),gun->getElevation(),0.f,0.5,1000.f,200,-180.f-gun->getAngle());
+            particle=new FireBall(gun->getposX(),gun->getElevation(),0.f,-180.f-gun->getAngle());
             break;
         }
         case 3:
         {
-            particle=new Particles(gun->getposX(),gun->getElevation(),0.f,1,100000.f,200,-180.f-gun->getAngle());
+            particle=new Laser(gun->getposX(),gun->getElevation(),0.f,-180.f-gun->getAngle());
             break;
         }
     }

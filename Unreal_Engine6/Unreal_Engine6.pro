@@ -24,6 +24,7 @@ SOURCES += \
     ball.cpp \
     Vector3D.cpp \
     cannonball.cpp \
+    fireball.cpp \
     gamegui.cpp \
     laser.cpp \
     main.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     ball.h \
     Vector3D.h \
     cannonball.h \
+    fireball.h \
     gamegui.h \
     laser.h \
     mainwindow.h \
