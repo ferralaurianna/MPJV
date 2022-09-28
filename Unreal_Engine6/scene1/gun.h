@@ -12,7 +12,7 @@
 #define PI 3.14159265
 
 /**
- * @brief The gun class
+ * @brief The Gun class
  * Gun handle the position of the gun in the 3D scene and provide a function to draw it.
  */
 class Gun
@@ -39,71 +39,80 @@ private:
      */
     GLUquadric* quadric;
     /**
+     * @brief textures
+     * A pointer to the texure matrix used to texture the gun.
+     */
+    GLuint* textures;
+
+    /**
      * @brief Draw
      * A function that provide the OpenGL instructions necessary to draw the gun.
      */
+
     void Draw();
     /**
      * @brief DrawSupport
      * @param direction
-     * A function that provide the OpenGL instructions necessary to draw the lateral support, with a variable to set to 0 or 1 to flip it along the Y axis.
+     * A function that provide the OpenGL instructions necessary to draw the lateral support, with a variable direction to flip it along the Y axis.
      */
-    void DrawSupport(int direction);
+    void DrawSupport(bool direction);
     /**
      * @brief DrawGun
      * @param recoil, angleGun, elevation
-     * D function that provide the OpenGL instructions necessary to draw the gun itself, capable of handling changes of angle, elevation and recoil.
+     * A function that provide the OpenGL instructions necessary to draw the gun itself, capable of handling changes of angle, elevation and recoil.
      */
     void DrawGun(float recoil, float angleGun,float elevation);
     /**
      * @brief DrawMechanics
      * @param elevation, angleGun, direction
-     * DrawMechanics handle the the drawing of the mechanics connecting the gun to its support, moving along with change of elevation and angle. The direction variable is used to mirror it along the Y axis.
+     * A function that provide the OpenGL instructions necessary to draw the mechanics connecting the gun to its support, moving along with change of elevation and angle.
+     * The direction variable is used to mirror it along the Y axis.
      */
-    void DrawMechanics(float elevation, float angleGun, float direction);
+    void DrawMechanics(float elevation, float angleGun, bool direction);
     /**
      * @brief DrawGun
-     * @param dir
-     * DrawWing gère le tracé du cannon, avec la possiblité d'afficher un recul suite au tir en pourcentage et de changer l'angle du cannon.
+     * @param posX, posY, posZ, lX, lY, lZ
+     * A function that provide the OpenGL instructions necessary to draw a cube. Takes positive sizes and mimimumposition along each axis for proper texture orientation.
      */
     void DrawCube(float posX,float posY,float posZ, float lX, float lY, float lZ);
-    /**
-     * @brief textures
-     * Un pointeur vers la matrice des textures, utilisé pour lié les textures du cannon.
-     */
-    GLuint* textures;
 
 public:
-    // Constructeur avec parametres
+    /**
+     * @brief Gun
+     * The constructor of the Gun class
+     */
     Gun();
 
     /**
      * @brief sendTextures
      * @param text
-     * sendTextures permet de passer le pointeur vers la matrice des texture du GLwidget au vaisseau.
+     * sendTextures is used to pass the pointer to a texture matrix to a gun object.
      */
     void sendTextures(GLuint* text);
 
     /**
      * @brief angGunIncr
-     * @param sens
-     * angGunIncr permet de faire varier l'angle du cannon dans les limites existantes dans un sens ou dans l'autre selon le paramètre.
+     * @param dir
+     * angGunIncr is used to change the gun's angle, the parameter allow to choose the direction of the change.
      */
-    void angGunIncr(int sens);
+    void angGunIncr(int dir);
 
     /**
      * @brief angGunIncr
-     * @param sens
-     * elevationGunIncr permet de faire varier la hauteur du cannon dans les limites existantes dans un sens ou dans l'autre selon le paramètre.
+     * @param dir
+     * elevationGunIncr is used to change the gun's height, the parameter allow to choose the direction of the change.
      */
-    void elevationGunIncr(int sens);
+    void elevationGunIncr(int dir);
 
-    // Destructeur
+    /**
+     * @brief ~Gun
+     * The destructor of the Gun class.
+     */
     ~Gun();
 
     /**
      * @brief Display
-     * Display permet d'afficher le vaisseau.
+     * Display is called to draw the gun in the scene.
      */
     void Display();
 
