@@ -280,7 +280,7 @@ void Gun::DrawCube(float posX,float posY,float posZ, float lX, float lY, float l
 }
 
 // Manage the incrementation of the angle of shoot
-void Gun::angGunIncr(int sens)
+void Gun::angGunIncr(int dir)
 {
 
     if(dir == 1 && angGun_<80)
