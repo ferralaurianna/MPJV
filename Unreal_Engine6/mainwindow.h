@@ -25,14 +25,14 @@ private:
     void UpdateFrame();
     QTime start;
     QTime end;
-    QTimer *timer = new QTimer(this);
-    QTimer *timerDisplay = new QTimer(this);
+    QTimer *timerStart = new QTimer(this);
     QTime* time = new QTime;
     float deltatime;
     bool hasFinishedLoop_=true;
-    void updateDisplay();
 
 protected:
     void keyPressEvent(QKeyEvent * event);
+signals:
+    void nextFrame();
 };
 #endif // MAINWINDOW_H

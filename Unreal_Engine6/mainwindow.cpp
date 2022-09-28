@@ -11,11 +11,10 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    deltatime = 1/60;
-    connect(this->timer, &QTimer::timeout, this, &MainWindow::UpdateFrame);
-    connect(this->timerDisplay, &QTimer::timeout, this, &MainWindow::updateDisplay);
-    timer->start(deltatime);
-    timerDisplay->start(1/120);
+    connect(this, &MainWindow::nextFrame, this, &MainWindow::UpdateFrame);
+    connect(this->timerStart, &QTimer::timeout, this, &MainWindow::UpdateFrame);
+    timerStart->setSingleShot(true);
+    timerStart->start(100/6);
 }
 
 MainWindow::~MainWindow()
@@ -146,27 +145,15 @@ void MainWindow::keyPressEvent(QKeyEvent * event)
 // Updating the position and speed of the particle, timing it to get framerate
 void MainWindow::UpdateFrame()
 {
-
+    timerStart->start(deltatime);
     // Record start time
     auto start = std::chrono::high_resolution_clock::now();
 
     for(Particles* particle : ui->gameGUI->particles)
     {
-        particle->integrer(deltatime);
+        particle->integrer(deltatime/1000.f);
     }
-    // Record end time
-    auto finish = std::chrono::high_resolution_clock::now();
 
-    // Calculate time elapsed
-    deltatime = std::chrono::duration_cast<std::chrono::nanoseconds>(finish-start).count();
-    deltatime = deltatime/1000000000.f;
-
-    timer->setInterval(deltatime);
-    cout<<deltatime<<endl;
-}
-
-void MainWindow::updateDisplay()
-{
     // Update the position of the particle
     ui->gameGUI->update();
 
@@ -197,5 +184,12 @@ void MainWindow::updateDisplay()
         }
     }
 
-    timerDisplay->start(1/120);
+    // Record end time
+    auto finish = std::chrono::high_resolution_clock::now();
+
+    // Calculate time elapsed
+    deltatime = std::chrono::duration_cast<std::chrono::nanoseconds>(finish-start).count();
+    deltatime = deltatime/1000000.f;
+    cout<<deltatime<<endl;
+
 }
