@@ -21,35 +21,35 @@ else {
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ball.cpp \
-    Vector3D.cpp \
-    cannonball.cpp \
-    fireball.cpp \
-    gamegui.cpp \
-    laser.cpp \
+    bulletsType\ball.cpp \
+    utils\Vector3D.cpp \
+    bulletsType\cannonball.cpp \
+    bulletsType\fireball.cpp \
+    scene1\gamegui.cpp \
+    bulletsType\laser.cpp \
     main.cpp \
     mainwindow.cpp \
-    matrix.cpp \
-    gun.cpp \
-    Ground.cpp \
-    particles.cpp \
-    testVector.cpp \
-    testMatrix.cpp
+    utils\matrix.cpp \
+    scene1\gun.cpp \
+    scene1\Ground.cpp \
+    utils\particles.cpp \
+    tests\testVector.cpp \
+    tests\testMatrix.cpp
 
 HEADERS += \
-    ball.h \
-    Vector3D.h \
-    cannonball.h \
-    fireball.h \
-    gamegui.h \
-    laser.h \
+    bulletsType\ball.h \
+    utils\Vector3D.h \
+    bulletsType\cannonball.h \
+    bulletsType\fireball.h \
+    scene1\gamegui.h \
+    bulletsType\laser.h \
     mainwindow.h \
-    matrix.h \
-    gun.h \
-    Ground.h \
-    particles.h \
-    testVector.h \
-    testMatrix.h
+    utils\matrix.h \
+    scene1\gun.h \
+    scene1\Ground.h \
+    utils\particles.h \
+    tests\testVector.h \
+    tests\testMatrix.h
 
 RESOURCES += \
     ../res/textures.qrc
