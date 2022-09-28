@@ -72,7 +72,7 @@ void TestVector::scalarProduct(){
     }
 }
 
-void TestVector::operationBetweenVector(){ // Operation a faire: unaire.
+void TestVector::operationBetweenVector(){
     for(int i = 0; i < nbTest; i++){
         float x = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/100.f));
         float y = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/100.f));
