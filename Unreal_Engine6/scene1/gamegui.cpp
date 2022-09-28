@@ -15,7 +15,7 @@ using namespace std;
 
 GameGUI::GameGUI(QWidget *parent): QOpenGLWidget(parent)
 {
-    //Initialize the instance of the objects to render (particles...)
+    // Initialize the instance of the objects to render at the first rendering (gun, ground...)
     gun=new Gun();
     scene=new Ground();
     score = 0;
@@ -23,7 +23,9 @@ GameGUI::GameGUI(QWidget *parent): QOpenGLWidget(parent)
     partType=0;
 }
 
-GameGUI::~GameGUI(){
+GameGUI::~GameGUI()
+{
+    // Manage the memory leak caused by the Particle vector
     for(Particles* part : particles)
     {
         delete part;
@@ -50,6 +52,7 @@ void GameGUI::initializeGL()
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
 
+    // Loading of textures
     QImage texGrass = QImage(":/grass.jpg").convertToFormat(QImage::Format_RGBA8888);
     QImage texSky = QImage(":/sky.jpg").convertToFormat(QImage::Format_RGBA8888);
     QImage texWood = QImage(":/wood.jpg").convertToFormat(QImage::Format_RGBA8888);
@@ -57,6 +60,7 @@ void GameGUI::initializeGL()
     QImage texRocks = QImage(":/rocks.jpg").convertToFormat(QImage::Format_RGBA8888);
 
 
+    // Storage of the scene's textures in a table
     texturesScene = new GLuint[3];
 
     glGenTextures(3,texturesScene);
@@ -81,8 +85,10 @@ void GameGUI::initializeGL()
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
 
+    // Sending the table to the scene
     scene->sendTextures(texturesScene);
 
+    // Storage of the gun's textures in a table
     texturesGun = new GLuint[2];
 
     glGenTextures(2,texturesGun);
@@ -100,6 +106,7 @@ void GameGUI::initializeGL()
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_MIRRORED_REPEAT);
 
+    // Sending the table to the gun
     gun->sendTextures(texturesGun);
 
     resizeGL(width(),height());
@@ -147,9 +154,11 @@ void GameGUI::paintGL()
     scene->slideSky();
 }
 
+// Manage the launching of the projectile
 void GameGUI::launchPart()
 {
     Particles* particle;
+    // Create a particle with the right type according to the active type in the game
     switch(partType)
     {
         case 0:
@@ -174,9 +183,13 @@ void GameGUI::launchPart()
         }
     }
 
+    // Storage the new particle
     particles.push_back(particle);
 }
 
+
+// Manage the incrementation of the score according to the position of each particle on the ground
+// and the score reached before the reset of the target and particles
 void GameGUI::updateScore()
 {
     score = 0;
@@ -203,6 +216,8 @@ void GameGUI::updateScore()
            }
        }
     }
+    // If the three shoots allowed for the same target's position are done, we reset the scene and storage
+    // the new score reached for the next session of shoots
     if(compteur>2)
     {
         scoreBase=score;
@@ -215,6 +230,7 @@ void GameGUI::updateScore()
     }
 }
 
+// Manage the switch of the projectile's type
 void GameGUI::switchPartType()
 {
     if(partType<3)

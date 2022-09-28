@@ -23,6 +23,7 @@ Gun::~Gun()
 
 void Gun::Display()
 {
+    //Pushing the current world matrix in the stack
     glPushMatrix();
 
     glTranslated(posX_,posY_,posZ_);
@@ -33,6 +34,7 @@ void Gun::Display()
     glColor3ub(0,0,0);
 
     glPopMatrix();
+    //Getting back the world matrix before the translation from the stack
 }
 
 
@@ -277,6 +279,7 @@ void Gun::DrawCube(float posX,float posY,float posZ, float lX, float lY, float l
     glEnd();
 }
 
+// Manage the incrementation of the angle of shoot
 void Gun::angGunIncr(int dir)
 {
 
@@ -289,6 +292,7 @@ void Gun::angGunIncr(int dir)
     }
 }
 
+// Manage the incrementation of the elevation of the gun
 void Gun::elevationGunIncr(int dir)
 {
 

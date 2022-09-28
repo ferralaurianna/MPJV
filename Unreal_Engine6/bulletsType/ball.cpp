@@ -1,5 +1,6 @@
 #include "ball.h"
 
+// Override of the Particle constructor with the ball's physical features
 Ball::Ball(float posX,float posY,float posZ,float angle)
 {
     position_=new Vector3D(posX,posY,posZ);

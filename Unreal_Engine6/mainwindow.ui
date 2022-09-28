@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1651</width>
+    <width>1251</width>
     <height>721</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Tech Shoot</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="GameGUI" name="gameGUI">
@@ -39,10 +39,10 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>3</x>
+      <x>0</x>
       <y>0</y>
-      <width>1651</width>
-      <height>721</height>
+      <width>1251</width>
+      <height>701</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -270,8 +270,8 @@ color: black;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1651</width>
-     <height>21</height>
+     <width>1251</width>
+     <height>25</height>
     </rect>
    </property>
   </widget>
