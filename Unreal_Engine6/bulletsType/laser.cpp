@@ -1,5 +1,6 @@
 #include "laser.h"
 
+// Override of the Particle constructor with the laser physical features
 Laser::Laser(float posX,float posY,float posZ,float angle)
 {
     position_=new Vector3D(posX,posY,posZ);
@@ -17,11 +18,12 @@ Laser::Laser(float posX,float posY,float posZ,float angle)
     radius_=0.5;
 }
 
+// Override of the Particule display method with the laser appaerance
 void Laser::display(){
 
     //Pushing the current world matrix in the stack
     glPushMatrix();
-    //When position vector added, correct this line and uncomment
+
     glTranslatef(position_->getX(),position_->getY(),position_->getZ());
 
     GLfloat colorAmbient_tab[] = {0.5f,0.f,0.f,1.0};

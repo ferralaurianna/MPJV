@@ -1,6 +1,7 @@
 #include "testMatrix.h"
 #include "utils\matrix.h"
 #include <stdio.h>
+
 //All the test are made with a 3x3 matrix.
 void TestMatrix::operatorGetTest(){
     for(int i = 0; i < nbTest; i++){

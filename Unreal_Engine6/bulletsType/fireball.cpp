@@ -1,5 +1,6 @@
 #include "fireball.h"
 
+// Override of the Particle constructor with the fireball's physical features
 FireBall::FireBall(float posX,float posY,float posZ,float angle)
 {
     position_=new Vector3D(posX,posY,posZ);
@@ -17,11 +18,12 @@ FireBall::FireBall(float posX,float posY,float posZ,float angle)
     radius_=1.0;
 }
 
+// Override of the Particule display method with the fireball's appaerance
 void FireBall::display(){
 
     //Pushing the current world matrix in the stack
     glPushMatrix();
-    //When position vector added, correct this line and uncomment
+
     glTranslatef(position_->getX(),position_->getY(),position_->getZ());
 
     GLfloat colorAmbient_tab[] = {0.5f,0.5f,0.f,1.0};

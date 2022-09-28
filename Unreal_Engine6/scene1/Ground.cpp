@@ -1,4 +1,4 @@
-#include "ground.h"
+#include "scene1/ground.h"
 
 Ground::Ground()
 {
@@ -21,8 +21,10 @@ Ground::~Ground()
 
 void Ground::Display() const
 {
+    //Pushing the current world matrix in the stack
     glPushMatrix();
 
+    //Creating the ground material
     GLfloat colorAmbientH_tab[] = {0.25,0.25,0.25,1.0};
     glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbientH_tab);
     GLfloat colorDiffuseH_tab[] = {0.5,0.5,0.5,0.0};
@@ -30,10 +32,12 @@ void Ground::Display() const
     GLfloat colorSpecularH_tab[] = {0.0,0.0,0.0,0.0};
     glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecularH_tab);
 
+    //Using the texture
     glEnable(GL_TEXTURE_2D);
 
     glBindTexture(GL_TEXTURE_2D,textures[0]);
 
+    //Drawing the ground with its norm of light reflection
     glBegin(GL_QUADS);
 
     glNormal3f(0.0,1.0,0.0);
@@ -44,6 +48,7 @@ void Ground::Display() const
 
     glEnd();
 
+    //Creating the sky material
     GLfloat colorAmbientS_tab[] = {0.5,0.5,0.5,1.0};
     glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbientS_tab);
     GLfloat colorDiffuseS_tab[] = {0.9,0.9,0.9,0.0};
@@ -51,8 +56,10 @@ void Ground::Display() const
     GLfloat colorSpecularS_tab[] = {0.0,0.0,0.0,0.0};
     glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecularS_tab);
 
+    //Using the texture
     glBindTexture(GL_TEXTURE_2D,textures[1]);
 
+    //Drawing the sky with its norm of light reflection
     glBegin(GL_QUADS);
 
     glNormal3f(0.0,1.0,0.0);
@@ -63,6 +70,7 @@ void Ground::Display() const
 
     glEnd();
 
+    //Drawing the target
     glTranslated(posTarget,0.01f,0.f);
     glRotated(90.f,1.f,0.f,0.f);
 
@@ -105,9 +113,11 @@ void Ground::Display() const
 
     glDisable(GL_TEXTURE_2D);
 
+    //Getting back the world matrix before the translation from the stack
     glPopMatrix();
 }
 
+// Manage the animation of the sky
 void Ground::slideSky()
 {
     if(posCiel<2)
@@ -120,6 +130,7 @@ void Ground::slideSky()
     }
 }
 
+// Manage the movement of the target
 void Ground::moveTarget()
 {
     posTarget=-random->bounded(200);

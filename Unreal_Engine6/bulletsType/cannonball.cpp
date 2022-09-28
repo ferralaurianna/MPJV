@@ -1,5 +1,6 @@
 #include "cannonball.h"
 
+// Override of the Particle constructor with the cannonball's physical features
 Cannonball::Cannonball(float posX,float posY,float posZ,float angle)
 {
     position_=new Vector3D(posX,posY,posZ);

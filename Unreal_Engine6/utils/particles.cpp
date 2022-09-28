@@ -43,6 +43,7 @@ void Particles::display(){
 
 }
 
+// Euler integration linked to the particule
 void Particles::integrer(float duration){
 
     if(!hasReachedGround)
@@ -53,9 +54,7 @@ void Particles::integrer(float duration){
         //Udpate of the current position
         (*position_)=(*position_)+(*velocity_)*duration;
 
-        cout<<"velocity: x="<<(*velocity_).getX()<<"|y="<<(*velocity_).getY()<<"|z="<<(*velocity_).getZ()<<endl;
-        cout<<"position: x="<<(*position_).getX()<<"|y="<<(*position_).getY()<<"|z="<<(*position_).getZ()<<endl;
-
+        //Manage the ground collision in the 0Z plan
         if(position_->getY()<0){
             position_->setY(0);
             hasReachedGround = true;
