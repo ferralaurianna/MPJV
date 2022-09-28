@@ -23,16 +23,14 @@ public:
 private:
     Ui::MainWindow *ui;
     void UpdateFrame();
-    QTime start;
-    QTime end;
     QTimer *timerStart = new QTimer(this);
-    QTime* time = new QTime;
+    QTimer *timerInit = new QTimer(this);
     float deltatime;
     bool hasFinishedLoop_=true;
+    int compteurInit = 0;
 
 protected:
     void keyPressEvent(QKeyEvent * event);
-signals:
-    void nextFrame();
+    void init();
 };
 #endif // MAINWINDOW_H

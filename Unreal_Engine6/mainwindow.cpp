@@ -11,15 +11,28 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(this, &MainWindow::nextFrame, this, &MainWindow::UpdateFrame);
+    connect(this->timerInit, &QTimer::timeout, this, &MainWindow::init);
     connect(this->timerStart, &QTimer::timeout, this, &MainWindow::UpdateFrame);
     timerStart->setSingleShot(true);
-    timerStart->start(100/6);
+    timerInit->setSingleShot(true);
+    timerStart->start(100/60);
+    timerInit->start(1000);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::init()
+{
+    cout<<"in"<<endl;
+    if(compteurInit <4)
+    {
+        ui->gameGUI->switchPartType();
+        timerInit->start(1000);
+        compteurInit++;
+    }
 }
 
 // Management of the keyboard interactions
@@ -190,6 +203,4 @@ void MainWindow::UpdateFrame()
     // Calculate time elapsed
     deltatime = std::chrono::duration_cast<std::chrono::nanoseconds>(finish-start).count();
     deltatime = deltatime/1000000.f;
-    cout<<deltatime<<endl;
-
 }
