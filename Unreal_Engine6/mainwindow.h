@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTimer>
 #include <chrono>
+#include <QTime>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,13 +17,18 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    QTimer *timer = new QTimer(this);
-    float deltatime;
-    bool hasFinishedLoop_=true;
 
 private:
     Ui::MainWindow *ui;
     void UpdateFrame();
+    QTime start;
+    QTime end;
+    QTimer *timer = new QTimer(this);
+    QTimer *timerDisplay = new QTimer(this);
+    QTime* time = new QTime;
+    float deltatime;
+    bool hasFinishedLoop_=true;
+    void updateDisplay();
 
 protected:
     void keyPressEvent(QKeyEvent * event);

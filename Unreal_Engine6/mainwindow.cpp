@@ -12,7 +12,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     deltatime = 1/60;
     connect(this->timer, &QTimer::timeout, this, &MainWindow::UpdateFrame);
+    connect(this->timerDisplay, &QTimer::timeout, this, &MainWindow::updateDisplay);
     timer->start(deltatime);
+    timerDisplay->start(1/120);
 }
 
 MainWindow::~MainWindow()
@@ -151,17 +153,21 @@ void MainWindow::UpdateFrame()
     {
         particle->integrer(deltatime);
     }
-    // Update the position of the particle
-    ui->gameGUI->update();
-
     // Record end time
     auto finish = std::chrono::high_resolution_clock::now();
 
     // Calculate time elapsed
-    std::chrono::duration<double> elapsed = finish - start;
-    deltatime = elapsed.count()*20;
+    deltatime = std::chrono::duration_cast<std::chrono::nanoseconds>(finish-start).count();
+    deltatime = deltatime/1000000000.f;
 
-    //cout<<"deltaTime"<<deltatime<<endl;
+    timer->setInterval(deltatime);
+    cout<<deltatime<<endl;
+}
+
+void MainWindow::updateDisplay()
+{
+    // Update the position of the particle
+    ui->gameGUI->update();
 
     ui->gameGUI->setFocus();
     ui->score->setText("SCORE : " + QString::number(ui->gameGUI->getScore()));
@@ -190,7 +196,5 @@ void MainWindow::UpdateFrame()
         }
     }
 
-
-
-    timer->setInterval(deltatime);
+    timerDisplay->start(1/120);
 }

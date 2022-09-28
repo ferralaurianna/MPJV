@@ -6,11 +6,11 @@ Cannonball::Cannonball(float posX,float posY,float posZ,float angle)
 
     inverseMass_=1/1000;
     angle_=angle;
-    float velocity = 500;
+    float velocity = 5000;
     velocity_=new Vector3D(velocity*qCos(qDegreesToRadians(angle_)),velocity*qSin(qDegreesToRadians(angle_)),0);
 
     damping_ = 0.5;
-    *gravity = Vector3D(0,-400.0,0);
+    *gravity = Vector3D(0,-20000,0);
     type_=CANNONBALL;
 
     radius_=0.5;

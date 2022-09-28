@@ -213,8 +213,6 @@ void GameGUI::updateScore()
         particles.clear();
         scene->moveTarget();
     }
-
-    cout<<score<<endl;
 }
 
 void GameGUI::switchPartType()

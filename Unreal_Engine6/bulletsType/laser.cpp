@@ -7,7 +7,7 @@ Laser::Laser(float posX,float posY,float posZ,float angle)
 
     inverseMass_=1/0.0001;
     angle_=angle;
-    float velocity=4000;
+    float velocity=40000;
     velocity_=new Vector3D(velocity*qCos(qDegreesToRadians(angle_)),velocity*qSin(qDegreesToRadians(angle_)),0);
 
     damping_ = 1;

@@ -170,6 +170,10 @@ private:
      */
     float dirY=1;
 
+    /**
+     * @brief light_tab, light_tab_pos
+     * GLfloats that store the intensity and positions of the lights
+     */
     GLfloat light_tab[4]={1.0,1.0,1.0,1.0};
     GLfloat light_tab_pos[4]= {0.0,0.0,1.0,0.0};
 

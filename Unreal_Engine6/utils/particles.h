@@ -11,7 +11,11 @@ enum ProjectileType {BALL,CANNONBALL,LASER,FIREBALL,PARTICLE};
 class Particles
 {
 public:
-    //Constructor (do not forget to add the x,y and z position at the beggining of the constructor)
+    /**
+     * @brief Particles
+     * posX, posY, posZ, radius, mass, velocity angle
+     * The constructor of the Particles class , with many physical variables as parameters.
+     */
     Particles(float posX=0,float posY=0,float posZ=0,float radius=1,float mass=1,float velocity=1,float angle_=45);
 
     //Render method
