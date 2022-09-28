@@ -31,7 +31,7 @@ SOURCES += \
     mainwindow.cpp \
     utils\matrix.cpp \
     scene1\gun.cpp \
-    scene1\Ground.cpp \
+    scene1\ground.cpp \
     utils\particles.cpp \
     tests\testVector.cpp \
     tests\testMatrix.cpp
@@ -46,7 +46,7 @@ HEADERS += \
     mainwindow.h \
     utils\matrix.h \
     scene1\gun.h \
-    scene1\Ground.h \
+    scene1\ground.h \
     utils\particles.h \
     tests\testVector.h \
     tests\testMatrix.h

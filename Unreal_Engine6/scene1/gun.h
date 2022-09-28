@@ -58,7 +58,7 @@ private:
     /**
      * @brief DrawMechanics
      * @param elevation, angleGun, direction
-     * DrawMechanics handle the the drawing of the mechanics connecting the gun to its support, moving along with change of elevation and angle. the direction variable is used to mirror it along the Y axis.
+     * DrawMechanics handle the the drawing of the mechanics connecting the gun to its support, moving along with change of elevation and angle. The direction variable is used to mirror it along the Y axis.
      */
     void DrawMechanics(float elevation, float angleGun, float direction);
     /**

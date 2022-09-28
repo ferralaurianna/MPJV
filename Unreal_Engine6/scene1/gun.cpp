@@ -149,6 +149,7 @@ void Gun::DrawGun(float recoil, float angleGun, float elevation)
 
 void Gun::DrawMechanics(float elevation, float angleGun, float direction)
 {
+
     float dir = 1 - 2*direction;
     glPushMatrix();
 
