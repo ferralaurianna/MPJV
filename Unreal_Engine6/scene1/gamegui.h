@@ -4,14 +4,14 @@
 
 #include <QObject>
 #include <QWidget>
-#include <particles.h>
-#include "ball.h"
-#include "cannonball.h"
-#include "laser.h"
-#include "fireball.h"
-#include <gun.h>
+#include "utils\particles.h"
+#include "bulletsType\ball.h"
+#include "bulletsType\cannonball.h"
+#include "bulletsType\laser.h"
+#include "bulletsType\fireball.h"
+#include "gun.h"
 #include <vector>
-#include <Ground.h>
+#include "ground.h"
 #include <iostream>
 
 using namespace std;

@@ -1,5 +1,5 @@
 #include "testMatrix.h"
-#include "matrix.h"
+#include "utils\matrix.h"
 #include <stdio.h>
 //All the test are made with a 3x3 matrix.
 void TestMatrix::operatorGetTest(){

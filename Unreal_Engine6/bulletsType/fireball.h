@@ -1,6 +1,6 @@
 #ifndef FIREBALL_H
 #define FIREBALL_H
-#include "particles.h"
+#include "utils\particles.h"
 
 class FireBall : public Particles
 {

@@ -12,22 +12,22 @@
 #define PI 3.14159265
 
 /**
- * @brief The Ship class by Clément BOURLET
- * Ship gère le vaisseau dans la scène 3D, donc sa position et son dessin lorsque cela est nécessaire.
+ * @brief The gun class
+ * Gun handle the position of the gun in the 3D scene and provide a function to draw it.
  */
 class Gun
 {
 private:
     /**
-     * @brief posX_, posY_ et posZ_
-     * Enregistre la position du cannon dans la scène 3D.
+     * @brief posX_, posY_ and posZ_
+     * Register the position of the gun in the scene.
      */
     float posX_;
     float posY_;
     float posZ_;
     /**
-     * @brief angX_, angXRow_, angY_ et angYTemp_
-     * Enregistre l'angle dans la scène 3D.
+     * @brief angY_, angGun and elevation
+     * Register the parameters of the gun that change when aiming.
      */
     float angY_;
     float angGun_;
@@ -35,30 +35,30 @@ private:
 
     /**
      * @brief quadrique
-     * Un pointeur vers l'instance de GLUQuadric nécessaire au dessin des quadriques du cannon.
+     * A pointer to an instance of GLUquadric necessary to draw quadrics
      */
-    GLUquadric* quadrique;
+    GLUquadric* quadric;
     /**
      * @brief Draw
-     * Une fonction responsable du tracé de l'ensemble du cannon.
+     * A function that provide the OpenGL instructions necessary to draw the gun.
      */
     void Draw();
     /**
      * @brief DrawSupport
      * @param direction
-     * Une fonction responsable du tracé d'un support latéral dans la direction donnée, avec la possibilité de changer la hauteur des taquets.
+     * A function that provide the OpenGL instructions necessary to draw the lateral support, with a variable to set to 0 or 1 to flip it along the Y axis.
      */
     void DrawSupport(int direction);
     /**
      * @brief DrawGun
-     * @param dir
-     * DrawWing gère le tracé du cannon, avec la possiblité d'afficher un recul suite au tir en pourcentage et de changer l'angle du cannon.
+     * @param recoil, angleGun, elevation
+     * D function that provide the OpenGL instructions necessary to draw the gun itself, capable of handling changes of angle, elevation and recoil.
      */
     void DrawGun(float recoil, float angleGun,float elevation);
     /**
-     * @brief DrawGun
-     * @param dir
-     * DrawMechanics gère le tracé du cannon, avec la possiblité d'afficher un recul suite au tir en pourcentage et de changer l'angle du cannon.
+     * @brief DrawMechanics
+     * @param elevation, angleGun, direction
+     * DrawMechanics handle the the drawing of the mechanics connecting the gun to its support, moving along with change of elevation and angle. the direction variable is used to mirror it along the Y axis.
      */
     void DrawMechanics(float elevation, float angleGun, float direction);
     /**

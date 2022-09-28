@@ -2,7 +2,7 @@
 
 Gun::Gun()
 {
-    quadrique = gluNewQuadric();
+    quadric = gluNewQuadric();
     posX_=200;
     posY_=0;
     posZ_=0;
@@ -18,7 +18,7 @@ void Gun::sendTextures(GLuint* text)
 
 Gun::~Gun()
 {
-    gluDeleteQuadric(quadrique);
+    gluDeleteQuadric(quadric);
 }
 
 void Gun::Display()
@@ -76,7 +76,7 @@ void Gun::DrawSupport(int direction)
     glMaterialf(GL_FRONT, GL_SHININESS, 76.8f);
 
     glEnable(GL_TEXTURE_2D);
-    gluQuadricTexture(quadrique,GLU_TRUE);
+    gluQuadricTexture(quadric,GLU_TRUE);
 
     glBindTexture(GL_TEXTURE_2D,textures[0]);
 
@@ -94,7 +94,7 @@ void Gun::DrawSupport(int direction)
     glMatrixMode(GL_MODELVIEW);
 
     glDisable(GL_TEXTURE_2D);
-    gluQuadricTexture(quadrique,GLU_FALSE);
+    gluQuadricTexture(quadric,GLU_FALSE);
 
     glPopMatrix();
 }
@@ -117,7 +117,7 @@ void Gun::DrawGun(float recoil, float angleGun, float elevation)
     glMaterialf(GL_FRONT, GL_SHININESS, 76.8f);
 
     glEnable(GL_TEXTURE_2D);
-    gluQuadricTexture(quadrique,GLU_TRUE);
+    gluQuadricTexture(quadric,GLU_TRUE);
 
     glBindTexture(GL_TEXTURE_2D,textures[1]);
 
@@ -129,20 +129,20 @@ void Gun::DrawGun(float recoil, float angleGun, float elevation)
     DrawCube(-0.8f,0.1f,2.f,-0.4f,-0.2f,-4.f);
 
     glTranslated(0.f,0.f,-13.f);
-    gluCylinder(quadrique,0.8f,1.f,20.01f,100,100);
-    gluDisk(quadrique,0.5f,0.8f,100,100);
-    gluCylinder(quadrique,0.5f,0.5f,19.01f,100,100);
+    gluCylinder(quadric,0.8f,1.f,20.01f,100,100);
+    gluDisk(quadric,0.5f,0.8f,100,100);
+    gluCylinder(quadric,0.5f,0.5f,19.01f,100,100);
     glTranslated(0.f,0.f,19.f);
-    gluDisk(quadrique,0.f,0.51f,100,100);
+    gluDisk(quadric,0.f,0.51f,100,100);
     glTranslated(0.f,0.f,1.f);
-    gluDisk(quadrique,0.f,1.01f,100,100);
+    gluDisk(quadric,0.f,1.01f,100,100);
 
     glMatrixMode(GL_TEXTURE);
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
 
     glDisable(GL_TEXTURE_2D);
-    gluQuadricTexture(quadrique,GLU_FALSE);
+    gluQuadricTexture(quadric,GLU_FALSE);
 
     glPopMatrix();
 }
@@ -163,7 +163,7 @@ void Gun::DrawMechanics(float elevation, float angleGun, float direction)
     glMaterialf(GL_FRONT, GL_SHININESS, 76.8f);
 
     glEnable(GL_TEXTURE_2D);
-    gluQuadricTexture(quadrique,GLU_TRUE);
+    gluQuadricTexture(quadric,GLU_TRUE);
 
     glBindTexture(GL_TEXTURE_2D,textures[0]);
 
@@ -184,7 +184,7 @@ void Gun::DrawMechanics(float elevation, float angleGun, float direction)
     glMatrixMode(GL_MODELVIEW);
 
     glDisable(GL_TEXTURE_2D);
-    gluQuadricTexture(quadrique,GLU_FALSE);
+    gluQuadricTexture(quadric,GLU_FALSE);
 
     glPopMatrix();
 
@@ -202,7 +202,7 @@ void Gun::DrawMechanics(float elevation, float angleGun, float direction)
     glMaterialf(GL_FRONT, GL_SHININESS, 76.8f);
 
     glEnable(GL_TEXTURE_2D);
-    gluQuadricTexture(quadrique,GLU_TRUE);
+    gluQuadricTexture(quadric,GLU_TRUE);
 
     glBindTexture(GL_TEXTURE_2D,textures[1]);
 
@@ -221,7 +221,7 @@ void Gun::DrawMechanics(float elevation, float angleGun, float direction)
     glMatrixMode(GL_MODELVIEW);
 
     glDisable(GL_TEXTURE_2D);
-    gluQuadricTexture(quadrique,GLU_FALSE);
+    gluQuadricTexture(quadric,GLU_FALSE);
 
     glPopMatrix();
 }

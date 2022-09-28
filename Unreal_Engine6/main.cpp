@@ -1,6 +1,6 @@
 #include "mainwindow.h"
-#include "testVector.h"
-#include "testMatrix.h"
+#include "tests\testVector.h"
+#include "tests\testMatrix.h"
 #include <QApplication>
 #include <QTest>
 

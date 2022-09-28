@@ -3,7 +3,7 @@
 
 #include <QtOpenGLWidgets/QOpenGLWidget>
 #include <GL/glu.h>
-#include <Vector3D.h>
+#include "Vector3D.h"
 #include <QtMath>
 
 enum ProjectileType {BALL,CANNONBALL,LASER,FIREBALL,PARTICLE};
