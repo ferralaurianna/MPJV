@@ -1,6 +1,7 @@
 #include "matrix.h"
 using namespace std;
 
+// Constructors
 Matrix::Matrix(){
     _matrix = nullptr;
     _size = 0;
@@ -35,7 +36,7 @@ Matrix::Matrix(Matrix && other){
     other._matrix = nullptr;
 }
 
-
+// Destructor
 Matrix::~Matrix(){
     delete [] _matrix;
 }
@@ -53,6 +54,7 @@ Matrix Matrix::operator=(Matrix &&other){
     return *this;
 }
 
+// Operator to get a line of the matrix
 float* Matrix::operator[](int i) const{
     if(i > _size-1){
         throw "The index is greater than the number of column.";
@@ -62,6 +64,7 @@ float* Matrix::operator[](int i) const{
     return tab;
 }
 
+// Operator to get a specific cell of the matrix
 float& Matrix::operator()(int i, int j) const{
     if(i > _size-1){
         throw "The index is greater than the number of column.";
@@ -72,6 +75,7 @@ float& Matrix::operator()(int i, int j) const{
     return _matrix[i*_size + j];
 }
 
+// Addition operator
 Matrix Matrix::operator+(Matrix const& other){
     if(_size != other._size){
         throw "They are not the same size, the addition cannot be done.";
@@ -83,6 +87,7 @@ Matrix Matrix::operator+(Matrix const& other){
     return result;
 }
 
+// Substraction operator
 Matrix Matrix::operator-(Matrix const& other){
     if(_size != other._size){
         throw "They are not the same size, the subtraction cannot be done.";
@@ -94,6 +99,7 @@ Matrix Matrix::operator-(Matrix const& other){
     return result;
 }
 
+// Unary operator
 Matrix Matrix::operator-(){
     Matrix result = Matrix(_size);
     for(int i = 0; i < _size*_size; i++){
@@ -102,6 +108,7 @@ Matrix Matrix::operator-(){
     return result;
 }
 
+// Mutliplication between two matrix
 Matrix Matrix::operator*(Matrix const& other){
     if(_size != other._size){
         throw "The matrix product cannot be done because the matrix dont have the same size.";
@@ -120,6 +127,7 @@ Matrix Matrix::operator*(Matrix const& other){
     return result;
 }
 
+// Multiplication between a matrix and a scalar
 Matrix Matrix::operator*(float scalar){
     Matrix result = Matrix(_size);
     for(int i = 0; i < result._size*result._size; i++){
@@ -128,6 +136,7 @@ Matrix Matrix::operator*(float scalar){
     return result;
 }
 
+// Division between a matrix and a scalar
 Matrix Matrix::operator/(float scalar){
     Matrix result = Matrix(_size);
     for(int i = 0; i < result._size* result._size; i++){
@@ -136,6 +145,7 @@ Matrix Matrix::operator/(float scalar){
     return result;
 }
 
+// Operator to display a matrix for the debugging
 ostream& operator<<(ostream &os, Matrix const& m){
     os << "[";
     for(int i = 0; i<m._size; i++){
@@ -154,7 +164,7 @@ ostream& operator<<(ostream &os, Matrix const& m){
     return os;
 }
 
-
+// Get the transposed matrix
 Matrix Matrix::transpose(){
     Matrix result = Matrix(_size);
     for(int i = 0;i<result._size;i++){
@@ -165,6 +175,7 @@ Matrix Matrix::transpose(){
     return result;
 }
 
+// Calculation of the determinant of a 3x3 matrix
 float Matrix::determinant(){
     float result = 0.f;
     if(_size == 3){
