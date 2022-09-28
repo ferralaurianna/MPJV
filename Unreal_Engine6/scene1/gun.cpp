@@ -50,29 +50,32 @@ void Gun::Draw()
 
     glPushMatrix();
 
-    DrawSupport(0);
-    DrawSupport(1);
+    DrawSupport(false);
+    DrawSupport(true);
 
-    DrawMechanics(elevation,angGun_,0);
-    DrawMechanics(elevation,angGun_,1);
+    DrawMechanics(elevation,angGun_,false);
+    DrawMechanics(elevation,angGun_,true);
 
     DrawGun(0,angGun_,elevation);
 
     glPopMatrix();
 }
 
-void Gun::DrawSupport(int direction)
+void Gun::DrawSupport(bool direction)
 {
     glPushMatrix();
 
-    glRotated(180.f*direction,0.f,1.f,0.f);
+    if(direction)
+    {
+        glRotated(180.f*direction,0.f,1.f,0.f);
+    }
 
-    GLfloat colorAmbient_tabEngine[] = {0.1,0.1,0.1,1.0};
-    glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient_tabEngine);
-    GLfloat colorDiffuse_tabEngine[] = {0.2,0.2,0.2,1.0};
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuse_tabEngine);
-    GLfloat colorSpecular_tabEngine[] = {0.774597,0.774597,0.774597,1.0};
-    glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tabEngine);
+    GLfloat colorAmbient_tab[] = {0.1,0.1,0.1,1.0};
+    glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient_tab);
+    GLfloat colorDiffuse_tab[] = {0.2,0.2,0.2,1.0};
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuse_tab);
+    GLfloat colorSpecular_tab[] = {0.774597,0.774597,0.774597,1.0};
+    glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tab);
     glMaterialf(GL_FRONT, GL_SHININESS, 76.8f);
 
     glEnable(GL_TEXTURE_2D);
@@ -108,12 +111,12 @@ void Gun::DrawGun(float recoil, float angleGun, float elevation)
     glRotated(angleGun,1.f,0.f,0.f);
     glTranslated(0.f,0.f,recoil);
 
-    GLfloat colorAmbient_tabEngine[] = {0.1,0.1,0.1,1.0};
-    glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient_tabEngine);
-    GLfloat colorDiffuse_tabEngine[] = {0.2,0.2,0.2,1.0};
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuse_tabEngine);
-    GLfloat colorSpecular_tabEngine[] = {0.774597,0.774597,0.774597,1.0};
-    glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tabEngine);
+    GLfloat colorAmbient_tab[] = {0.1,0.1,0.1,1.0};
+    glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient_tab);
+    GLfloat colorDiffuse_tab[] = {0.2,0.2,0.2,1.0};
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuse_tab);
+    GLfloat colorSpecular_tab[] = {0.774597,0.774597,0.774597,1.0};
+    glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tab);
     glMaterialf(GL_FRONT, GL_SHININESS, 76.8f);
 
     glEnable(GL_TEXTURE_2D);
@@ -147,10 +150,14 @@ void Gun::DrawGun(float recoil, float angleGun, float elevation)
     glPopMatrix();
 }
 
-void Gun::DrawMechanics(float elevation, float angleGun, float direction)
+void Gun::DrawMechanics(float elevation, float angleGun, bool direction)
 {
 
-    float dir = 1 - 2*direction;
+    float dir = 1;
+    if(direction)
+    {
+        dir = -1;
+    }
     glPushMatrix();
 
     glTranslated(0.f,elevation,0.f);
@@ -229,7 +236,6 @@ void Gun::DrawMechanics(float elevation, float angleGun, float direction)
 
 void Gun::DrawCube(float posX,float posY,float posZ, float lX, float lY, float lZ)
 {
-    // position positives, l négatives
     glBegin(GL_QUADS);
 
     glNormal3f(0.0,0.0,1.0);
@@ -271,10 +277,10 @@ void Gun::DrawCube(float posX,float posY,float posZ, float lX, float lY, float l
     glEnd();
 }
 
-void Gun::angGunIncr(int sens)
+void Gun::angGunIncr(int dir)
 {
 
-    if(sens == 1 && angGun_<80)
+    if(dir == 1 && angGun_<80)
     {
         angGun_+=1;
     }
@@ -283,10 +289,10 @@ void Gun::angGunIncr(int sens)
     }
 }
 
-void Gun::elevationGunIncr(int sens)
+void Gun::elevationGunIncr(int dir)
 {
 
-    if(sens == 1 && elevation<20)
+    if(dir == 1 && elevation<20)
     {
         elevation+=1;
     }

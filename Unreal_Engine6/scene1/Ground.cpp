@@ -4,8 +4,7 @@ Ground::Ground()
 {
     random = new QRandomGenerator();
     quadrique = gluNewQuadric();
-    posRoad=0;
-    posCiel=0;
+    posSky=0;
     posTarget=-random->bounded(200);
 }
 
@@ -37,10 +36,10 @@ void Ground::Display() const
     glBegin(GL_QUADS);
 
     glNormal3f(0.0,1.0,0.0);
-    glTexCoord2f(0+posRoad,0);glVertex3f(4000.0f,0.0f,-500.0f);
-    glTexCoord2f(0+posRoad,100);glVertex3f(-4000.0f,0.0f,-500.0f);
-    glTexCoord2f(100+posRoad,100);glVertex3f(-4000.0f,0.0f,3500.0f);
-    glTexCoord2f(100+posRoad,0);glVertex3f(4000.0f,0.0f,3500.0f);
+    glTexCoord2f(0,0);glVertex3f(4000.0f,0.0f,-500.0f);
+    glTexCoord2f(0,100);glVertex3f(-4000.0f,0.0f,-500.0f);
+    glTexCoord2f(100,100);glVertex3f(-4000.0f,0.0f,3500.0f);
+    glTexCoord2f(100,0);glVertex3f(4000.0f,0.0f,3500.0f);
 
     glEnd();
 
@@ -56,10 +55,10 @@ void Ground::Display() const
     glBegin(GL_QUADS);
 
     glNormal3f(0.0,1.0,0.0);
-    glTexCoord2f(0+posCiel,0);glVertex3f(6160.0f,4239.0f,3500.0f);
-    glTexCoord2f(0+posCiel,1);glVertex3f(6160.0f,-1.0f,3500.0f);
-    glTexCoord2f(1+posCiel,1);glVertex3f(-6160.0f,-1.0f,3500.0f);
-    glTexCoord2f(1+posCiel,0);glVertex3f(-6160.0f,4239.0f,3500.0f);
+    glTexCoord2f(0+posSky,0);glVertex3f(6160.0f,4239.0f,3500.0f);
+    glTexCoord2f(0+posSky,1);glVertex3f(6160.0f,-1.0f,3500.0f);
+    glTexCoord2f(1+posSky,1);glVertex3f(-6160.0f,-1.0f,3500.0f);
+    glTexCoord2f(1+posSky,0);glVertex3f(-6160.0f,4239.0f,3500.0f);
 
     glEnd();
 
@@ -110,13 +109,13 @@ void Ground::Display() const
 
 void Ground::slideSky()
 {
-    if(posCiel<2)
+    if(posSky<2)
     {
-        posCiel += 0.0001;
+        posSky += 0.0001;
     }
     else
     {
-        posCiel =  0.0001;
+        posSky =  0.0001;
     }
 }
 
