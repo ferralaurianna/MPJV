@@ -40,12 +40,14 @@ public:
     void setPosition(Vector3D *position){position_=position;};
     bool isOnGround(){return hasReachedGround;}
 
+    void addForces(Vector3D* force);
+
 
 protected:
 
     //Initialize the gravity, damping and type of Particles (protected to have access in derived class)
     float damping_ = 0;
-    Vector3D *gravity = new Vector3D(0,-9.8,0);
+    Vector3D *AccumForce = new Vector3D(0,0,0);
     ProjectileType type_ = PARTICLE;
 
     //Add here a position handmade vector
