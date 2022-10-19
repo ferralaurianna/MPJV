@@ -6,8 +6,6 @@
 #include "Vector3D.h"
 #include <QtMath>
 
-enum ProjectileType {BALL,CANNONBALL,LASER,FIREBALL,PARTICLE};
-
 class Particles
 {
 public:
@@ -17,6 +15,7 @@ public:
      * The constructor of the Particles class , with many physical variables as parameters.
      */
     Particles(float posX=0,float posY=0,float posZ=0,float radius=1,float mass=1,float velocity=1,float angle_=45);
+    ~Particles();
 
     //Render method
     virtual void display();
@@ -32,35 +31,28 @@ public:
     Vector3D* getInitialVelocity(){return velocity_;};
     void setVelocity(Vector3D *initialVelocity){velocity_=initialVelocity;};
 
-    ProjectileType getType(){return type_;};
-    void setType(ProjectileType type){type_=type;};
-
     //Add here the getter/setter of the position vector
     Vector3D* getPosition(){return position_;};
     void setPosition(Vector3D *position){position_=position;};
     bool isOnGround(){return hasReachedGround;}
 
     void addForces(Vector3D* force);
+    void clearAccum();
 
 
 protected:
 
     //Initialize the gravity, damping and type of Particles (protected to have access in derived class)
     float damping_ = 0;
-    Vector3D *AccumForce = new Vector3D(0,0,0);
-    ProjectileType type_ = PARTICLE;
+    Vector3D *accumForce_ = new Vector3D(0,0,0);
 
     //Add here a position handmade vector
     Vector3D *position_;
     Vector3D *velocity_;
 
-
     float inverseMass_;
 
-
     float radius_;
-    float angle_;
-
 
     bool hasReachedGround=false;
 
