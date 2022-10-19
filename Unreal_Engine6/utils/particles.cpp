@@ -69,9 +69,9 @@ void Particles::integrer(float duration){
     }
 }
 
-void Particles::addForces(Vector3D* force)
+void Particles::addForces(Vector3D force)
 {
-    *accumForce_ = (*accumForce_)+(*force);
+    *accumForce_ = (*accumForce_)+(force);
 }
 
 void Particles::clearAccum()

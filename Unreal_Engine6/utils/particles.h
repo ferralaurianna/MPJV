@@ -36,7 +36,7 @@ public:
     void setPosition(Vector3D *position){position_=position;};
     bool isOnGround(){return hasReachedGround;}
 
-    void addForces(Vector3D* force);
+    void addForces(Vector3D force);
     void clearAccum();
 
 
