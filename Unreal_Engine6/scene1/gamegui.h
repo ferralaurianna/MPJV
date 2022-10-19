@@ -12,9 +12,6 @@
 #include "gun.h"
 #include <vector>
 #include "scene1/ground.h"
-#include <iostream>
-
-using namespace std;
 
 class GameGUI:public QOpenGLWidget
 {
