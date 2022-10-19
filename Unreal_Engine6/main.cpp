@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "windowpart1.h".h"
 #include "tests\testVector.h"
 #include "tests\testMatrix.h"
 #include <QApplication>
@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     TestMatrix t2;
     QTest::qExec(&t2, argc, argv);
 
-    MainWindow w;
+    WindowPart1 w;
     w.show();
     return a.exec();
 }

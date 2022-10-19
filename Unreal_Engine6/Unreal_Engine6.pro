@@ -28,13 +28,13 @@ SOURCES += \
     scene1\gamegui.cpp \
     bulletsType\laser.cpp \
     main.cpp \
-    mainwindow.cpp \
     utils\matrix.cpp \
     scene1\gun.cpp \
     scene1\ground.cpp \
     utils\particles.cpp \
     tests\testVector.cpp \
-    tests\testMatrix.cpp
+    tests\testMatrix.cpp \
+    windowpart1.cpp
 
 HEADERS += \
     bulletsType\ball.h \
@@ -43,19 +43,19 @@ HEADERS += \
     bulletsType\fireball.h \
     scene1\gamegui.h \
     bulletsType\laser.h \
-    mainwindow.h \
     utils\matrix.h \
     scene1\gun.h \
     scene1\ground.h \
     utils\particles.h \
     tests\testVector.h \
-    tests\testMatrix.h
+    tests\testMatrix.h \
+    windowpart1.h
 
 RESOURCES += \
     ../res/textures.qrc
 
 FORMS += \
-    mainwindow.ui
+    windowpart1.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

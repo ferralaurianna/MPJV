@@ -1,27 +1,26 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef WINDOWPART1_H
+#define WINDOWPART1_H
 
 #include <QMainWindow>
 #include <QTimer>
 #include <chrono>
-#include <QTime>
-
+#include <QKeyEvent>
 #include "utils/particles.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+namespace Ui {
+class WindowPart1;
+}
 
-class MainWindow : public QMainWindow
+class WindowPart1 : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    explicit WindowPart1(QWidget *parent = nullptr);
+    ~WindowPart1();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::WindowPart1 *ui;
     void UpdateFrame();
     QTimer *timerStart = new QTimer(this);
     QTimer *timerInit = new QTimer(this);
@@ -33,4 +32,5 @@ protected:
     void keyPressEvent(QKeyEvent * event);
     void init();
 };
-#endif // MAINWINDOW_H
+
+#endif // WINDOWPART1_H
