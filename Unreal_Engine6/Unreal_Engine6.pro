@@ -34,8 +34,8 @@ SOURCES += \
     utils\particles.cpp \
     tests\testVector.cpp \
     tests\testMatrix.cpp \
-    windowpart1.cpp \
-    windowpart2.cpp
+    scene1\windowpart1.cpp \
+    scene2\windowpart2.cpp
 
 HEADERS += \
     bulletsType\ball.h \
@@ -50,15 +50,15 @@ HEADERS += \
     utils\particles.h \
     tests\testVector.h \
     tests\testMatrix.h \
-    windowpart1.h \
-    windowpart2.h
+    scene1\windowpart1.h \
+    scene2\windowpart2.h
 
 RESOURCES += \
     ../res/textures.qrc
 
 FORMS += \
-    windowpart1.ui \
-    windowpart2.ui
+    scene1\windowpart1.ui \
+    scene2\windowpart2.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
