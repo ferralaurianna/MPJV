@@ -6,13 +6,12 @@ Ball::Ball(float posX,float posY,float posZ,float angle)
     position_=new Vector3D(posX,posY,posZ);
 
     inverseMass_=1/1000;
-    angle_=angle;
     float velocity = 2500;
-    velocity_=new Vector3D(velocity*qCos(qDegreesToRadians(angle_)),velocity*qSin(qDegreesToRadians(angle_)),0);
+    velocity_=new Vector3D(velocity*qCos(qDegreesToRadians(angle)),velocity*qSin(qDegreesToRadians(angle)),0);
+    angle_ = angle;
 
     damping_ = 0.9;
-    *gravity = Vector3D(0,-15000,0);
-    type_ = BALL;
+    *accumForce_ = Vector3D(0,-15000,0);
 
     radius_=0.5;
 }
