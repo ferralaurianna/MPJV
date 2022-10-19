@@ -1,30 +1,25 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "windowpart1.h"
+#include "ui_windowpart1.h"
 
-#include <QKeyEvent>
-#include <iostream>
-
-using namespace std;
-
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+WindowPart1::WindowPart1(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::WindowPart1)
 {
     ui->setupUi(this);
-    connect(this->timerInit, &QTimer::timeout, this, &MainWindow::init);
-    connect(this->timerStart, &QTimer::timeout, this, &MainWindow::UpdateFrame);
+    connect(this->timerInit, &QTimer::timeout, this, &WindowPart1::init);
+    connect(this->timerStart, &QTimer::timeout, this, &WindowPart1::UpdateFrame);
     timerStart->setSingleShot(true);
     timerInit->setSingleShot(true);
     timerStart->start(100/60);
     timerInit->start(1000);
 }
 
-MainWindow::~MainWindow()
+WindowPart1::~WindowPart1()
 {
     delete ui;
 }
 
-void MainWindow::init()
+void WindowPart1::init()
 {
     cout<<"in"<<endl;
     if(compteurInit <4)
@@ -36,7 +31,7 @@ void MainWindow::init()
 }
 
 // Management of the keyboard interactions
-void MainWindow::keyPressEvent(QKeyEvent * event)
+void WindowPart1::keyPressEvent(QKeyEvent * event)
 {
     switch(event->key())
     {
@@ -156,7 +151,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event)
 }
 
 // Updating the position and speed of the particle, timing it to get framerate
-void MainWindow::UpdateFrame()
+void WindowPart1::UpdateFrame()
 {
     timerStart->start(deltatime);
     // Record start time
