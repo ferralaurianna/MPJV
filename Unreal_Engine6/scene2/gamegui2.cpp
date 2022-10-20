@@ -8,13 +8,14 @@ GameGUI2::GameGUI2(QWidget *parent): QOpenGLWidget(parent)
     // Initialize the instance of the objects to render at the first rendering (gun, ground...)
     score = 0;
     scoreBase=0;
-    blobs.push_back(new Blob(0,0,0,3,20,5,0));
+    Blob* b = new Blob(0,0,0);
+    blobs_.push_back(b);
 }
 
 GameGUI2::~GameGUI2()
 {
     // Manage the memory leak caused by the Particle vector
-    for(Blob* blob : blobs)
+    for(Blob* blob : blobs_)
     {
         delete blob;
     }
@@ -92,7 +93,7 @@ void GameGUI2::paintGL()
 
     // Where to put the render methods to render object on the screen
     //scene->Display();
-    for(Blob* blob : blobs)
+    for(Blob* blob : blobs_)
     {
         blob->display();
     }

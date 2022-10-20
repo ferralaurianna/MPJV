@@ -40,7 +40,6 @@ SOURCES += \
     tests\testMatrix.cpp \
     scene2\blob.cpp \
     scene2\gamegui2.cpp \
-    scene2\gamegui.cpp \
     scene1\windowpart1.cpp \
     scene2\windowpart2.cpp
 
@@ -63,7 +62,6 @@ HEADERS += \
     tests\testMatrix.h \
     scene2\blob.h \
     scene2\gamegui2.h \
-    scene2\gamegui.h \
     scene1\windowpart1.h \
     scene2\windowpart2.h
 

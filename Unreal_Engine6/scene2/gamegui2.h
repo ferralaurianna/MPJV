@@ -7,7 +7,6 @@
 #include "scene2\blob.h"
 #include <vector>
 #include <QRandomGenerator>
-#include <QKeyEvent>
 #include <QTimer>
 #include <QtMath>
 #include <QGenericMatrix>
@@ -31,7 +30,7 @@ public:
      * @brief particles
      * A list of pointers to the particles present in the scene.
      */
-    vector<Blob*> blobs;
+    vector<Blob*> blobs_;
 
     /**
      * @brief forwardCamera

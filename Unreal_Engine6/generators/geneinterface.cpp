@@ -4,3 +4,8 @@ GeneInterface::GeneInterface()
 {
 
 }
+
+GeneInterface::~GeneInterface()
+{
+
+}

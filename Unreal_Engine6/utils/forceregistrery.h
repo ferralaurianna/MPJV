@@ -16,6 +16,7 @@ class ForceRegistrery
 
 public:
     ForceRegistrery();
+    ~ForceRegistrery();
 
     void add(Particles* particle, GeneInterface* fg);
     void clear();

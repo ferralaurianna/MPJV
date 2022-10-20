@@ -8,8 +8,9 @@
 class GeneInterface
 {
 public:
+    GeneInterface();
     virtual void updateForce (Particles *particle , float duration) = 0;
-    virtual ~GeneInterface();
+    virtual ~GeneInterface() = 0;
 };
 
 #endif // GENEINTERFACE_H

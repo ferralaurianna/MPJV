@@ -6,6 +6,8 @@
 #include <chrono>
 #include <QKeyEvent>
 #include "utils/particles.h"
+#include "utils/forceregistrery.h"
+#include "generators/springtwoparticle.h"
 
 namespace Ui {
 class WindowPart2;
@@ -24,10 +26,10 @@ private:
     void UpdateFrame();
     QTimer *timerStart = new QTimer(this);
     float deltatime = 0;
+    ForceRegistrery* registrery = new ForceRegistrery();
 
 protected:
     void keyPressEvent(QKeyEvent * event);
-    void init();
 };
 
 #endif // WINDOWPART2_H

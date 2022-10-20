@@ -12,6 +12,10 @@ void ForceRegistrery::add(Particles* particle, GeneInterface* fg)
 
 void ForceRegistrery::clear()
 {
+    for(Registration i: register_)
+    {
+        delete i.forceGen;
+    }
     register_.clear();
 }
 
@@ -21,4 +25,9 @@ void ForceRegistrery::updateForces(float duration)
     {
         i.forceGen->updateForce(i.particle,duration);
     }
+}
+
+ForceRegistrery::~ForceRegistrery()
+{
+    clear();
 }

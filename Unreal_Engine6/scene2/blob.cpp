@@ -1,5 +1,5 @@
 #include "blob.h"
-
+#include <iostream>
 using namespace std;
 
 Blob::Blob(float posX,float posY,float posZ,float radius, int nbParticlesRow, int nbRows,int offset)
@@ -8,7 +8,7 @@ Blob::Blob(float posX,float posY,float posZ,float radius, int nbParticlesRow, in
     position_=new Vector3D(posX,posY,posZ);
     radius_=radius;
 
-    nucleus_= new Particles(0,0,0,1,(float)radius_/3,0,0);
+    nucleus_= new Particles(0,0,0,(float)radius_/5,1,0,0);
     nbParticlesRow_=nbParticlesRow;
     nbRows_=nbRows;
 
@@ -17,134 +17,167 @@ Blob::Blob(float posX,float posY,float posZ,float radius, int nbParticlesRow, in
 }
 
 void Blob::modelingBlob(int offset){
-    vector<Particles[2]>* springs=new vector<Particles[2]>();
-    Particles spring[2];
+    springs_=new vector<Link>();
+    Link spring;
 
-    vector<Particles*>* exteriorRow=new vector<Particles*>();
     Particles* exteriorParticle;
-    int intervalRows=2*radius_/nbRows_;
+    float intervalRows=2*radius_/(float(nbRows_-1));
     int intervalParticles=360/nbParticlesRow_;
     int offsetParticles=offset/nbParticlesRow_;
 
 
     // Creation of the particles on exterior rows
-    for(int j=0;j<nbRows_;j++){
+    for(int j=0;j<nbRows_-2;j++){
         for(int i=0;i<nbParticlesRow_;i++){
 
-            float x=radius_*qSin(qDegreesToRadians(intervalParticles+offsetParticles));
-            float y=radius_*qCos(qDegreesToRadians(intervalParticles+offsetParticles));
-            float z=intervalRows*j-radius_;
+            float factrad = qSin(qAcos(1-2*(float(j+1)/float(nbRows_-1))));
+            float x=radius_*qSin(qDegreesToRadians(intervalParticles*i+offsetParticles))*factrad;
+            float y=radius_*qCos(qDegreesToRadians(intervalParticles*i+offsetParticles))*factrad;
+            float z=intervalRows*float(j+1)-radius_;
 
-            exteriorParticle=new Particles(x,y,z,(float)radius_/3,0,0);
-            exteriorRow->push_back(exteriorParticle);
+            exteriorParticle=new Particles(x,y,z,(float)radius_/20,1,0,0);
+            exteriorRow_->push_back(exteriorParticle);
 
             // Creation of basic springs between particles of the row
             if(i>0){
-                spring[0]=*exteriorRow->at(i-1);
-                spring[1]=*exteriorRow->at(i);
-                springs->push_back(spring);
+                spring.part1=exteriorRow_->at((i+j*nbParticlesRow_)-1);
+                spring.part2=exteriorParticle;
+                springs_->push_back(spring);
                 if(i==nbParticlesRow_-1){
-                    spring[0]=*exteriorRow->at(exteriorRow->size());
-                    spring[1]=*exteriorRow->at(0);
-                    springs->push_back(spring);
+                    spring.part1=exteriorParticle;
+                    spring.part2=exteriorRow_->at(j*nbParticlesRow_);
+                    springs_->push_back(spring);
                 }
             }
         }
     }
-    exteriorRow_=exteriorRow;
-    for(Particles* part : *exteriorRow)
-    {
-        delete part;
-    }
-    delete exteriorRow;
 
-
-    vector<Particles*>* interiorRow=new vector<Particles*>();
     Particles* interiorParticle;
-    int intervalRowsInterior=2*radius_*0.7/nbRows_;
+    float intervalRowsInterior=2*radius_*0.7/(float(nbRows_-1));
 
     // Creation of the particles on interior rows
-    for(int j=0;j<nbRows_;j++){
+    for(int j=0;j<nbRows_-2;j++){
         for(int i=0;i<nbParticlesRow_;i++){
 
-            float x=radius_*0.7*qSin(qDegreesToRadians(intervalParticles+offsetParticles));
-            float y=radius_*0.7*qCos(qDegreesToRadians(intervalParticles+offsetParticles));
-            float z=intervalRowsInterior*j-radius_;
+            float factrad = qSin(qAcos(1-2*(float(j+1)/float(nbRows_-1))));
+            float x=radius_*0.7*qSin(qDegreesToRadians(intervalParticles*i+offsetParticles))*factrad;
+            float y=radius_*0.7*qCos(qDegreesToRadians(intervalParticles*i+offsetParticles))*factrad;
+            float z=intervalRowsInterior*float(j+1)-radius_*0.7;
 
-            interiorParticle=new Particles(x,y,z,(float)radius_/3,0,0);
-            interiorRow->push_back(interiorParticle);
+            interiorParticle=new Particles(x,y,z,(float)radius_/20,1,0,0);
+            interiorRow_->push_back(interiorParticle);
 
             // Creation of basic springs between particules of the row
             if(i>0){
-                spring[0]=*interiorRow->at(i-1);
-                spring[1]=*interiorRow->at(i);
-                springs->push_back(spring);
+                spring.part1=interiorRow_->at((i+j*nbParticlesRow_)-1);
+                spring.part2=interiorParticle;
+                springs_->push_back(spring);
+                if(i==nbParticlesRow_-1){
+                    spring.part1=interiorParticle;
+                    spring.part2=interiorRow_->at(j*nbParticlesRow_);
+                    springs_->push_back(spring);
+                }
             }
 
             // Creation of a spring between the new particle and the nucleus
-            spring[0]=*interiorRow->at(i);
-            spring[1]=*nucleus_;
-            springs->push_back(spring);
+            spring.part1=interiorParticle;
+            spring.part2=nucleus_;
+            springs_->push_back(spring);
 
             // Creation of a spring between the interior and exterior particle
-            spring[0]=*exteriorRow->at(i);
-            spring[1]=*interiorRow->at(i);
-            springs->push_back(spring);
+            spring.part1=exteriorRow_->at(i+j*nbParticlesRow_);
+            spring.part2=interiorParticle;
+            springs_->push_back(spring);
 
             // Creation of a diagonal spring between the interior and exterior particle
-            spring[0]=*exteriorRow->at(i-1);
-            spring[1]=*interiorRow->at(i);
-            springs->push_back(spring);
-
-            if(i==nbParticlesRow_-1){
-                spring[0]=*interiorRow->at(interiorRow->size());
-                spring[1]=*interiorRow->at(0);
-                springs->push_back(spring);
-
-                spring[0]=*exteriorRow->at(exteriorRow->size());
-                spring[1]=*interiorRow->at(0);
-                springs->push_back(spring);
+            if(i>0)
+            {
+                spring.part1=exteriorRow_->at(i+j*nbParticlesRow_-1);
+                spring.part2=interiorParticle;
+                springs_->push_back(spring);
+            }
+            else
+            {
+                spring.part1=exteriorRow_->at(19+j*nbParticlesRow_);
+                spring.part2=interiorParticle;
+                springs_->push_back(spring);
             }
         }
     }
-    interiorRow_=interiorRow;
-    for(Particles* part : *interiorRow)
-    {
-        delete part;
-    }
-    delete interiorRow;
 
     // Creation of basic springs between the particles in the other direction
     for(int i=0;i<nbParticlesRow_;i++){
-        for(int j=1;j<nbRows_;j++){
+        for(int j=0;j<nbRows_-3;j++){
+            spring.part1=exteriorRow_->at(i+j*nbParticlesRow_);
+            spring.part2=exteriorRow_->at(i+(j+1)*nbParticlesRow_);
+            springs_->push_back(spring);
 
-            if(j<nbRows_-1){
-                spring[0]=*exteriorRow->at(i+j*nbParticlesRow_);
-                spring[1]=*exteriorRow->at(i+(j+1)*nbParticlesRow_);
-                springs->push_back(spring);
+            spring.part1=interiorRow_->at(i+j*nbParticlesRow_);
+            spring.part2=interiorRow_->at(i+(j+1)*nbParticlesRow_);
+            springs_->push_back(spring);
 
-                spring[0]=*interiorRow->at(i+j*nbParticlesRow_);
-                spring[1]=*interiorRow->at(i+(j+1)*nbParticlesRow_);
-                springs->push_back(spring);
-
-                spring[0]=*exteriorRow->at(i+j*nbParticlesRow_);
-                spring[1]=*interiorRow->at(i+(j+1)*nbParticlesRow_);
-                springs->push_back(spring);
-            }
-            else{
-                spring[0]=*exteriorRow->at(i+j*nbParticlesRow_);
-                spring[1]=*exteriorRow->at(i);
-                springs->push_back(spring);
-
-                spring[0]=*interiorRow->at(i+j*nbParticlesRow_);
-                spring[1]=*interiorRow->at(i);
-                springs->push_back(spring);
-
-            }
+            spring.part1=exteriorRow_->at(i+j*nbParticlesRow_);
+            spring.part2=interiorRow_->at(i+(j+1)*nbParticlesRow_);
+            springs_->push_back(spring);
         }
     }
-    springs_=springs;
-    delete springs;
+
+    //Creation and connection of the unique lower summits
+    exteriorParticle=new Particles(0,0,-radius_,(float)radius_/20,1,0,0);
+    exteriorRow_->push_back(exteriorParticle);
+    interiorParticle=new Particles(0,0,-radius_*0.7,(float)radius_/20,1,0,0);
+    interiorRow_->push_back(interiorParticle);
+
+    spring.part1=exteriorParticle;
+    spring.part2=interiorParticle;
+    springs_->push_back(spring);
+
+    spring.part1=interiorParticle;
+    spring.part2=nucleus_;
+    springs_->push_back(spring);
+
+    for(int i=0; i<nbParticlesRow_;i++)
+    {
+        spring.part1=interiorRow_->at(i);
+        spring.part2=interiorParticle;
+        springs_->push_back(spring);
+    }
+
+    for(int i=0; i<nbParticlesRow_;i++)
+    {
+        spring.part1=exteriorRow_->at(i);
+        spring.part2=exteriorParticle;
+        springs_->push_back(spring);
+    }
+
+    //Creation and connection of the unique upper summits
+    exteriorParticle=new Particles(0,0,radius_,(float)radius_/20,1,0,0);
+    exteriorRow_->push_back(exteriorParticle);
+    interiorParticle=new Particles(0,0,radius_*0.7,(float)radius_/20,1,0,0);
+    interiorRow_->push_back(interiorParticle);
+
+    spring.part1=exteriorParticle;
+    spring.part2=interiorParticle;
+    springs_->push_back(spring);
+
+    spring.part1=interiorParticle;
+    spring.part2=nucleus_;
+    springs_->push_back(spring);
+
+    for(int i=0; i<nbParticlesRow_;i++)
+    {
+        spring.part1=interiorRow_->at(i+nbParticlesRow_*(nbRows_-3));
+        spring.part2=interiorParticle;
+        springs_->push_back(spring);
+    }
+
+    for(int i=0; i<nbParticlesRow_;i++)
+    {
+        spring.part1=exteriorRow_->at(i+nbParticlesRow_*(nbRows_-3));
+        spring.part2=exteriorParticle;
+        springs_->push_back(spring);
+    }
+
 }
 
 void Blob::display(){
@@ -165,38 +198,62 @@ void Blob::display(){
     }
 
     //Rendering of the springs
-    for (std::vector<Particles[2]>::iterator it = springs_->begin() ; it != springs_->end(); ++it){
-        springDisplay((*it)[0],(*it)[1]);
+    for(Link spring : *springs_)
+    {
+        springDisplay(spring.part1,spring.part2);
     }
+
+    nucleus_->display();
 
     //Getting back the world matrix before the translation from the stack
     glPopMatrix();
 }
 
-void Blob::springDisplay(Particles part1, Particles part2){
+void Blob::springDisplay(Particles* part1, Particles* part2){
 
-    Vector3D springVector= *(part1.getPosition()) - *(part2.getPosition());
+    Vector3D springVector= *(part1->getPosition()) - *(part2->getPosition());
 
     float springNorm=springVector.norm();
+    float flatNorm = -qSqrt(springVector.getZ()*springVector.getZ()+springVector.getX()*springVector.getX());
 
     //Pushing the current world matrix in the stack
     glPushMatrix();
+    Vector3D* posP2 = part2->getPosition();
+//    cout<<part2->getPosition()->getX()<<endl;
+    glTranslatef(posP2->getX(),posP2->getY(),posP2->getZ());
 
-    float angY = qAcos(((Vector3D(1,0,0).scalarProduct(Vector3D(springVector.getX(),springVector.getZ(),0))))/(springNorm));
-    float angZ = qAcos(((Vector3D(1,0,0).scalarProduct(Vector3D(springVector.getX(),springVector.getY(),0))))/(springNorm));
+    float angY = qAcos(springVector.getZ()/flatNorm)*(1-2*(springVector.getX()>0));
+    float angX = (qAsin(springVector.getY()/springNorm)+3.1415);
 
     glRotatef(qRadiansToDegrees(angY),0,1,0);
-    glRotatef(qRadiansToDegrees(angZ),0,0,1);
+    glRotatef(qRadiansToDegrees(angX),1,0,0);
 
     //Drawing of the spring
     GLUquadric *quadric=gluNewQuadric();
     gluQuadricDrawStyle(quadric,GLU_FILL);
 
-    gluCylinder(quadric,radius_*0.3/3,radius_*0.3/3,springNorm,50,50);
+    gluCylinder(quadric,radius_*0.3/20,radius_*0.3/20,springNorm,50,50);
 
     //Getting back memory after the drawing
     gluDeleteQuadric(quadric);
 
     //Getting back the world matrix before the rotation from the stack
     glPopMatrix();
+
+}
+
+Blob::~Blob()
+{
+    delete nucleus_;
+    for(Particles* part: *exteriorRow_)
+    {
+        delete part;
+    }
+    for(Particles* part: *interiorRow_)
+    {
+        delete part;
+    }
+    delete interiorRow_;
+    delete exteriorRow_;
+    delete position_;
 }
