@@ -34,6 +34,9 @@ SOURCES += \
     utils\particles.cpp \
     tests\testVector.cpp \
     tests\testMatrix.cpp \
+    scene2\blob.cpp \
+    scene2\gamegui2.cpp \
+    scene2\gamegui.cpp \
     scene1\windowpart1.cpp \
     scene2\windowpart2.cpp
 
@@ -50,6 +53,9 @@ HEADERS += \
     utils\particles.h \
     tests\testVector.h \
     tests\testMatrix.h \
+    scene2\blob.h \
+    scene2\gamegui2.h \
+    scene2\gamegui.h \
     scene1\windowpart1.h \
     scene2\windowpart2.h
 

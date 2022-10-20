@@ -175,17 +175,18 @@ void Blob::display(){
 
 void Blob::springDisplay(Particles part1, Particles part2){
 
-    Vector3D* springVector=new Vector3D(part2.getPosition()->getX()-part1.getPosition()->getX(),
-                                        part2.getPosition()->getY()-part1.getPosition()->getY(),
-                                        part2.getPosition()->getZ()-part1.getPosition()->getZ());
+    Vector3D springVector= *(part1.getPosition()) - *(part2.getPosition());
 
-    float springNorm=springVector->norm();
+    float springNorm=springVector.norm();
 
     //Pushing the current world matrix in the stack
     glPushMatrix();
 
-    glRotatef(0,0,1,0);
-    glRotatef(0,0,0,1);
+    float angY = qAcos(((Vector3D(1,0,0).scalarProduct(Vector3D(springVector.getX(),springVector.getZ(),0))))/(springNorm));
+    float angZ = qAcos(((Vector3D(1,0,0).scalarProduct(Vector3D(springVector.getX(),springVector.getY(),0))))/(springNorm));
+
+    glRotatef(qRadiansToDegrees(angY),0,1,0);
+    glRotatef(qRadiansToDegrees(angZ),0,0,1);
 
     //Drawing of the spring
     GLUquadric *quadric=gluNewQuadric();

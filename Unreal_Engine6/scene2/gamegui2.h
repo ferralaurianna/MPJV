@@ -4,11 +4,14 @@
 
 #include <QObject>
 #include <QWidget>
-#include "utils\particles.h"
+#include "scene2\blob.h"
 #include <vector>
-#include <iostream>
-
-using namespace std;
+#include <QRandomGenerator>
+#include <QKeyEvent>
+#include <QTimer>
+#include <QtMath>
+#include <QGenericMatrix>
+#include <GL/glu.h>
 
 class GameGUI2:public QOpenGLWidget
 {
@@ -28,7 +31,7 @@ public:
      * @brief particles
      * A list of pointers to the particles present in the scene.
      */
-    vector<Particles*> particles;
+    vector<Blob*> blobs;
 
     /**
      * @brief forwardCamera
@@ -110,11 +113,6 @@ private:
     GLuint* texturesScene;
     GLuint* texturesGun;
 
-    /**
-     * @brief updateScore
-     * A function called to calculate the current score.
-     */
-    void updateScore();
 
     /**
      * @brief background
