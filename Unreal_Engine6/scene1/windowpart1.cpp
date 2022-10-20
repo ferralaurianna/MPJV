@@ -21,7 +21,6 @@ WindowPart1::~WindowPart1()
 
 void WindowPart1::init()
 {
-    cout<<"in"<<endl;
     if(compteurInit <4)
     {
         ui->gameGUI->switchPartType();

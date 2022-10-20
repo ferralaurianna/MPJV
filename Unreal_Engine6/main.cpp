@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     TestMatrix t2;
     QTest::qExec(&t2, argc, argv);
 
-    WindowPart2 w;
+    WindowPart1 w;
     w.show();
     return a.exec();
 }

@@ -24,7 +24,7 @@ private:
     void UpdateFrame();
     QTimer *timerStart = new QTimer(this);
     QTimer *timerInit = new QTimer(this);
-    float deltatime;
+    float deltatime = 0;
     bool hasFinishedLoop_=true;
     int compteurInit = 0;
 

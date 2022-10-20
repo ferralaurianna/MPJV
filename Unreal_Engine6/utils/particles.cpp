@@ -9,12 +9,19 @@ Particles::Particles(float posX,float posY,float posZ,float radius,float mass,fl
 
     radius_=radius;
     inverseMass_=1/mass;
-    angle_=angle;
-    velocity_=new Vector3D(velocity*qCos(qDegreesToRadians(angle_)),velocity*qSin(qDegreesToRadians(angle_)),0);
+    velocity_=new Vector3D(velocity*qCos(qDegreesToRadians(angle)),velocity*qSin(qDegreesToRadians(angle)),0);
 
 }
 
-void Particles::display(){
+Particles::~Particles()
+{
+    delete position_;
+    delete velocity_;
+    delete accumForce_;
+}
+
+void Particles::display()
+{
 
     //Pushing the current world matrix in the stack
     glPushMatrix();
@@ -49,7 +56,7 @@ void Particles::integrer(float duration){
     if(!hasReachedGround)
     {
         //Update of the current velocity
-        (*velocity_)=(*velocity_)*qPow(damping_,duration)+(*gravity)*duration;
+        (*velocity_)=(*velocity_)*qPow(damping_,duration)+(*accumForce_)*duration;
 
         //Udpate of the current position
         (*position_)=(*position_)+(*velocity_)*duration;
@@ -60,5 +67,14 @@ void Particles::integrer(float duration){
             hasReachedGround = true;
         }
     }
+}
 
+void Particles::addForces(Vector3D force)
+{
+    *accumForce_ = (*accumForce_)+(force);
+}
+
+void Particles::clearAccum()
+{
+    *accumForce_ = Vector3D(0,0,0);
 }

@@ -6,6 +6,8 @@ class Cannonball : public Particles
 {
 public:
     Cannonball(float posX=0,float posY=0,float posZ=0,float angle_=45);
+private:
+    float angle_;
 };
 
 #endif // CANNONBALL_H

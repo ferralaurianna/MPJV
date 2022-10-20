@@ -7,13 +7,12 @@ FireBall::FireBall(float posX,float posY,float posZ,float angle)
 
 
     inverseMass_=1/100;
-    angle_=angle;
     float velocity=2000;
-    velocity_=new Vector3D(velocity*qCos(qDegreesToRadians(angle_)),velocity*qSin(qDegreesToRadians(angle_)),0);
+    velocity_=new Vector3D(velocity*qCos(qDegreesToRadians(angle)),velocity*qSin(qDegreesToRadians(angle)),0);
+    angle_ = angle;
 
     damping_ = 0.3;
-    *gravity = Vector3D(0,-11000,0);
-    type_=LASER;
+    *accumForce_ = Vector3D(0,-11000,0);
 
     radius_=1.0;
 }

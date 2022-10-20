@@ -22,6 +22,10 @@ else {
 
 SOURCES += \
     bulletsType\ball.cpp \
+    generators/geneinterface.cpp \
+    generators/gravitygenerator.cpp \
+    generators/springtwoparticle.cpp \
+    utils/forceregistrery.cpp \
     utils\Vector3D.cpp \
     bulletsType\cannonball.cpp \
     bulletsType\fireball.cpp \
@@ -42,6 +46,10 @@ SOURCES += \
 
 HEADERS += \
     bulletsType\ball.h \
+    generators/geneinterface.h \
+    generators/gravitygenerator.h \
+    generators/springtwoparticle.h \
+    utils/forceregistrery.h \
     utils\Vector3D.h \
     bulletsType\cannonball.h \
     bulletsType\fireball.h \
