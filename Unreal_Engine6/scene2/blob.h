@@ -12,6 +12,7 @@ public:
     struct Link{
         Particles* part1;
         Particles* part2;
+        float l0;
     };
     Blob(float posX=0,float posY=0,float posZ=0,float radius=20, int nbParticlesRow=20, int nbRows=7, int offset=0);
     ~Blob();

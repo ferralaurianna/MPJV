@@ -1,4 +1,5 @@
 #include "windowpart2.h"
+#include "generators/gravitygenerator.h"
 #include "ui_windowpart2.h"
 
 WindowPart2::WindowPart2(QWidget *parent) :
@@ -28,12 +29,33 @@ void WindowPart2::UpdateFrame()
         vector<Blob::Link>* links = blob->getSprings();
         for(Blob::Link link: *links)
         {
-            registrery->add(link.part1,new SpringTwoParticle(link.part2,0.0001,0.01));
-            registrery->add(link.part2,new SpringTwoParticle(link.part1,0.0001,0.01));
+            registrery->add(link.part1,new SpringTwoParticle(link.part2,10,link.l0));
+            registrery->add(link.part2,new SpringTwoParticle(link.part1,10,link.l0));
         }
+        blob->getNucleus()->addForces(Vector3D(0,0,-50));
     }
 
+//    for(Blob* blob : ui->gameGUI->blobs_)
+//    {
+//        vector<Particles*>* particles = blob->getExteriorRow();
+//        for(Particles* part : *particles)
+//        {
+//            GravityGenerator * graveGen = new GravityGenerator();
+//            registrery->add(part,graveGen);
+//        }
+//        particles = blob->getInteriorRow();
+//        for(Particles* part : *particles)
+//        {
+//            GravityGenerator * graveGen = new GravityGenerator();
+//            registrery->add(part,graveGen);
+//        }
+//        GravityGenerator * graveGen = new GravityGenerator();
+//        registrery->add(blob->getNucleus(),graveGen);
+//    }
+
+
     registrery->updateForces(deltatime);
+    registrery->clear();
 
     for(Blob* blob : ui->gameGUI->blobs_)
     {
@@ -41,13 +63,16 @@ void WindowPart2::UpdateFrame()
         for(Particles* part : *particles)
         {
             part->integrer(deltatime);
+            part->clearAccum();
         }
         particles = blob->getInteriorRow();
         for(Particles* part : *particles)
         {
             part->integrer(deltatime);
+            part->clearAccum();
         }
         blob->getNucleus()->integrer(deltatime);
+        blob->getNucleus()->clearAccum();
     }
 
     // Update the position of the particle

@@ -12,10 +12,13 @@ void ForceRegistrery::add(Particles* particle, GeneInterface* fg)
 
 void ForceRegistrery::clear()
 {
-    for(Registration i: register_)
-    {
-        delete i.forceGen;
-    }
+//    for(Registration i: register_)
+//    {
+//        if(i.forceGen!=nullptr)
+//        {
+//            delete i.forceGen;
+//        }
+//    }
     register_.clear();
 }
 

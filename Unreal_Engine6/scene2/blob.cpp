@@ -42,10 +42,12 @@ void Blob::modelingBlob(int offset){
             if(i>0){
                 spring.part1=exteriorRow_->at((i+j*nbParticlesRow_)-1);
                 spring.part2=exteriorParticle;
+                spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
                 springs_->push_back(spring);
                 if(i==nbParticlesRow_-1){
                     spring.part1=exteriorParticle;
                     spring.part2=exteriorRow_->at(j*nbParticlesRow_);
+                    spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
                     springs_->push_back(spring);
                 }
             }
@@ -71,10 +73,12 @@ void Blob::modelingBlob(int offset){
             if(i>0){
                 spring.part1=interiorRow_->at((i+j*nbParticlesRow_)-1);
                 spring.part2=interiorParticle;
+                spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
                 springs_->push_back(spring);
                 if(i==nbParticlesRow_-1){
                     spring.part1=interiorParticle;
                     spring.part2=interiorRow_->at(j*nbParticlesRow_);
+                    spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
                     springs_->push_back(spring);
                 }
             }
@@ -82,26 +86,30 @@ void Blob::modelingBlob(int offset){
             // Creation of a spring between the new particle and the nucleus
             spring.part1=interiorParticle;
             spring.part2=nucleus_;
+            spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
             springs_->push_back(spring);
 
             // Creation of a spring between the interior and exterior particle
             spring.part1=exteriorRow_->at(i+j*nbParticlesRow_);
             spring.part2=interiorParticle;
+            spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
             springs_->push_back(spring);
 
-            // Creation of a diagonal spring between the interior and exterior particle
-            if(i>0)
-            {
-                spring.part1=exteriorRow_->at(i+j*nbParticlesRow_-1);
-                spring.part2=interiorParticle;
-                springs_->push_back(spring);
-            }
-            else
-            {
-                spring.part1=exteriorRow_->at(19+j*nbParticlesRow_);
-                spring.part2=interiorParticle;
-                springs_->push_back(spring);
-            }
+//            // Creation of a diagonal spring between the interior and exterior particle
+//            if(i>0)
+//            {
+//                spring.part1=exteriorRow_->at(i+j*nbParticlesRow_-1);
+//                spring.part2=interiorParticle;
+//                spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
+//                springs_->push_back(spring);
+//            }
+//            else
+//            {
+//                spring.part1=exteriorRow_->at(19+j*nbParticlesRow_);
+//                spring.part2=interiorParticle;
+//                spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
+//                springs_->push_back(spring);
+//            }
         }
     }
 
@@ -110,14 +118,17 @@ void Blob::modelingBlob(int offset){
         for(int j=0;j<nbRows_-3;j++){
             spring.part1=exteriorRow_->at(i+j*nbParticlesRow_);
             spring.part2=exteriorRow_->at(i+(j+1)*nbParticlesRow_);
+            spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
             springs_->push_back(spring);
 
             spring.part1=interiorRow_->at(i+j*nbParticlesRow_);
             spring.part2=interiorRow_->at(i+(j+1)*nbParticlesRow_);
+            spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
             springs_->push_back(spring);
 
             spring.part1=exteriorRow_->at(i+j*nbParticlesRow_);
             spring.part2=interiorRow_->at(i+(j+1)*nbParticlesRow_);
+            spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
             springs_->push_back(spring);
         }
     }
@@ -125,56 +136,66 @@ void Blob::modelingBlob(int offset){
     //Creation and connection of the unique lower summits
     exteriorParticle=new Particles(0,0,-radius_,(float)radius_/20,1,0,0);
     exteriorRow_->push_back(exteriorParticle);
-    interiorParticle=new Particles(0,0,-radius_*0.7,(float)radius_/20,1,0,0);
-    interiorRow_->push_back(interiorParticle);
+//    interiorParticle=new Particles(0,0,-radius_*0.7,(float)radius_/20,1,0,0);
+//    interiorRow_->push_back(interiorParticle);
 
     spring.part1=exteriorParticle;
-    spring.part2=interiorParticle;
-    springs_->push_back(spring);
-
-    spring.part1=interiorParticle;
+//    spring.part2=interiorParticle;
     spring.part2=nucleus_;
+    spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
     springs_->push_back(spring);
 
-    for(int i=0; i<nbParticlesRow_;i++)
-    {
-        spring.part1=interiorRow_->at(i);
-        spring.part2=interiorParticle;
-        springs_->push_back(spring);
-    }
+//    spring.part1=interiorParticle;
+//    spring.part2=nucleus_;
+//    spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
+//    springs_->push_back(spring);
+
+//    for(int i=0; i<nbParticlesRow_;i++)
+//    {
+//        spring.part1=interiorRow_->at(i);
+//        spring.part2=interiorParticle;
+//        spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
+//        springs_->push_back(spring);
+//    }
 
     for(int i=0; i<nbParticlesRow_;i++)
     {
         spring.part1=exteriorRow_->at(i);
         spring.part2=exteriorParticle;
+        spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
         springs_->push_back(spring);
     }
 
     //Creation and connection of the unique upper summits
     exteriorParticle=new Particles(0,0,radius_,(float)radius_/20,1,0,0);
     exteriorRow_->push_back(exteriorParticle);
-    interiorParticle=new Particles(0,0,radius_*0.7,(float)radius_/20,1,0,0);
-    interiorRow_->push_back(interiorParticle);
+//    interiorParticle=new Particles(0,0,radius_*0.7,(float)radius_/20,1,0,0);
+//    interiorRow_->push_back(interiorParticle);
 
     spring.part1=exteriorParticle;
-    spring.part2=interiorParticle;
-    springs_->push_back(spring);
-
-    spring.part1=interiorParticle;
+    //    spring.part2=interiorParticle;
     spring.part2=nucleus_;
+    spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
     springs_->push_back(spring);
 
-    for(int i=0; i<nbParticlesRow_;i++)
-    {
-        spring.part1=interiorRow_->at(i+nbParticlesRow_*(nbRows_-3));
-        spring.part2=interiorParticle;
-        springs_->push_back(spring);
-    }
+//    spring.part1=interiorParticle;
+//    spring.part2=nucleus_;
+//    spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
+//    springs_->push_back(spring);
+
+//    for(int i=0; i<nbParticlesRow_;i++)
+//    {
+//        spring.part1=interiorRow_->at(i+nbParticlesRow_*(nbRows_-3));
+//        spring.part2=interiorParticle;
+//        spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
+//        springs_->push_back(spring);
+//    }
 
     for(int i=0; i<nbParticlesRow_;i++)
     {
         spring.part1=exteriorRow_->at(i+nbParticlesRow_*(nbRows_-3));
         spring.part2=exteriorParticle;
+        spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
         springs_->push_back(spring);
     }
 

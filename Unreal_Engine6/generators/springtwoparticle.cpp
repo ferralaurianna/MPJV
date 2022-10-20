@@ -14,7 +14,9 @@ SpringTwoParticle::~SpringTwoParticle()
 
 void SpringTwoParticle::updateForce(Particles *particle , float duration)
 {
-    Vector3D difference= (*(particle->getPosition()) - *(_otherPart->getPosition()));
-    Vector3D force = difference.normalize()*((difference.norm()-l0_)*k_);
+    Vector3D difference= (*(_otherPart->getPosition()) - *(particle->getPosition()));
+    float l = difference.norm();
+    cout<<l-l0_<<endl;
+    Vector3D force = difference.normalize()*((l-l0_)*k_);
     particle->addForces(force);
 }

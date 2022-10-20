@@ -53,19 +53,11 @@ void Particles::display()
 // Euler integration linked to the particule
 void Particles::integrer(float duration){
 
-    if(!hasReachedGround)
-    {
         //Update of the current velocity
         (*velocity_)=(*velocity_)*qPow(damping_,duration)+(*accumForce_*inverseMass_)*duration;
 
         //Udpate of the current position
         (*position_)=(*position_)+(*velocity_)*duration;
-
-        //Manage the ground collision in the 0Z plan
-        if(position_->getY()<0){
-            hasReachedGround = true;
-        }
-    }
 }
 
 void Particles::addForces(Vector3D force)
