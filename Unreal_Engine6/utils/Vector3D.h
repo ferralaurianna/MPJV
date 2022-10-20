@@ -58,5 +58,4 @@ public:
 };
 
 
-// Projection de u sur v.
 #endif //VECTOR3D_H
