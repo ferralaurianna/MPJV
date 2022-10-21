@@ -8,7 +8,7 @@ Blob::Blob(float posX,float posY,float posZ,float radius, int nbParticlesRow, in
     position_=new Vector3D(posX,posY,posZ);
     radius_=radius;
 
-    nucleus_= new Particles(0,0,0,(float)radius_/5,1,0,0);
+    nucleus_= new Particles(0,0,0,(float)radius_/5,100,0,0);
     nbParticlesRow_=nbParticlesRow;
     nbRows_=nbRows;
 
@@ -95,21 +95,21 @@ void Blob::modelingBlob(int offset){
             spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
             springs_->push_back(spring);
 
-//            // Creation of a diagonal spring between the interior and exterior particle
-//            if(i>0)
-//            {
-//                spring.part1=exteriorRow_->at(i+j*nbParticlesRow_-1);
-//                spring.part2=interiorParticle;
-//                spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
-//                springs_->push_back(spring);
-//            }
-//            else
-//            {
-//                spring.part1=exteriorRow_->at(19+j*nbParticlesRow_);
-//                spring.part2=interiorParticle;
-//                spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
-//                springs_->push_back(spring);
-//            }
+            // Creation of a diagonal spring between the interior and exterior particle
+            if(i>0)
+            {
+                spring.part1=exteriorRow_->at(i+j*nbParticlesRow_-1);
+                spring.part2=interiorParticle;
+                spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
+                springs_->push_back(spring);
+            }
+            else
+            {
+                spring.part1=exteriorRow_->at(nbParticlesRow_-1+j*nbParticlesRow_);
+                spring.part2=interiorParticle;
+                spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
+                springs_->push_back(spring);
+            }
         }
     }
 
@@ -136,8 +136,8 @@ void Blob::modelingBlob(int offset){
     //Creation and connection of the unique lower summits
     exteriorParticle=new Particles(0,0,-radius_,(float)radius_/20,1,0,0);
     exteriorRow_->push_back(exteriorParticle);
-//    interiorParticle=new Particles(0,0,-radius_*0.7,(float)radius_/20,1,0,0);
-//    interiorRow_->push_back(interiorParticle);
+    interiorParticle=new Particles(0,0,-radius_*0.7,(float)radius_/20,1,0,0);
+    interiorRow_->push_back(interiorParticle);
 
     spring.part1=exteriorParticle;
 //    spring.part2=interiorParticle;
@@ -145,18 +145,18 @@ void Blob::modelingBlob(int offset){
     spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
     springs_->push_back(spring);
 
-//    spring.part1=interiorParticle;
-//    spring.part2=nucleus_;
-//    spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
-//    springs_->push_back(spring);
+    spring.part1=interiorParticle;
+    spring.part2=nucleus_;
+    spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
+    springs_->push_back(spring);
 
-//    for(int i=0; i<nbParticlesRow_;i++)
-//    {
-//        spring.part1=interiorRow_->at(i);
-//        spring.part2=interiorParticle;
-//        spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
-//        springs_->push_back(spring);
-//    }
+    for(int i=0; i<nbParticlesRow_;i++)
+    {
+        spring.part1=interiorRow_->at(i);
+        spring.part2=interiorParticle;
+        spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
+        springs_->push_back(spring);
+    }
 
     for(int i=0; i<nbParticlesRow_;i++)
     {
@@ -169,8 +169,8 @@ void Blob::modelingBlob(int offset){
     //Creation and connection of the unique upper summits
     exteriorParticle=new Particles(0,0,radius_,(float)radius_/20,1,0,0);
     exteriorRow_->push_back(exteriorParticle);
-//    interiorParticle=new Particles(0,0,radius_*0.7,(float)radius_/20,1,0,0);
-//    interiorRow_->push_back(interiorParticle);
+    interiorParticle=new Particles(0,0,radius_*0.7,(float)radius_/20,1,0,0);
+    interiorRow_->push_back(interiorParticle);
 
     spring.part1=exteriorParticle;
     //    spring.part2=interiorParticle;
@@ -178,18 +178,18 @@ void Blob::modelingBlob(int offset){
     spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
     springs_->push_back(spring);
 
-//    spring.part1=interiorParticle;
-//    spring.part2=nucleus_;
-//    spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
-//    springs_->push_back(spring);
+    spring.part1=interiorParticle;
+    spring.part2=nucleus_;
+    spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
+    springs_->push_back(spring);
 
-//    for(int i=0; i<nbParticlesRow_;i++)
-//    {
-//        spring.part1=interiorRow_->at(i+nbParticlesRow_*(nbRows_-3));
-//        spring.part2=interiorParticle;
-//        spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
-//        springs_->push_back(spring);
-//    }
+    for(int i=0; i<nbParticlesRow_;i++)
+    {
+        spring.part1=interiorRow_->at(i+nbParticlesRow_*(nbRows_-3));
+        spring.part2=interiorParticle;
+        spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
+        springs_->push_back(spring);
+    }
 
     for(int i=0; i<nbParticlesRow_;i++)
     {

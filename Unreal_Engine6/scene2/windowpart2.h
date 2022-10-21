@@ -27,6 +27,7 @@ private:
     QTimer *timerStart = new QTimer(this);
     float deltatime = 0;
     ForceRegistrery* registrery = new ForceRegistrery();
+    int switch_ = 0;
 
 protected:
     void keyPressEvent(QKeyEvent * event);

@@ -20,6 +20,14 @@ WindowPart2::~WindowPart2()
 
 void WindowPart2::UpdateFrame()
 {
+    if(switch_<120)
+    {
+        switch_++;
+    }
+    else
+    {
+        switch_=0;
+    }
     timerStart->start(deltatime);
     // Record start time
     auto start = std::chrono::high_resolution_clock::now();
@@ -29,10 +37,10 @@ void WindowPart2::UpdateFrame()
         vector<Blob::Link>* links = blob->getSprings();
         for(Blob::Link link: *links)
         {
-            registrery->add(link.part1,new SpringTwoParticle(link.part2,10,link.l0));
-            registrery->add(link.part2,new SpringTwoParticle(link.part1,10,link.l0));
+            registrery->add(link.part1,new SpringTwoParticle(link.part2,0.05,link.l0));
+            registrery->add(link.part2,new SpringTwoParticle(link.part1,0.05,link.l0));
         }
-        blob->getNucleus()->addForces(Vector3D(0,0,-50));
+        blob->getNucleus()->addForces(Vector3D(-80+160*(switch_<60),0,-80+160*(switch_<60)));
     }
 
 //    for(Blob* blob : ui->gameGUI->blobs_)
