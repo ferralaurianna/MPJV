@@ -1,7 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>WindowPart1</class>
  <widget class="QMainWindow" name="WindowPart1">
   <property name="geometry">
@@ -282,7 +280,7 @@ color: black;</string>
   <customwidget>
    <class>GameGUI</class>
    <extends>QOpenGLWidget</extends>
-   <header>scene1/gamegui.h</header>
+   <header>gamegui.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

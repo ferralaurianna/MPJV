@@ -25,6 +25,7 @@ SOURCES += \
     generators/geneinterface.cpp \
     generators/gravitygenerator.cpp \
     generators/springtwoparticle.cpp \
+    menu/windowmainmenu.cpp \
     utils/forceregistrery.cpp \
     utils\Vector3D.cpp \
     bulletsType\cannonball.cpp \
@@ -48,6 +49,7 @@ HEADERS += \
     generators/geneinterface.h \
     generators/gravitygenerator.h \
     generators/springtwoparticle.h \
+    menu/windowmainmenu.h \
     utils/forceregistrery.h \
     utils\Vector3D.h \
     bulletsType\cannonball.h \
@@ -69,6 +71,7 @@ RESOURCES += \
     ../res/textures.qrc
 
 FORMS += \
+    menu/windowmainmenu.ui \
     scene1\windowpart1.ui \
     scene2\windowpart2.ui
 
