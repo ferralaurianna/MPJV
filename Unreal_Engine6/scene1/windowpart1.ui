@@ -280,7 +280,7 @@ color: black;</string>
   <customwidget>
    <class>GameGUI</class>
    <extends>QOpenGLWidget</extends>
-   <header>gamegui.h</header>
+   <header>scene1/gamegui.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
