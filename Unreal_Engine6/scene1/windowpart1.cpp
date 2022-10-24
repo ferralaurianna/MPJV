@@ -1,4 +1,5 @@
 #include "windowpart1.h"
+#include "menu/windowmainmenu.h"
 #include "ui_windowpart1.h"
 
 WindowPart1::WindowPart1(QWidget *parent) :
@@ -132,6 +133,13 @@ void WindowPart1::keyPressEvent(QKeyEvent * event)
         case Qt::Key_Control:
         {
             ui->gameGUI->switchPartType();
+            break;
+        }
+        case Qt::Key_Escape:
+        {
+            WindowMainMenu *window = new WindowMainMenu();
+            window->show();
+            this->hide();
             break;
         }
 

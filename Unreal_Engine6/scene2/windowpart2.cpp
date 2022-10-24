@@ -1,5 +1,6 @@
 #include "windowpart2.h"
 #include "generators/gravitygenerator.h"
+#include "menu/windowmainmenu.h"
 #include "ui_windowpart2.h"
 
 WindowPart2::WindowPart2(QWidget *parent) :
@@ -157,6 +158,13 @@ void WindowPart2::keyPressEvent(QKeyEvent * event)
         case Qt::Key_Space:
         {
             ui->gameGUI->goUp();
+            break;
+        }
+        case Qt::Key_Escape:
+        {
+            WindowMainMenu *window = new WindowMainMenu();
+            window->show();
+            this->hide();
             break;
         }
 
