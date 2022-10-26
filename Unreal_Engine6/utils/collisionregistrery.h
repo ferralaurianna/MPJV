@@ -2,10 +2,20 @@
 #define COLLISIONREGISTRERY_H
 
 
+#include "utils/particlecontact.h"
 class CollisionRegistrery
 {
 public:
     CollisionRegistrery();
+    ~CollisionRegistrery();
+
+    void add(ParticleContact contact);
+    void clear();
+
+    void handleCollision(float duration);
+
+private:
+    vector<ParticleContact> register_;
 };
 
 #endif // COLLISIONREGISTRERY_H
