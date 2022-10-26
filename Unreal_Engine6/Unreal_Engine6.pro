@@ -36,6 +36,7 @@ SOURCES += \
     bulletsType\laser.cpp \
     main.cpp \
     utils\matrix.cpp \
+    utils\particlecontact.cpp \
     scene1\gun.cpp \
     scene1\ground.cpp \
     utils\particles.cpp \
@@ -61,6 +62,7 @@ HEADERS += \
     scene1\gamegui.h \
     bulletsType\laser.h \
     utils\matrix.h \
+    utils\particlecontact.h \
     scene1\gun.h \
     scene1\ground.h \
     utils\particles.h \
