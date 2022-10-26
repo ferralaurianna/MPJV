@@ -26,6 +26,8 @@ SOURCES += \
     generators/gravitygenerator.cpp \
     generators/springtwoparticle.cpp \
     menu/windowmainmenu.cpp \
+    utils/collisiondetector.cpp \
+    utils/collisionregistrery.cpp \
     utils/forceregistrery.cpp \
     utils\Vector3D.cpp \
     bulletsType\cannonball.cpp \
@@ -50,6 +52,8 @@ HEADERS += \
     generators/gravitygenerator.h \
     generators/springtwoparticle.h \
     menu/windowmainmenu.h \
+    utils/collisiondetector.h \
+    utils/collisionregistrery.h \
     utils/forceregistrery.h \
     utils\Vector3D.h \
     bulletsType\cannonball.h \

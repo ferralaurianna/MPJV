@@ -8,23 +8,18 @@
 class ForceRegistrery
 {
 
-    struct Registration
-    {
-        Particles * particle;
-        GeneInterface *forceGen;
-    };
 
 public:
     ForceRegistrery();
     ~ForceRegistrery();
 
-    void add(Particles* particle, GeneInterface* fg);
+    void add(ParticleContact* contact);
     void clear();
 
-    void updateForces(float duration);
+    void updateContact();
 
 private:
-    vector<Registration> register_;
+    vector<ParticleContact> register_;
 };
 
 #endif // FORCEREGISTRERY_H
