@@ -51,7 +51,7 @@ void ParticleContact::resolveInterpenetration(){
     *newPosition2 = _normal * (-mass1/(mass1+mass2) * _penetration) + *newPosition2;
 }
 
-void ParticleContact::resolve(float duration){
+void ParticleContact::resolve(){
     this->resolveInterpenetration();
     this->resolveVelocity();
 }

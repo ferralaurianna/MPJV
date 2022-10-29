@@ -34,7 +34,7 @@ public:
 
     //Methodes
 
-    void resolve(float duration);
+    void resolve();
 
     float calculateSeparationVelocity();
 
