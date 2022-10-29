@@ -1,10 +1,5 @@
 #include "particlecontact.h"
 
-ParticleContact::ParticleContact()
-{
-
-}
-
 ParticleContact::ParticleContact(Particles *p1, Vector3D normal, float restitution){
     _particles[0] = p1;
     _particles[1] = nullptr;
@@ -19,6 +14,10 @@ ParticleContact::ParticleContact(Particles *p1, Particles *p2, float restitution
 
     Vector3D distance = (*p1->getPosition() - *p2->getPosition());
     _normal = distance.normalize();
+    _penetration = (_particles[0]->getRadius() + _particles[1]->getRadius() - distance.norm()) / 2;
+    if (_penetration < 0){
+        _penetration = 0;
+    }
 }
 
 
@@ -31,30 +30,25 @@ float ParticleContact::calculateSeparationVelocity(){
 void ParticleContact::resolveVelocity(){
     Vector3D vrel = *_particles[0]->getInitialVelocity() - *_particles[1]->getInitialVelocity();
     float k = ((_restitution + 1)*(vrel.scalarProduct(_normal)))/(_particles[0]->getInverseMass()+ _particles[1]->getInverseMass());
-    Vector3D newVelocity1 = Vector3D(*_particles[0]->getInitialVelocity());
-    newVelocity1 = newVelocity1 - _normal * (k*_particles[0]->getInverseMass());
-    _particles[0]->setVelocity(&newVelocity1);
-    Vector3D newVelocity2 = Vector3D(*_particles[1]->getInitialVelocity());
-    newVelocity2 = newVelocity2 - _normal * (k*_particles[1]->getInverseMass());
-    _particles[1]->setVelocity(&newVelocity2);
+    Vector3D *newVelocity1 = _particles[0]->getInitialVelocity();
+    *newVelocity1 = *newVelocity1 - _normal * (k*_particles[0]->getInverseMass());
+    Vector3D *newVelocity2 = _particles[1]->getInitialVelocity();
+    *newVelocity2 = *newVelocity2 - _normal * (k*_particles[1]->getInverseMass());
 }
 
 void ParticleContact::resolveInterpenetration(){
     if(_particles[1] == nullptr){
-        Vector3D newPosition = *_particles[0]->getPosition();
-        newPosition = _normal * _penetration + newPosition;
-        _particles[0]->setPosition(&newPosition);
+        Vector3D *newPosition = _particles[0]->getPosition();
+        *newPosition = _normal * _penetration + *newPosition;
         return;
     }
     float mass1 = 1/_particles[0]->getInverseMass();
     float mass2 = 1/_particles[1]->getInverseMass();
-    Vector3D newPosition1 = *_particles[0]->getPosition();
-    newPosition1 = _normal * (mass2/(mass1+mass2) * _penetration) + newPosition1;
-    _particles[0]->setPosition(&newPosition1);
+    Vector3D *newPosition1 = _particles[0]->getPosition();
+    *newPosition1 = _normal * (mass2/(mass1+mass2) * _penetration) + *newPosition1;
 
-    Vector3D newPosition2 = *_particles[1]->getPosition();
-    newPosition1 = _normal * (-mass1/(mass1+mass2) * _penetration) + newPosition1;
-    _particles[1]->setPosition(&newPosition2);
+    Vector3D *newPosition2 = _particles[1]->getPosition();
+    *newPosition2 = _normal * (-mass1/(mass1+mass2) * _penetration) + *newPosition2;
 }
 
 void ParticleContact::resolve(float duration){

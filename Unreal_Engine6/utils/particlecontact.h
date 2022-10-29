@@ -24,13 +24,13 @@ private:
     void resolveInterpenetration();
 
 public:
-    ParticleContact();
+    ParticleContact(){};
 
     ParticleContact(Particles *p1, Vector3D normal, float restitution);
 
     ParticleContact(Particles *p1, Particles *p2, float restitution);
 
-    ~ParticleContact();
+    ~ParticleContact() {};
 
     //Methodes
 

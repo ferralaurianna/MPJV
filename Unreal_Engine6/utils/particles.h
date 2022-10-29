@@ -27,7 +27,7 @@ public:
     //Getters/setters
     float getInverseMass(){return inverseMass_;};
     void setInverseMass(float inverseMass){inverseMass_=inverseMass;};
-
+    float getRadius(){return radius_;};
     Vector3D* getInitialVelocity(){return velocity_;};
     void setVelocity(Vector3D *initialVelocity){velocity_=initialVelocity;};
 
