@@ -26,6 +26,9 @@ SOURCES += \
     generators/gravitygenerator.cpp \
     generators/springtwoparticle.cpp \
     menu/windowmainmenu.cpp \
+    scene2/Assets/Plateforme.cpp \
+    scene2/Assets/coin.cpp \
+    scene2/Assets/spike.cpp \
     utils/forceregistrery.cpp \
     utils\Vector3D.cpp \
     bulletsType\cannonball.cpp \
@@ -50,6 +53,9 @@ HEADERS += \
     generators/gravitygenerator.h \
     generators/springtwoparticle.h \
     menu/windowmainmenu.h \
+    scene2/Assets/Plateforme.h \
+    scene2/Assets/coin.h \
+    scene2/Assets/spike.h \
     utils/forceregistrery.h \
     utils\Vector3D.h \
     bulletsType\cannonball.h \

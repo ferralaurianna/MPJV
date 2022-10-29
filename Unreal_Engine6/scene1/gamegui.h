@@ -11,7 +11,7 @@
 #include "bulletsType\fireball.h"
 #include "gun.h"
 #include <vector>
-#include "scene1/ground.h"
+#include "scene1\ground.h"
 
 class GameGUI:public QOpenGLWidget
 {
