@@ -30,9 +30,9 @@ void GameGUI2::initializeGL()
     Piece1 = new Coin(20,4,-40,0,0);
     Pique1 = new Spike(20,90,0,0);
 
-    posAssets_.insert(posAssets_.end(), Pdepart->Pos.begin(), Pdepart->Pos.end());
-    posAssets_.insert(posAssets_.end(), Piece1->Pos.begin(), Piece1->Pos.end());
-    posAssets_.insert(posAssets_.end(), Pique1->Pos.begin(), Pique1->Pos.end());
+    polygonestot_.insert(polygonestot_.end(), Pdepart->polygones.begin(), Pdepart->polygones.end());
+    polygonestot_.insert(polygonestot_.end(), Piece1->polygones.begin(), Piece1->polygones.end());
+    polygonestot_.insert(polygonestot_.end(), Pique1->polygones.begin(), Pique1->polygones.end());
 
     // Background color
     background=QColor(0,0,0,1);

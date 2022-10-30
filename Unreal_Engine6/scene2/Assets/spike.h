@@ -2,10 +2,10 @@
 #define SPIKE_H
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <vector>
+#include "asset.h"
 
 
-class Spike
+class Spike : public Asset
 {
 public:
     Spike();
@@ -16,8 +16,6 @@ public:
     // Methode d'affichage
     void Display() const;
 
-    // vector position
-    std::vector<float> Pos;
 private:
     float side;
     float posx, posy, posz;
