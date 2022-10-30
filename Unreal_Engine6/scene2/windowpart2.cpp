@@ -11,7 +11,6 @@ WindowPart2::WindowPart2(QWidget *parent) :
     connect(this->timerStart, &QTimer::timeout, this, &WindowPart2::UpdateFrame);
     timerStart->setSingleShot(true);
     timerStart->start(100/60);
-    detector_ = CollisionDetector(registeryCol_,sceneWalls_,partWalls_);
 }
 
 WindowPart2::~WindowPart2()
@@ -89,25 +88,38 @@ void WindowPart2::UpdateFrame()
         blob->getNucleus()->clearAccum();
     }
 
-    //Find the collissions
+    //Find the collissions with the scene
     for(Blob* blob : ui->gameGUI->blobs_)
     {
         vector<Particles*>* particles = blob->getExteriorRow();
         for(Particles* part : *particles)
         {
-            detector_.detectCollision(part);
-            partWalls_->clear();
+            detectorScene_.detectCollision(part);
         }
         particles = blob->getInteriorRow();
         for(Particles* part : *particles)
         {
-            detector_.detectCollision(part);
-            partWalls_->clear();
+            detectorScene_.detectCollision(part);
         }
-        detector_.detectCollision(blob->getNucleus());
-        partWalls_->clear();
+        detectorScene_.detectCollision(blob->getNucleus());
     }
 
+    //Find the collissions with the cables
+    for(Blob* blob : ui->gameGUI->blobs_)
+    {
+        vector<Blob::Link>* cables = blob->getCables();
+        for(Blob::Link cable: *cables)
+        {
+            Vector3D p1p2 = (*(cable.part2->getPosition())-*(cable.part1->getPosition()));
+            if(p1p2.norm()>cable.l0)
+            {
+                registeryCol_->add(ParticleContact(cable.part1,p1p2.normalize(),1));
+                registeryCol_->add(ParticleContact(cable.part2,-p1p2.normalize(),1));
+            }
+        }
+    }
+
+    //solveCollisions
     registeryCol_->handleCollision();
     registeryCol_->clear();
 

@@ -36,7 +36,9 @@ private:
 
     vector<vector<Polygone>>* partWalls_ = new vector<vector<Polygone>>();
 
-    CollisionDetector detector_;
+    CollisionDetector detectorScene_ = CollisionDetector(registeryCol_,sceneWalls_);
+
+    CollisionDetector detectorPart_ = CollisionDetector(registeryCol_,partWalls_);
 
 protected:
     void keyPressEvent(QKeyEvent * event);

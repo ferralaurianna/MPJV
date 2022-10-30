@@ -1,10 +1,9 @@
 #include "collisiondetector.h"
 
-CollisionDetector::CollisionDetector(CollisionRegistrery* registery, vector<vector<Polygon>>* sceneWalls, vector<vector<Polygon>>* partWalls)
+CollisionDetector::CollisionDetector(CollisionRegistrery* registery, vector<vector<Polygone>>* walls)
 {
     registery_ = registery;
-    sceneWalls_ = sceneWalls;
-    partWalls_ = partWalls;
+    walls_ = walls;
 }
 
 void CollisionDetector::detectCollision(Particles* part)
@@ -14,30 +13,9 @@ void CollisionDetector::detectCollision(Particles* part)
     float contactFront = 0;
     float contactBack = 0;
     Vector3D normalSurf;
-    for(vector<Polygon> wall : *sceneWalls_)
+    for(vector<Polygone> wall : *walls_)
     {
-        for(Polygon p : wall)
-        {
-            int result = rayRectangleIntersect(position,normed,p.s0,p.s1,p.s2,p.s3);
-            if(result == 1)
-            {
-                contactFront++;
-            }
-            else if(result == -1)
-            {
-                contactBack++;
-                normalSurf=((p.s1-p.s0)^(p.s2-p.s0)).normalize();
-            }
-        }
-        if(contactBack == 1 && contactFront ==1)
-        {
-            ParticleContact contact = ParticleContact(part,normalSurf,1);
-            registery_->add(contact);
-        }
-    }
-    for(vector<Polygon> wall : *partWalls_)
-    {
-        for(Polygon p : wall)
+        for(Polygone p : wall)
         {
             int result = rayRectangleIntersect(position,normed,p.s0,p.s1,p.s2,p.s3);
             if(result == 1)
