@@ -11,6 +11,7 @@ WindowPart2::WindowPart2(QWidget *parent) :
     connect(this->timerStart, &QTimer::timeout, this, &WindowPart2::UpdateFrame);
     timerStart->setSingleShot(true);
     timerStart->start(100/60);
+    sceneWalls_ = ui->gameGUI->getVolumes();
 }
 
 WindowPart2::~WindowPart2()
@@ -18,7 +19,6 @@ WindowPart2::~WindowPart2()
     delete ui;
     delete registrery;
     delete registeryCol_;
-    delete partWalls_;
     delete sceneWalls_;
 }
 
@@ -113,8 +113,7 @@ void WindowPart2::UpdateFrame()
             Vector3D p1p2 = (*(cable.part2->getPosition())-*(cable.part1->getPosition()));
             if(p1p2.norm()>cable.l0)
             {
-                registeryCol_->add(ParticleContact(cable.part1,p1p2.normalize(),1));
-                registeryCol_->add(ParticleContact(cable.part2,-p1p2.normalize(),1));
+                registeryCol_->add(ParticleContact(cable.part1,cable.part2,1));
             }
         }
     }

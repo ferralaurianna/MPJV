@@ -18,7 +18,9 @@ Blob::Blob(float posX,float posY,float posZ,float radius, int nbParticlesRow, in
 
 void Blob::modelingBlob(int offset){
     springs_=new vector<Link>();
+    cables_=new vector<Link>();
     Link spring;
+    Link cable;
 
     Particles* exteriorParticle;
     float intervalRows=2*radius_/(float(nbRows_-1));
@@ -88,6 +90,10 @@ void Blob::modelingBlob(int offset){
             spring.part2=nucleus_;
             spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
             springs_->push_back(spring);
+            cable.part1=interiorParticle;
+            cable.part2=nucleus_;
+            cable.l0= 1.4*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
+            cables_->push_back(cable);
 
             // Creation of a spring between the interior and exterior particle
             spring.part1=exteriorRow_->at(i+j*nbParticlesRow_);
@@ -140,8 +146,8 @@ void Blob::modelingBlob(int offset){
     interiorRow_->push_back(interiorParticle);
 
     spring.part1=exteriorParticle;
-//    spring.part2=interiorParticle;
-    spring.part2=nucleus_;
+    spring.part2=interiorParticle;
+//    spring.part2=nucleus_;
     spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
     springs_->push_back(spring);
 
@@ -156,6 +162,11 @@ void Blob::modelingBlob(int offset){
         spring.part2=interiorParticle;
         spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
         springs_->push_back(spring);
+
+        cable.part1=interiorRow_->at(i);
+        cable.part2=interiorParticle;
+        cable.l0= 1.3*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
+        cables_->push_back(cable);
     }
 
     for(int i=0; i<nbParticlesRow_;i++)
@@ -164,6 +175,11 @@ void Blob::modelingBlob(int offset){
         spring.part2=exteriorParticle;
         spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
         springs_->push_back(spring);
+
+        cable.part1=exteriorRow_->at(i);
+        cable.part2=exteriorParticle;
+        cable.l0= 1.3*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
+        cables_->push_back(cable);
     }
 
     //Creation and connection of the unique upper summits
@@ -173,8 +189,8 @@ void Blob::modelingBlob(int offset){
     interiorRow_->push_back(interiorParticle);
 
     spring.part1=exteriorParticle;
-    //    spring.part2=interiorParticle;
-    spring.part2=nucleus_;
+    spring.part2=interiorParticle;
+//    spring.part2=nucleus_;
     spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
     springs_->push_back(spring);
 
@@ -189,6 +205,11 @@ void Blob::modelingBlob(int offset){
         spring.part2=interiorParticle;
         spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
         springs_->push_back(spring);
+
+        cable.part1=interiorRow_->at(i);
+        cable.part2=interiorParticle;
+        cable.l0= 1.3*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
+        cables_->push_back(cable);
     }
 
     for(int i=0; i<nbParticlesRow_;i++)
@@ -197,6 +218,11 @@ void Blob::modelingBlob(int offset){
         spring.part2=exteriorParticle;
         spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
         springs_->push_back(spring);
+
+        cable.part1=exteriorRow_->at(i);
+        cable.part2=exteriorParticle;
+        cable.l0= 1.3*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
+        cables_->push_back(cable);
     }
 
 }

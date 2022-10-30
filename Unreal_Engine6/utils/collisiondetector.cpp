@@ -1,6 +1,6 @@
 #include "collisiondetector.h"
 
-CollisionDetector::CollisionDetector(CollisionRegistrery* registery, vector<vector<Polygone>>* walls)
+CollisionDetector::CollisionDetector(CollisionRegistrery* registery, vector<vector<Polygone> *> *walls)
 {
     registery_ = registery;
     walls_ = walls;
@@ -13,9 +13,9 @@ void CollisionDetector::detectCollision(Particles* part)
     float contactFront = 0;
     float contactBack = 0;
     Vector3D normalSurf;
-    for(vector<Polygone> wall : *walls_)
+    for(vector<Polygone> *wall : *walls_)
     {
-        for(Polygone p : wall)
+        for(Polygone p : *wall)
         {
             int result = rayRectangleIntersect(position,normed,p.s0,p.s1,p.s2,p.s3);
             if(result == 1)

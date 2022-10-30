@@ -38,19 +38,12 @@ Coin::Coin(float _radius, float _height, float _posx, float _posy, float _posz)
    //8th vertex
    Vector3D Botrightback = Vector3D(posx - radius, posy - radius,posz - height/2);
 
-   Vector3D NormeTop = Vector3D(0,1,0);
-   Vector3D NormeBot = Vector3D(0,-1,0);
-   Vector3D NormeRight = Vector3D(-1,0,0);
-   Vector3D NormeLeft = Vector3D(1,0,0);
-   Vector3D NormeFront = Vector3D(0,0,-1);
-   Vector3D NormeBack = Vector3D(0,0,1);
-
-   Polygone Topface = Polygone(Topleftback, Topleftfront, Toprightfront, Toprightback, NormeTop);
-   Polygone Botface = Polygone(Botleftback, Botleftfront, Botrightfront, Botrightback, NormeBot);
-   Polygone Rightface = Polygone(Toprightback, Toprightfront, Botrightfront, Botrightback, NormeRight);
-   Polygone Leftface = Polygone(Topleftback, Topleftfront, Botleftfront, Botleftback, NormeLeft);
-   Polygone Frontface = Polygone(Topleftfront, Toprightfront, Botrightfront, Botleftfront, NormeFront);
-   Polygone Backface = Polygone(Topleftback, Toprightback, Botrightback, Botleftback, NormeBack);
+   Polygone Topface = Polygone(Topleftback, Topleftfront, Toprightfront, Toprightback);
+   Polygone Botface = Polygone(Botleftback, Botleftfront, Botrightfront, Botrightback);
+   Polygone Rightface = Polygone(Toprightback, Toprightfront, Botrightfront, Botrightback);
+   Polygone Leftface = Polygone(Topleftback, Topleftfront, Botleftfront, Botleftback);
+   Polygone Frontface = Polygone(Topleftfront, Toprightfront, Botrightfront, Botleftfront);
+   Polygone Backface = Polygone(Topleftback, Toprightback, Botrightback, Botleftback);
 
    polygones.push_back(Topface);
    polygones.push_back(Botface);

@@ -32,13 +32,9 @@ private:
 
     CollisionRegistrery* registeryCol_ = new CollisionRegistrery();
 
-    vector<vector<Polygone>>* sceneWalls_ = new vector<vector<Polygone>>();
-
-    vector<vector<Polygone>>* partWalls_ = new vector<vector<Polygone>>();
+    vector<vector<Polygone>*>* sceneWalls_ = new vector<vector<Polygone>*>();
 
     CollisionDetector detectorScene_ = CollisionDetector(registeryCol_,sceneWalls_);
-
-    CollisionDetector detectorPart_ = CollisionDetector(registeryCol_,partWalls_);
 
 protected:
     void keyPressEvent(QKeyEvent * event);

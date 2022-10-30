@@ -19,6 +19,9 @@ GameGUI2::~GameGUI2()
     {
         delete blob;
     }
+    delete Pdepart;
+    delete Piece1;
+    delete Pique1;
 }
 
 
@@ -30,9 +33,9 @@ void GameGUI2::initializeGL()
     Piece1 = new Coin(20,4,-40,0,0);
     Pique1 = new Spike(20,90,0,0);
 
-    polygonestot_.insert(polygonestot_.end(), Pdepart->polygones.begin(), Pdepart->polygones.end());
-    polygonestot_.insert(polygonestot_.end(), Piece1->polygones.begin(), Piece1->polygones.end());
-    polygonestot_.insert(polygonestot_.end(), Pique1->polygones.begin(), Pique1->polygones.end());
+    volumes.push_back(Pdepart->getPolygones());
+    volumes.push_back(Piece1->getPolygones());
+    volumes.push_back(Pique1->getPolygones());
 
     // Background color
     background=QColor(0,0,0,1);

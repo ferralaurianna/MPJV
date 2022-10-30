@@ -36,11 +36,6 @@ public:
      */
     vector<Blob*> blobs_;
 
-    /**
-     * @brief particles
-     * A list of polygones present in the scene.
-     */
-    vector<Polygone> polygonestot_;
 
     /**
      * @brief forwardCamera
@@ -83,7 +78,9 @@ public:
      */
     void goDown();
 
-    int getScore(){return score;}
+    int getScore(){return score;};
+
+    vector<vector<Polygone>*>* getVolumes(){return &volumes;};
 
 
 protected:
@@ -162,6 +159,12 @@ private:
     Plateforme* Pdepart = nullptr;
     Coin* Piece1 = nullptr;
     Spike* Pique1 = nullptr;
+
+    /**
+     * @brief particles
+     * A list of volumes present in the scene.
+     */
+    vector<vector<Polygone>*> volumes = vector<vector<Polygone>*>();
 
 
 

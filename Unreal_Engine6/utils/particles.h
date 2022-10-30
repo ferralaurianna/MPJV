@@ -47,8 +47,8 @@ protected:
     Vector3D *accumForce_ = new Vector3D(0,0,0);
 
     //Add here a position handmade vector
-    Vector3D *position_;
-    Vector3D *velocity_;
+    Vector3D *position_ = new Vector3D(0,0,0);
+    Vector3D *velocity_ = new Vector3D(0,0,0);
 
     float inverseMass_;
 
