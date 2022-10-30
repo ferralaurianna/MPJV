@@ -6,9 +6,12 @@
 class CollisionDetector
 {
 public:
-    CollisionDetector();
+    CollisionDetector(CollisionRegistrery* registery);
 
-    void detectCollision(Particles* part, vector<float[8]> walls, CollisionRegistrery* registery);
+    void detectCollision(Particles* part, vector<float[8]> walls);
+
+private:
+    CollisionRegistrery* registery_;
 };
 
 #endif // COLLISIONDETECTOR_H

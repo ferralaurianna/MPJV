@@ -12,7 +12,7 @@ public:
     void add(ParticleContact contact);
     void clear();
 
-    void handleCollision(float duration);
+    void handleCollision();
 
 private:
     vector<ParticleContact> register_;

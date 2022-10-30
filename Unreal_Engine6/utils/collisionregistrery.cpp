@@ -22,11 +22,11 @@ void CollisionRegistrery::clear()
     register_.clear();
 }
 
-void CollisionRegistrery::handleCollision(float duration)
+void CollisionRegistrery::handleCollision()
 {
     for(ParticleContact i: register_)
     {
-        i.resolve(duration);
+        i.resolve();
     }
 }
 
