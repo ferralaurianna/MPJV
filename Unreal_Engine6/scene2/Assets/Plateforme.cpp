@@ -14,44 +14,49 @@ Plateforme::Plateforme(float _width, float _length, float _height, float _posx, 
     posz = _posz;
 
     //1st vertex
-    Pos.push_back(posx + widthx/2);
-    Pos.push_back(posy + heighty/2);
-    Pos.push_back(posz + lengthz/2);
+    Vector3D Topleftback = Vector3D(posx + widthx/2, posy + heighty/2,posz + lengthz/2);
 
     //2nd vertex
-    Pos.push_back(posx + widthx/2);
-    Pos.push_back(posy + heighty/2);
-    Pos.push_back(posz - lengthz/2);
+    Vector3D Topleftfront = Vector3D(posx + widthx/2, posy + heighty/2,posz - lengthz/2);
 
     //3rd vertex
-    Pos.push_back(posx - widthx/2);
-    Pos.push_back(posy + heighty/2);
-    Pos.push_back(posz - lengthz/2);
+    Vector3D Toprightfront = Vector3D(posx - widthx/2, posy + heighty/2,posz - lengthz/2);
 
     //4th vertex
-    Pos.push_back(posx - widthx/2);
-    Pos.push_back(posy + heighty/2);
-    Pos.push_back(posz + lengthz/2);
+    Vector3D Toprightback = Vector3D(posx - widthx/2, posy + heighty/2,posz + lengthz/2);
 
     //5th vertex
-    Pos.push_back(posx + widthx/2);
-    Pos.push_back(posy - heighty/2);
-    Pos.push_back(posz + lengthz/2);
+    Vector3D Botleftback = Vector3D(posx + widthx/2, posy - heighty/2,posz + lengthz/2);
 
     //6th vertex
-    Pos.push_back(posx + widthx/2);
-    Pos.push_back(posy - heighty/2);
-    Pos.push_back(posz - lengthz/2);
+    Vector3D Botleftfront = Vector3D(posx + widthx/2, posy - heighty/2,posz - lengthz/2);
 
     //7th vertex
-    Pos.push_back(posx - widthx/2);
-    Pos.push_back(posy - heighty/2);
-    Pos.push_back(posz - lengthz/2);
+    Vector3D Botrightfront = Vector3D(posx - widthx/2, posy - heighty/2,posz - lengthz/2);
 
     //8th vertex
-    Pos.push_back(posx - widthx/2);
-    Pos.push_back(posy + heighty/2);
-    Pos.push_back(posz + lengthz/2);
+    Vector3D Botrightback = Vector3D(posx - widthx/2, posy - heighty/2,posz + lengthz/2);
+
+    Vector3D NormeTop = Vector3D(0,1,0);
+    Vector3D NormeBot = Vector3D(0,-1,0);
+    Vector3D NormeRight = Vector3D(-1,0,0);
+    Vector3D NormeLeft = Vector3D(1,0,0);
+    Vector3D NormeFront = Vector3D(0,0,-1);
+    Vector3D NormeBack = Vector3D(0,0,1);
+
+    Polygone Topface = Polygone(Topleftback, Topleftfront, Toprightfront, Toprightback, NormeTop);
+    Polygone Botface = Polygone(Botleftback, Botleftfront, Botrightfront, Botrightback, NormeBot);
+    Polygone Rightface = Polygone(Toprightback, Toprightfront, Botrightfront, Botrightback, NormeRight);
+    Polygone Leftface = Polygone(Topleftback, Topleftfront, Botleftfront, Botleftback, NormeLeft);
+    Polygone Frontface = Polygone(Topleftfront, Toprightfront, Botrightfront, Botleftfront, NormeFront);
+    Polygone Backface = Polygone(Topleftback, Toprightback, Botrightback, Botleftback, NormeBack);
+
+    polygones.push_back(Topface);
+    polygones.push_back(Botface);
+    polygones.push_back(Rightface);
+    polygones.push_back(Leftface);
+    polygones.push_back(Frontface);
+    polygones.push_back(Backface);
 }
 
 Plateforme::~Plateforme()

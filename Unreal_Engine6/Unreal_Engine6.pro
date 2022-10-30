@@ -27,6 +27,7 @@ SOURCES += \
     generators/springtwoparticle.cpp \
     menu/windowmainmenu.cpp \
     scene2/Assets/Plateforme.cpp \
+    scene2/Assets/asset.cpp \
     scene2/Assets/coin.cpp \
     scene2/Assets/spike.cpp \
     utils/collisiondetector.cpp \
@@ -57,6 +58,7 @@ HEADERS += \
     generators/springtwoparticle.h \
     menu/windowmainmenu.h \
     scene2/Assets/Plateforme.h \
+    scene2/Assets/asset.h \
     scene2/Assets/coin.h \
     scene2/Assets/spike.h \
     utils/Polygon.h \

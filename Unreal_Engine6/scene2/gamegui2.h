@@ -11,6 +11,7 @@
 #include <QtMath>
 #include <QGenericMatrix>
 #include <GL/glu.h>
+#include "Assets/asset.h"
 #include "Assets/coin.h"
 #include "Assets/spike.h"
 #include "Assets/Plateforme.h"
@@ -37,9 +38,9 @@ public:
 
     /**
      * @brief particles
-     * A list of pointers to the particles present in the scene.
+     * A list of polygones present in the scene.
      */
-    vector<float> posAssets_;
+    vector<Polygone> polygonestot_;
 
     /**
      * @brief forwardCamera

@@ -3,9 +3,9 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <vector>
+#include "asset.h"
 
-
-class Plateforme
+class Plateforme : public Asset
 {
 public:
     Plateforme();
@@ -18,9 +18,6 @@ public:
 
     // Methode d'affichage
     void Display() const;
-
-    // vector position
-    std::vector<float> Pos;
 
 private:
     float widthx, lengthz, heighty;

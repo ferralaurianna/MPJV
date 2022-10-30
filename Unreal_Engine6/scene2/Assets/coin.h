@@ -3,9 +3,10 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <vector>
+#include "asset.h"
 
 
-class Coin
+class Coin : public Asset
 {
 public:
     Coin();
@@ -16,9 +17,6 @@ public:
 
     // Methode d'affichage
     void Display() const;
-
-    // vector position
-    std::vector<float> Pos;
 
 private :
     GLUquadric* quad;
