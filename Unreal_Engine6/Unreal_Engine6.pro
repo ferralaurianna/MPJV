@@ -59,6 +59,7 @@ HEADERS += \
     scene2/Assets/Plateforme.h \
     scene2/Assets/coin.h \
     scene2/Assets/spike.h \
+    utils/Polygon.h \
     utils/collisiondetector.h \
     utils/collisionregistrery.h \
     utils/forceregistrery.h \

@@ -3,15 +3,25 @@
 
 
 #include "utils/collisionregistrery.h"
+#include "utils/Polygon.h"
 class CollisionDetector
 {
 public:
-    CollisionDetector(CollisionRegistrery* registery);
 
-    void detectCollision(Particles* part, vector<float[8]> walls);
+    CollisionDetector(CollisionRegistrery* registery, vector<vector<Polygone>>* sceneWalls, vector<vector<Polygone>>* partWalls);
+
+    void detectCollision(Particles* part);
 
 private:
     CollisionRegistrery* registery_;
+
+    vector<vector<Polygone>>* sceneWalls_;
+
+    vector<vector<Polygone>>* partWalls_;
+
+    int rayRectangleIntersect(Vector3D orig, Vector3D dir,Vector3D v0, Vector3D v1, Vector3D v2, Vector3D v3);
+
+    int rayTriangleIntersect(Vector3D orig, Vector3D dir,Vector3D v0, Vector3D v1, Vector3D v2);
 };
 
 #endif // COLLISIONDETECTOR_H

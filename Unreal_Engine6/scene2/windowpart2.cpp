@@ -11,12 +11,16 @@ WindowPart2::WindowPart2(QWidget *parent) :
     connect(this->timerStart, &QTimer::timeout, this, &WindowPart2::UpdateFrame);
     timerStart->setSingleShot(true);
     timerStart->start(100/60);
+    detector_ = CollisionDetector(registeryCol_,sceneWalls_,partWalls_);
 }
 
 WindowPart2::~WindowPart2()
 {
     delete ui;
     delete registrery;
+    delete registeryCol_;
+    delete partWalls_;
+    delete sceneWalls_;
 }
 
 void WindowPart2::UpdateFrame()
@@ -66,6 +70,7 @@ void WindowPart2::UpdateFrame()
     registrery->updateForces(deltatime);
     registrery->clear();
 
+    // Update the position of the particles
     for(Blob* blob : ui->gameGUI->blobs_)
     {
         vector<Particles*>* particles = blob->getExteriorRow();
@@ -84,7 +89,28 @@ void WindowPart2::UpdateFrame()
         blob->getNucleus()->clearAccum();
     }
 
-    // Update the position of the particle
+    //Find the collissions
+    for(Blob* blob : ui->gameGUI->blobs_)
+    {
+        vector<Particles*>* particles = blob->getExteriorRow();
+        for(Particles* part : *particles)
+        {
+            detector_.detectCollision(part);
+            partWalls_->clear();
+        }
+        particles = blob->getInteriorRow();
+        for(Particles* part : *particles)
+        {
+            detector_.detectCollision(part);
+            partWalls_->clear();
+        }
+        detector_.detectCollision(blob->getNucleus());
+        partWalls_->clear();
+    }
+
+    registeryCol_->handleCollision();
+    registeryCol_->clear();
+
     ui->gameGUI->update();
     ui->gameGUI->setFocus();
 
