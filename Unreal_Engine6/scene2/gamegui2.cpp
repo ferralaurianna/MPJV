@@ -25,6 +25,15 @@ GameGUI2::~GameGUI2()
 // Initialize OpenGL parameters before the first rendering
 void GameGUI2::initializeGL()
 {
+
+    Pdepart = new Plateforme(70,150,10,0,-30,0);
+    Piece1 = new Coin(20,4,-40,0,0);
+    Pique1 = new Spike(20,90,0,0);
+
+    posAssets_.insert(posAssets_.end(), Pdepart->Pos.begin(), Pdepart->Pos.end());
+    posAssets_.insert(posAssets_.end(), Piece1->Pos.begin(), Piece1->Pos.end());
+    posAssets_.insert(posAssets_.end(), Pique1->Pos.begin(), Pique1->Pos.end());
+
     // Background color
     background=QColor(0,0,0,1);
     glClearColor(background.redF(),background.greenF(),background.blueF(),background.alphaF());
@@ -98,6 +107,11 @@ void GameGUI2::paintGL()
         blob->display();
     }
     //scene->slideSky();
+
+    //Test
+    Pdepart->Display();
+    Piece1->Display();
+    Pique1->Display();
 }
 
 

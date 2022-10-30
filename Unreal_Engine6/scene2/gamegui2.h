@@ -11,6 +11,9 @@
 #include <QtMath>
 #include <QGenericMatrix>
 #include <GL/glu.h>
+#include "Assets/coin.h"
+#include "Assets/spike.h"
+#include "Assets/Plateforme.h"
 
 class GameGUI2:public QOpenGLWidget
 {
@@ -31,6 +34,12 @@ public:
      * A list of pointers to the particles present in the scene.
      */
     vector<Blob*> blobs_;
+
+    /**
+     * @brief particles
+     * A list of pointers to the particles present in the scene.
+     */
+    vector<float> posAssets_;
 
     /**
      * @brief forwardCamera
@@ -147,6 +156,13 @@ private:
      */
     GLfloat light_tab[4]={1.0,1.0,1.0,1.0};
     GLfloat light_tab_pos[4]= {0.0,0.0,1.0,0.0};
+
+
+    Plateforme* Pdepart = nullptr;
+    Coin* Piece1 = nullptr;
+    Spike* Pique1 = nullptr;
+
+
 
 };
 
