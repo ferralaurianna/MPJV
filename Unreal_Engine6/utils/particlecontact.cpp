@@ -28,12 +28,20 @@ float ParticleContact::calculateSeparationVelocity(){
 }
 
 void ParticleContact::resolveVelocity(){
-    Vector3D vrel = *_particles[0]->getInitialVelocity() - *_particles[1]->getInitialVelocity();
-    float k = ((_restitution + 1)*(vrel.scalarProduct(_normal)))/(_particles[0]->getInverseMass()+ _particles[1]->getInverseMass());
+    if(_particles[1] != nullptr){
+        Vector3D vrel = *_particles[0]->getInitialVelocity() - *_particles[1]->getInitialVelocity();
+        float k = ((_restitution + 1)*(vrel.scalarProduct(_normal)))/(_particles[0]->getInverseMass()+ _particles[1]->getInverseMass());
+        Vector3D *newVelocity1 = _particles[0]->getInitialVelocity();
+        *newVelocity1 = *newVelocity1 - _normal * (k*_particles[0]->getInverseMass());
+        Vector3D *newVelocity2 = _particles[1]->getInitialVelocity();
+        *newVelocity2 = *newVelocity2 - _normal * (k*_particles[1]->getInverseMass());
+        return;
+    }
+    Vector3D vrel = *_particles[0]->getInitialVelocity();
+    float k = ((_restitution + 1)*(vrel.scalarProduct(_normal)))/(_particles[0]->getInverseMass());
     Vector3D *newVelocity1 = _particles[0]->getInitialVelocity();
     *newVelocity1 = *newVelocity1 - _normal * (k*_particles[0]->getInverseMass());
-    Vector3D *newVelocity2 = _particles[1]->getInitialVelocity();
-    *newVelocity2 = *newVelocity2 - _normal * (k*_particles[1]->getInverseMass());
+
 }
 
 void ParticleContact::resolveInterpenetration(){
