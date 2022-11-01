@@ -27,12 +27,16 @@ void CollisionDetector::detectCollision(Particles* part)
             {
                 contactBack++;
                 normalSurf=((p.s1-p.s0)^(p.s2-p.s0)).normalize();
+                cout<<normalSurf.getX()<<endl;
+                cout<<normalSurf.getY()<<endl;
+                cout<<normalSurf.getZ()<<endl;
+                cout<<endl;
                 distance = (position-P).scalarProduct(normalSurf)/normalSurf.norm();
             }
         }
         if(contactBack == 1 && contactFront ==1)
         {
-            ParticleContact contact = ParticleContact(part,normalSurf,1,distance);
+            ParticleContact contact = ParticleContact(part,-normalSurf,100,distance);
             registery_->add(contact);
         }
     }

@@ -10,6 +10,7 @@ public:
     ~CollisionRegistrery();
 
     void add(ParticleContact contact);
+    int size(){return register_.size();};
     void clear();
 
     void handleCollision();

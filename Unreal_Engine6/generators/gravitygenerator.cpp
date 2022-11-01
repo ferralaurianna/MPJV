@@ -7,7 +7,7 @@ GravityGenerator::GravityGenerator()
 
 void GravityGenerator::updateForce(Particles *particle, float duration)
 {
-    particle->addForces((*gravity_)*(particle->getInverseMass()));
+    particle->addForces((*gravity_)/(particle->getInverseMass()));
 }
 
 GravityGenerator::~GravityGenerator()

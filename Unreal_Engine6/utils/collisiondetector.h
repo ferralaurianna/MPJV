@@ -12,6 +12,8 @@ public:
 
     void detectCollision(Particles* part);
 
+    void setWalls(vector<vector<Polygone>*>* walls){walls_=walls;};
+
 private:
     CollisionRegistrery* registery_;
 

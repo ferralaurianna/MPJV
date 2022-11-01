@@ -17,8 +17,6 @@ Blob::Blob(float posX,float posY,float posZ,float radius, int nbParticlesRow, in
 }
 
 void Blob::modelingBlob(int offset){
-    springs_=new vector<Link>();
-    cables_=new vector<Link>();
     Link spring;
     Link cable;
 
@@ -92,7 +90,7 @@ void Blob::modelingBlob(int offset){
             springs_->push_back(spring);
             cable.part1=interiorParticle;
             cable.part2=nucleus_;
-            cable.l0= 1.4*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
+            cable.l0= 1.01*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
             cables_->push_back(cable);
 
             // Creation of a spring between the interior and exterior particle
@@ -165,7 +163,7 @@ void Blob::modelingBlob(int offset){
 
         cable.part1=interiorRow_->at(i);
         cable.part2=interiorParticle;
-        cable.l0= 1.3*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
+        cable.l0= 1.05*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
         cables_->push_back(cable);
     }
 
@@ -178,7 +176,7 @@ void Blob::modelingBlob(int offset){
 
         cable.part1=exteriorRow_->at(i);
         cable.part2=exteriorParticle;
-        cable.l0= 1.3*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
+        cable.l0= 1.05*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
         cables_->push_back(cable);
     }
 
@@ -208,7 +206,7 @@ void Blob::modelingBlob(int offset){
 
         cable.part1=interiorRow_->at(i);
         cable.part2=interiorParticle;
-        cable.l0= 1.3*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
+        cable.l0= 1.01*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
         cables_->push_back(cable);
     }
 
@@ -221,7 +219,7 @@ void Blob::modelingBlob(int offset){
 
         cable.part1=exteriorRow_->at(i);
         cable.part2=exteriorParticle;
-        cable.l0= 1.3*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
+        cable.l0= 1.01*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
         cables_->push_back(cable);
     }
 

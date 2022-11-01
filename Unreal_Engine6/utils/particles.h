@@ -33,6 +33,7 @@ public:
 
     //Add here the getter/setter of the position vector
     Vector3D* getPosition(){return position_;};
+    Vector3D* getForces(){return accumForce_;};
     void setPosition(Vector3D *position){position_=position;};
     bool isOnGround(){return hasReachedGround;}
 
