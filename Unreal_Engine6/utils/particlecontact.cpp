@@ -1,9 +1,10 @@
 #include "particlecontact.h"
 
-ParticleContact::ParticleContact(Particles *p1, Vector3D normal, float restitution){
+ParticleContact::ParticleContact(Particles *p1, Vector3D normal, float restitution, float penetration){
     _particles[0] = p1;
     _particles[1] = nullptr;
     _restitution = restitution;
+    _penetration = penetration;
     _normal = normal;
 }
 
