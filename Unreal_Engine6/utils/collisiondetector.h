@@ -20,6 +20,8 @@ private:
     int rayRectangleIntersect(Vector3D orig, Vector3D dir,Vector3D v0, Vector3D v1, Vector3D v2, Vector3D v3);
 
     int rayTriangleIntersect(Vector3D orig, Vector3D dir,Vector3D v0, Vector3D v1, Vector3D v2);
+
+    Vector3D P =  Vector3D(0,0,0);
 };
 
 #endif // COLLISIONDETECTOR_H

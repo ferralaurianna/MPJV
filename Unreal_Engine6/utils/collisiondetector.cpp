@@ -12,6 +12,7 @@ void CollisionDetector::detectCollision(Particles* part)
     Vector3D position = *(part->getPosition());
     float contactFront = 0;
     float contactBack = 0;
+    float distance = 0;
     Vector3D normalSurf;
     for(vector<Polygone> *wall : *walls_)
     {
@@ -26,11 +27,12 @@ void CollisionDetector::detectCollision(Particles* part)
             {
                 contactBack++;
                 normalSurf=((p.s1-p.s0)^(p.s2-p.s0)).normalize();
+                distance = (position-P).scalarProduct(normalSurf)/normalSurf.norm();
             }
         }
         if(contactBack == 1 && contactFront ==1)
         {
-            ParticleContact contact = ParticleContact(part,normalSurf,1);
+            ParticleContact contact = ParticleContact(part,normalSurf,1,distance);
             registery_->add(contact);
         }
     }
@@ -113,7 +115,7 @@ int CollisionDetector::rayRectangleIntersect(
     if (t < 0) frontBack = -1;
 
     // compute the intersection point using equation 1
-    Vector3D P = orig + dir * t;
+    P = orig + dir * t;
 
     // Step 2: inside-outside test
     Vector3D C;  //vector perpendicular to rectangle's plane
