@@ -24,8 +24,15 @@ SOURCES += \
     bulletsType\ball.cpp \
     generators/geneinterface.cpp \
     generators/gravitygenerator.cpp \
+    generators/springfloatability.cpp \
     generators/springtwoparticle.cpp \
     menu/windowmainmenu.cpp \
+    scene2/Assets/Plateforme.cpp \
+    scene2/Assets/asset.cpp \
+    scene2/Assets/coin.cpp \
+    scene2/Assets/spike.cpp \
+    utils/collisiondetector.cpp \
+    utils/collisionregistrery.cpp \
     scene2/gametimer2.cpp \
     scene2/windowgameover2.cpp \
     utils/forceregistrery.cpp \
@@ -36,6 +43,7 @@ SOURCES += \
     bulletsType\laser.cpp \
     main.cpp \
     utils\matrix.cpp \
+    utils\particlecontact.cpp \
     scene1\gun.cpp \
     scene1\ground.cpp \
     utils\particles.cpp \
@@ -50,8 +58,16 @@ HEADERS += \
     bulletsType\ball.h \
     generators/geneinterface.h \
     generators/gravitygenerator.h \
+    generators/springflotability.h \
     generators/springtwoparticle.h \
     menu/windowmainmenu.h \
+    scene2/Assets/Plateforme.h \
+    scene2/Assets/asset.h \
+    scene2/Assets/coin.h \
+    scene2/Assets/spike.h \
+    utils/Polygon.h \
+    utils/collisiondetector.h \
+    utils/collisionregistrery.h \
     scene2/gametimer2.h \
     scene2/windowgameover2.h \
     utils/forceregistrery.h \
@@ -61,6 +77,7 @@ HEADERS += \
     scene1\gamegui.h \
     bulletsType\laser.h \
     utils\matrix.h \
+    utils\particlecontact.h \
     scene1\gun.h \
     scene1\ground.h \
     utils\particles.h \

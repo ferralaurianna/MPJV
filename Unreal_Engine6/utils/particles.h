@@ -27,12 +27,13 @@ public:
     //Getters/setters
     float getInverseMass(){return inverseMass_;};
     void setInverseMass(float inverseMass){inverseMass_=inverseMass;};
-
+    float getRadius(){return radius_;};
     Vector3D* getInitialVelocity(){return velocity_;};
     void setVelocity(Vector3D *initialVelocity){velocity_=initialVelocity;};
 
     //Add here the getter/setter of the position vector
     Vector3D* getPosition(){return position_;};
+    Vector3D* getForces(){return accumForce_;};
     void setPosition(Vector3D *position){position_=position;};
     bool isOnGround(){return hasReachedGround;}
 
@@ -47,8 +48,8 @@ protected:
     Vector3D *accumForce_ = new Vector3D(0,0,0);
 
     //Add here a position handmade vector
-    Vector3D *position_;
-    Vector3D *velocity_;
+    Vector3D *position_ = new Vector3D(0,0,0);
+    Vector3D *velocity_ = new Vector3D(0,0,0);
 
     float inverseMass_;
 

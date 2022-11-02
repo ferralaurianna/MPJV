@@ -8,7 +8,7 @@ GameGUI2::GameGUI2(QWidget *parent): QOpenGLWidget(parent)
     // Initialize the instance of the objects to render at the first rendering (gun, ground...)
     score = 0;
     scoreBase=0;
-    Blob* b = new Blob(0,0,0,20,20,7);
+    Blob* b = new Blob(0,0,0,10,5,4);
     blobs_.push_back(b);
     gameTimer = new GameTimer2();
     gameTimer->startGameTimer(9999);
@@ -21,11 +21,23 @@ GameGUI2::~GameGUI2()
     {
         delete blob;
     }
+    delete Pdepart;
+    delete Piece1;
+    delete Pique1;
 }
 
 // Initialize OpenGL parameters before the first rendering
 void GameGUI2::initializeGL()
 {
+
+    Pdepart = new Plateforme(70,150,10,0,-30,0);
+    Piece1 = new Coin(20,4,-40,0,0);
+    Pique1 = new Spike(20,90,0,0);
+
+    volumes.push_back(Pdepart->getPolygones());
+    volumes.push_back(Piece1->getPolygones());
+    volumes.push_back(Pique1->getPolygones());
+
     // Background color
     background=QColor(0,0,0,1);
     glClearColor(background.redF(),background.greenF(),background.blueF(),background.alphaF());
@@ -102,6 +114,11 @@ void GameGUI2::paintGL()
 
     // Paint timer
     gameTimer->drawGameTimer(this);
+
+    //Test
+    Pdepart->Display();
+    Piece1->Display();
+    Pique1->Display();
 }
 
 

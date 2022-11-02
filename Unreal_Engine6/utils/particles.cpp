@@ -8,7 +8,7 @@ Particles::Particles(float posX,float posY,float posZ,float radius,float mass,fl
     position_=new Vector3D(posX,posY,posZ);
 
     radius_=radius;
-    inverseMass_=1/mass;
+    inverseMass_=float(1)/mass;
     velocity_=new Vector3D(velocity*qCos(qDegreesToRadians(angle)),velocity*qSin(qDegreesToRadians(angle)),0);
 
 }

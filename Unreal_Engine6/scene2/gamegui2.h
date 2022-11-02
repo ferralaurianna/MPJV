@@ -12,6 +12,10 @@
 #include <QtMath>
 #include <QGenericMatrix>
 #include <GL/glu.h>
+#include "Assets/asset.h"
+#include "Assets/coin.h"
+#include "Assets/spike.h"
+#include "Assets/Plateforme.h"
 
 class GameGUI2:public QOpenGLWidget
 {
@@ -32,6 +36,7 @@ public:
      * A list of pointers to the particles present in the scene.
      */
     vector<Blob*> blobs_;
+
 
     /**
      * @brief forwardCamera
@@ -74,7 +79,9 @@ public:
      */
     void goDown();
 
-    int getScore(){return score;}
+    int getScore(){return score;};
+
+    vector<vector<Polygone>*>* getVolumes(){return &volumes;};
 
     GameTimer2 *gameTimer;
 
@@ -148,6 +155,19 @@ private:
      */
     GLfloat light_tab[4]={1.0,1.0,1.0,1.0};
     GLfloat light_tab_pos[4]= {0.0,0.0,1.0,0.0};
+
+
+    Plateforme* Pdepart = nullptr;
+    Coin* Piece1 = nullptr;
+    Spike* Pique1 = nullptr;
+
+    /**
+     * @brief particles
+     * A list of volumes present in the scene.
+     */
+    vector<vector<Polygone>*> volumes = vector<vector<Polygone>*>();
+
+
 
 };
 

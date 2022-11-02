@@ -33,6 +33,8 @@ public:
     vector<Particles*>* getInteriorRow(){return interiorRow_;};
     Particles* getNucleus(){return nucleus_;};
     std::vector<Link>* getSprings(){return springs_;};
+    std::vector<Link>* getCables(){return cables_;};
+    float getRadius(){return radius_;};
 
 private:
     int nbParticlesRow_;
@@ -42,7 +44,9 @@ private:
     vector<Particles*>* interiorRow_ = new vector<Particles*>();
     Particles* nucleus_;
 
-    std::vector<Link>* springs_;
+    std::vector<Link>* springs_ = new vector<Link>();
+
+    std::vector<Link>* cables_ = new vector<Link>();
 
     Vector3D* position_;
     float radius_;
