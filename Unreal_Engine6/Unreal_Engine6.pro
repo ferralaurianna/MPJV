@@ -27,6 +27,7 @@ SOURCES += \
     generators/springtwoparticle.cpp \
     menu/windowmainmenu.cpp \
     scene2/gametimer2.cpp \
+    scene2/windowgameover2.cpp \
     utils/forceregistrery.cpp \
     utils\Vector3D.cpp \
     bulletsType\cannonball.cpp \
@@ -52,6 +53,7 @@ HEADERS += \
     generators/springtwoparticle.h \
     menu/windowmainmenu.h \
     scene2/gametimer2.h \
+    scene2/windowgameover2.h \
     utils/forceregistrery.h \
     utils\Vector3D.h \
     bulletsType\cannonball.h \
@@ -75,6 +77,7 @@ RESOURCES += \
 FORMS += \
     menu/windowmainmenu.ui \
     scene1\windowpart1.ui \
+    scene2\windowgameover2.ui \
     scene2\windowpart2.ui
 
 # Default rules for deployment.

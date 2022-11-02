@@ -76,6 +76,8 @@ public:
 
     int getScore(){return score;}
 
+    GameTimer2 *gameTimer;
+
 
 protected:
     /**
@@ -95,8 +97,6 @@ protected:
      * The function called each frame to draw the 3D scene.
      */
     void paintGL();
-
-    GameTimer2 *gameTimer;
 
 private:
     /**

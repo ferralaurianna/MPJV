@@ -2,6 +2,7 @@
 #include "generators/gravitygenerator.h"
 #include "menu/windowmainmenu.h"
 #include "ui_windowpart2.h"
+#include "windowgameover2.h"
 
 WindowPart2::WindowPart2(QWidget *parent) :
     QMainWindow(parent),
@@ -11,6 +12,8 @@ WindowPart2::WindowPart2(QWidget *parent) :
     connect(this->timerStart, &QTimer::timeout, this, &WindowPart2::UpdateFrame);
     timerStart->setSingleShot(true);
     timerStart->start(100/60);
+
+    connect(ui->gameGUI->gameTimer, SIGNAL(timeout()), this, SLOT(endGame()) );
 }
 
 WindowPart2::~WindowPart2()
@@ -160,6 +163,11 @@ void WindowPart2::keyPressEvent(QKeyEvent * event)
             ui->gameGUI->goUp();
             break;
         }
+        case Qt::Key_R:
+        {
+            this->endGame();
+            break;
+        }
         case Qt::Key_Escape:
         {
             WindowMainMenu *window = new WindowMainMenu();
@@ -180,4 +188,13 @@ void WindowPart2::keyPressEvent(QKeyEvent * event)
     // Acceptation of the event and update rendering
     event->accept();
     ui->gameGUI->update();
+}
+
+void WindowPart2::endGame() {
+    qDebug() << "game ended";
+    int finalTime = ui->gameGUI->gameTimer->gameOver();
+    qDebug() << finalTime;
+    WindowGameOver2 *window = new WindowGameOver2(finalTime);
+    window->show();
+    this->hide();
 }

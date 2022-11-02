@@ -21,6 +21,8 @@ public:
     explicit WindowPart2(QWidget *parent = nullptr);
     ~WindowPart2();
 
+    void endGame();
+
 private:
     Ui::WindowPart2 *ui;
     void UpdateFrame();
