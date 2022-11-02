@@ -91,6 +91,8 @@ void GameGUI2::paintGL()
     // Clear depth
     glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
 
+    glEnable(GL_DEPTH_TEST);
+
     // Reinitializisation of the current projection matrix
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -112,13 +114,15 @@ void GameGUI2::paintGL()
     }
     //scene->slideSky();
 
-    // Paint timer
-    gameTimer->drawGameTimer(this);
-
     //Test
     Pdepart->Display();
     Piece1->Display();
     Pique1->Display();
+
+    glDisable(GL_DEPTH_TEST);
+
+    // Paint timer
+    gameTimer->drawGameTimer(this);
 }
 
 
