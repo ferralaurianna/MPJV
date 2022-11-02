@@ -43,28 +43,37 @@ void WindowPart2::UpdateFrame()
         vector<Blob::Link>* links = blob->getSprings();
         for(Blob::Link link: *links)
         {
-            registrery->add(link.part1,new SpringTwoParticle(link.part2,0.05,link.l0));
-            registrery->add(link.part2,new SpringTwoParticle(link.part1,0.05,link.l0));
+            registrery->add(link.part1,new SpringTwoParticle(link.part2,2,link.l0));
+            registrery->add(link.part2,new SpringTwoParticle(link.part1,2,link.l0));
         }
-        blob->getNucleus()->addForces(Vector3D(-8+16*(switch_<60),0,-8+16*(switch_<60)));
+//        blob->getNucleus()->addForces(Vector3D(-8+16*(switch_<60),0,-8+16*(switch_<60)));
     }
 
     for(Blob* blob : ui->gameGUI->blobs_)
     {
+        float lowestY = blob->getNucleus()->getPosition()->getY();
+        float yPart = 0;
         vector<Particles*>* particles = blob->getExteriorRow();
         for(Particles* part : *particles)
         {
             GravityGenerator * graveGen = new GravityGenerator();
             registrery->add(part,graveGen);
+            yPart=part->getPosition()->getY();
+            if(yPart<lowestY){lowestY=yPart;}
         }
         particles = blob->getInteriorRow();
         for(Particles* part : *particles)
         {
             GravityGenerator * graveGen = new GravityGenerator();
             registrery->add(part,graveGen);
+            yPart=part->getPosition()->getY();
+            if(yPart<lowestY){lowestY=yPart;}
         }
         GravityGenerator * graveGen = new GravityGenerator();
         registrery->add(blob->getNucleus(),graveGen);
+        float difference = blob->getNucleus()->getPosition()->getY() - lowestY;
+        registrery->add(blob->getNucleus(),new SpringFlotability(Vector3D(0,-difference,0),5,blob->getRadius()));
+        cout<<difference<<endl;
     }
 
 

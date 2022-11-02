@@ -34,6 +34,7 @@ public:
     Particles* getNucleus(){return nucleus_;};
     std::vector<Link>* getSprings(){return springs_;};
     std::vector<Link>* getCables(){return cables_;};
+    float getRadius(){return radius_;};
 
 private:
     int nbParticlesRow_;

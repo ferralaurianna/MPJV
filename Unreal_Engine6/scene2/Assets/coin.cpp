@@ -59,7 +59,7 @@ Coin::~Coin()
     gluDeleteQuadric(quad);
 }
 
-void Coin::Display() const
+void Coin::Display()
 {
     gluQuadricDrawStyle(quad,GLU_FILL);
 
@@ -85,6 +85,7 @@ void Coin::Display() const
     glTranslatef(posx,posy,posz-height/2);
     gluDisk(quad,0,radius,20,20);
 
+    glPopMatrix();
 
 //    gluDeleteQuadric(quad);
 

@@ -17,7 +17,7 @@ public:
     ~Plateforme();
 
     // Methode d'affichage
-    void Display() const;
+    void Display();
 
 private:
     float widthx, lengthz, heighty;

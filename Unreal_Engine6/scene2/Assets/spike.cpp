@@ -52,7 +52,7 @@ Spike::Spike(float _side, float _posx, float _posy, float _posz)
 
 void Spike::Display() const
 {
-
+    glPushMatrix();
     glBegin(GL_QUADS);
 
     GLfloat colorAmbient_tab[] = {0.25, 0.25, 0.25,0.6};
@@ -91,4 +91,5 @@ void Spike::Display() const
     glVertex3f(posx - side/2, posy - side/2, posz + side/2);
 
     glEnd();
+    glPopMatrix();
 }

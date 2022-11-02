@@ -16,7 +16,7 @@ public:
     ~Coin();
 
     // Methode d'affichage
-    void Display() const;
+    void Display();
 
 private :
     GLUquadric* quad;

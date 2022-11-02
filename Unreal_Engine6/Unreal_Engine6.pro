@@ -24,6 +24,7 @@ SOURCES += \
     bulletsType\ball.cpp \
     generators/geneinterface.cpp \
     generators/gravitygenerator.cpp \
+    generators/springfloatability.cpp \
     generators/springtwoparticle.cpp \
     menu/windowmainmenu.cpp \
     scene2/Assets/Plateforme.cpp \
@@ -55,6 +56,7 @@ HEADERS += \
     bulletsType\ball.h \
     generators/geneinterface.h \
     generators/gravitygenerator.h \
+    generators/springflotability.h \
     generators/springtwoparticle.h \
     menu/windowmainmenu.h \
     scene2/Assets/Plateforme.h \

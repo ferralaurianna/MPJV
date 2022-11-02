@@ -56,9 +56,9 @@ Plateforme::~Plateforme()
 {
 }
 
-void Plateforme::Display() const
+void Plateforme::Display()
 {
-
+    glPushMatrix();
     glBegin(GL_QUADS);
 
     // face arrière
@@ -106,4 +106,5 @@ void Plateforme::Display() const
     glVertex3f(posx - widthx/2, posy - heighty/2, posz - lengthz/2);
 
     glEnd();
+    glPopMatrix();
 }

@@ -8,7 +8,7 @@ GameGUI2::GameGUI2(QWidget *parent): QOpenGLWidget(parent)
     // Initialize the instance of the objects to render at the first rendering (gun, ground...)
     score = 0;
     scoreBase=0;
-    Blob* b = new Blob(0,0,0,5,5,4);
+    Blob* b = new Blob(0,0,0,10,5,4);
     blobs_.push_back(b);
 }
 

@@ -27,10 +27,10 @@ void CollisionDetector::detectCollision(Particles* part)
             {
                 contactBack++;
                 normalSurf=((p.s1-p.s0)^(p.s2-p.s0)).normalize();
-                cout<<normalSurf.getX()<<endl;
-                cout<<normalSurf.getY()<<endl;
-                cout<<normalSurf.getZ()<<endl;
-                cout<<endl;
+//                cout<<normalSurf.getX()<<endl;
+//                cout<<normalSurf.getY()<<endl;
+//                cout<<normalSurf.getZ()<<endl;
+//                cout<<endl;
                 distance = (position-P).scalarProduct(normalSurf)/normalSurf.norm();
             }
         }

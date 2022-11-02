@@ -10,6 +10,7 @@
 #include "utils/particles.h"
 #include "utils/forceregistrery.h"
 #include "generators/springtwoparticle.h"
+#include "generators/springflotability.h"
 
 namespace Ui {
 class WindowPart2;
