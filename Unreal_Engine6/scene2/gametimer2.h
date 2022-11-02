@@ -37,9 +37,13 @@ public slots:
 
     /**
      * @brief shrinkBlob
-     * A function shrinking the blob size, to call every few seconds
+     * Only here to emit the blobShrinkSignal
      */
     void shrinkBlob();
+
+signals:
+
+    void blobShrinkSignal();
 };
 
 #endif // GAMETIMER2_H

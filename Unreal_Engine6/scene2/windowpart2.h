@@ -21,6 +21,7 @@ public:
     explicit WindowPart2(QWidget *parent = nullptr);
     ~WindowPart2();
 
+public slots:
     void endGame();
 
 private:

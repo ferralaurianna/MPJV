@@ -13,8 +13,10 @@
 #include <QGenericMatrix>
 #include <GL/glu.h>
 
-class GameGUI2:public QOpenGLWidget
+class GameGUI2: public QOpenGLWidget
 {
+    Q_OBJECT
+
 public:
     /**
      * @brief GameGUI2
@@ -78,6 +80,13 @@ public:
 
     GameTimer2 *gameTimer;
 
+public slots:
+
+    /**
+     * @brief shrink
+     * A function used to reduce the cell number and radius of the current blob
+     */
+    void shrink();
 
 protected:
     /**
@@ -148,6 +157,10 @@ private:
      */
     GLfloat light_tab[4]={1.0,1.0,1.0,1.0};
     GLfloat light_tab_pos[4]= {0.0,0.0,1.0,0.0};
+
+signals:
+
+    void gameEndedSignal();
 
 };
 

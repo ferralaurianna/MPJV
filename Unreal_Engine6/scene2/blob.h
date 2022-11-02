@@ -6,8 +6,10 @@
 #include <vector>
 #include <QtMath>
 
-class Blob
+class Blob : public QObject
 {
+    Q_OBJECT
+
 public:
     struct Link{
         Particles* part1;
@@ -34,9 +36,12 @@ public:
     Particles* getNucleus(){return nucleus_;};
     std::vector<Link>* getSprings(){return springs_;};
 
+    Blob * newShrinkedBlob();
+
 private:
     int nbParticlesRow_;
     int nbRows_;
+    int offset_;
 
     vector<Particles*>* exteriorRow_ = new vector<Particles*>();
     vector<Particles*>* interiorRow_ = new vector<Particles*>();
@@ -48,6 +53,7 @@ private:
     float radius_;
 
     void springDisplay(Particles* part1, Particles* part2);
+
 };
 
 #endif // BLOB_H

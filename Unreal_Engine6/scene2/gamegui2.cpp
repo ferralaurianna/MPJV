@@ -5,7 +5,7 @@ const float PI=3.14159;
 
 GameGUI2::GameGUI2(QWidget *parent): QOpenGLWidget(parent)
 {
-    // Initialize the instance of the objects to render at the first rendering (gun, ground...)
+    // Initialize the instance of the objects to render at the first rendering (blob, timer, ...)
     score = 0;
     scoreBase=0;
     Blob* b = new Blob(0,0,0,20,20,7);
@@ -60,6 +60,8 @@ void GameGUI2::initializeGL()
     //scene->sendTextures(texturesScene);
 
     resizeGL(width(),height());
+
+    connect(gameTimer, SIGNAL(blobShrinkSignal()), this, SLOT(shrink()) );
 }
 
 
@@ -152,4 +154,15 @@ void GameGUI2::goUp() {
 void GameGUI2::goDown() {
     cameraY_-=1;
     centralY_-=1;
+}
+
+void GameGUI2::shrink() {
+    qDebug() << "Shrink";
+    Blob * b = blobs_.front()->newShrinkedBlob();
+    if(b == nullptr) { // End game condition
+        emit gameEndedSignal();
+        return;
+    }
+    blobs_.clear();
+    blobs_.push_back(b);
 }
