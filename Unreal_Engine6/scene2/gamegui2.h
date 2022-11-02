@@ -131,18 +131,18 @@ private:
      * @brief centralX_, centralY_, centralZ_
      * Floats used to store the position of the camera's center of view.
      */
-    float centralX_=-20., centralY_=0., centralZ_=0.;
+    float centralX_=0., centralY_=0., centralZ_=0.;
     /**
      * @brief angleCamera_, distanceCamera_
      * Floats used to store the relative angle and distance between the camera and the X axis and it's center of view.
      */
     float angleCamera_ = 90.;
-    float distanceCamera_ = -200.;
+    float distanceCamera_ = -100.;
     /**
      * @brief cameraX_, cameraY_, cameraZ_
      * Floats used to store the position of the camera.
      */
-    float cameraX_ = -20., cameraY_ = 25., cameraZ_ = distanceCamera_;
+    float cameraX_ = 10., cameraY_ = 20., cameraZ_ = distanceCamera_;
     /**
      * @brief dirY
      * A float indicating if the view of the camera has been reversed.

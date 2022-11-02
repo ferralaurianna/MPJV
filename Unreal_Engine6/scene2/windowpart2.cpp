@@ -49,7 +49,12 @@ void WindowPart2::UpdateFrame()
             registrery->add(link.part1,new SpringTwoParticle(link.part2,2,link.l0));
             registrery->add(link.part2,new SpringTwoParticle(link.part1,2,link.l0));
         }
-//        blob->getNucleus()->addForces(Vector3D(-8+16*(switch_<60),0,-8+16*(switch_<60)));
+        if(jumpTimer>0)
+        {
+            jumpTimer-=deltatime;
+            movements=movements+Vector3D(0,75,0);
+        }
+        blob->getNucleus()->addForces(movements);
     }
 
     for(Blob* blob : ui->gameGUI->blobs_)
@@ -76,7 +81,6 @@ void WindowPart2::UpdateFrame()
         registrery->add(blob->getNucleus(),graveGen);
         float difference = blob->getNucleus()->getPosition()->getY() - lowestY;
         registrery->add(blob->getNucleus(),new SpringFlotability(Vector3D(0,-difference,0),5,blob->getRadius()));
-        cout<<difference<<endl;
     }
 
 
@@ -151,6 +155,8 @@ void WindowPart2::UpdateFrame()
     ui->gameGUI->update();
     ui->gameGUI->setFocus();
 
+    movements = Vector3D(0,0,0);
+
     // Record end time
     auto finish = std::chrono::high_resolution_clock::now();
 
@@ -163,69 +169,94 @@ void WindowPart2::keyPressEvent(QKeyEvent * event)
 {
     switch(event->key())
     {
-        case Qt::Key_P:
+//        case Qt::Key_P:
+//        {
+//            ui->gameGUI->forwardCamera();
+//            break;
+//        }
+//        case Qt::Key_K:
+//        {
+//            ui->gameGUI->turnLeftCamera();
+//            break;
+//        }
+//        case Qt::Key_L:
+//        {
+//            ui->gameGUI->backwardCamera();
+//            break;
+//        }
+//        case Qt::Key_M:
+//        {
+//            ui->gameGUI->turnRightCamera();
+//            break;
+//        }
+//        case Qt::Key_Z:
+//        {
+//            ui->gameGUI->forwardCamera();
+//            break;
+//        }
+//        case Qt::Key_A:
+//        {
+//            ui->gameGUI->turnLeftCamera();
+//            break;
+//        }
+//        case Qt::Key_S:
+//        {
+//            ui->gameGUI->backwardCamera();
+//            break;
+//        }
+//        case Qt::Key_E:
+//        {
+//            ui->gameGUI->turnRightCamera();
+//            break;
+//        }
+//        case Qt::Key_W:
+//        {
+//            ui->gameGUI->zoomIn();
+//            break;
+//        }
+//        case Qt::Key_X:
+//        {
+//            ui->gameGUI->zoomOut();
+//            break;
+//        }
+//        case Qt::Key_Control:
+//        {
+//            ui->gameGUI->goDown();
+//            break;
+//        }
+//        case Qt::Key_Space:
+//        {
+//            ui->gameGUI->goUp();
+//            break;
+//        }
+        case Qt::Key_R:
         {
-            ui->gameGUI->forwardCamera();
+            this->endGame();
             break;
         }
-        case Qt::Key_K:
+        case Qt::Key_Up:
         {
-            ui->gameGUI->turnLeftCamera();
+            movements=movements+Vector3D(0,0,50);
             break;
         }
-        case Qt::Key_L:
+        case Qt::Key_Down:
         {
-            ui->gameGUI->backwardCamera();
+            movements=movements+Vector3D(0,0,-50);
             break;
         }
-        case Qt::Key_M:
+        case Qt::Key_Left:
         {
-            ui->gameGUI->turnRightCamera();
+            movements=movements+Vector3D(50,0,0);
             break;
         }
-        case Qt::Key_Z:
+        case Qt::Key_Right:
         {
-            ui->gameGUI->forwardCamera();
-            break;
-        }
-        case Qt::Key_A:
-        {
-            ui->gameGUI->turnLeftCamera();
-            break;
-        }
-        case Qt::Key_S:
-        {
-            ui->gameGUI->backwardCamera();
-            break;
-        }
-        case Qt::Key_E:
-        {
-            ui->gameGUI->turnRightCamera();
-            break;
-        }
-        case Qt::Key_W:
-        {
-            ui->gameGUI->zoomIn();
-            break;
-        }
-        case Qt::Key_X:
-        {
-            ui->gameGUI->zoomOut();
-            break;
-        }
-        case Qt::Key_Control:
-        {
-            ui->gameGUI->goDown();
+            movements=movements+Vector3D(-50,0,0);
             break;
         }
         case Qt::Key_Space:
         {
-            ui->gameGUI->goUp();
-            break;
-        }
-        case Qt::Key_R:
-        {
-            this->endGame();
+            jumpTimer=3;
             break;
         }
         case Qt::Key_Escape:

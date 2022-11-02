@@ -18,7 +18,15 @@ void CollisionDetector::detectCollision(Particles* part)
     {
         for(Polygone p : *wall)
         {
-            int result = rayRectangleIntersect(position,normed,p.s0,p.s1,p.s2,p.s3);
+            int result = 0;
+            if(p.s3.getX()==-14 && p.s3.getY()==-7 && p.s3.getZ()==-1789)
+            {
+                result = rayTriangleIntersect(position,normed,p.s0,p.s1,p.s2);
+            }
+            else
+            {
+                result = rayRectangleIntersect(position,normed,p.s0,p.s1,p.s2,p.s3);
+            }
             if(result == 1)
             {
                 contactFront++;

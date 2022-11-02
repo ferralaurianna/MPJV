@@ -32,7 +32,7 @@ void GameGUI2::initializeGL()
 
     Pdepart = new Plateforme(70,150,10,0,-30,0);
     Piece1 = new Coin(20,4,-40,0,0);
-    Pique1 = new Spike(20,90,0,0);
+    Pique1 = new Spike(20,50,0,0);
 
     volumes.push_back(Pdepart->getPolygones());
     volumes.push_back(Piece1->getPolygones());

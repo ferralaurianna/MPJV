@@ -39,6 +39,10 @@ private:
 
     CollisionDetector detectorScene_ = CollisionDetector(registeryCol_,sceneWalls_);
 
+    Vector3D movements= Vector3D(0,0,0);
+
+    float jumpTimer = 0;
+
 protected:
     void keyPressEvent(QKeyEvent * event);
 };
