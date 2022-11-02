@@ -11,10 +11,18 @@ ParticleContact::ParticleContact(Particles *p1, Vector3D normal, float restituti
 ParticleContact::ParticleContact(Particles *p1, Particles *p2, float restitution){
     _particles[0] = p1;
     _particles[1] = p2;
-    _restitution = restitution;
 
     Vector3D distance = (*p1->getPosition() - *p2->getPosition());
-    _normal = distance.normalize();
+    if(restitution>0)
+    {
+        _restitution = restitution;
+        _normal = distance.normalize();
+    }
+    else
+    {
+        _restitution = -restitution;
+        _normal = -(distance.normalize());
+    }
     _penetration = (_particles[0]->getRadius() + _particles[1]->getRadius() - distance.norm()) / 2;
     if (_penetration < 0){
         _penetration = 0;

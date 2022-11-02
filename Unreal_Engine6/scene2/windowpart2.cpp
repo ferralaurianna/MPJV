@@ -108,18 +108,29 @@ void WindowPart2::UpdateFrame()
     }
 
     //Find the collissions with the cables
-//    for(Blob* blob : ui->gameGUI->blobs_)
-//    {
-//        vector<Blob::Link>* cables = blob->getCables();
-//        for(Blob::Link cable: *cables)
-//        {
-//            Vector3D p1p2 = (*(cable.part2->getPosition())-*(cable.part1->getPosition()));
-//            if(p1p2.norm()>cable.l0)
-//            {
-//                registeryCol_->add(ParticleContact(cable.part1,cable.part2,10000));
-//            }
-//        }
-//    }
+    for(Blob* blob : ui->gameGUI->blobs_)
+    {
+        vector<Blob::Link>* cables = blob->getCables();
+        for(Blob::Link cable: *cables)
+        {
+            Vector3D p1p2 = (*(cable.part2->getPosition())-*(cable.part1->getPosition()));
+            if(cable.l0>0)
+            {
+                if(p1p2.norm()>cable.l0)
+                {
+                    registeryCol_->add(ParticleContact(cable.part1,cable.part2,100));
+                }
+            }
+            else
+            {
+                if(p1p2.norm()<-cable.l0)
+                {
+                    registeryCol_->add(ParticleContact(cable.part1,cable.part2,-100));
+                }
+            }
+
+        }
+    }
 
     //solveCollisions
     registeryCol_->handleCollision();

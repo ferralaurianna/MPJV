@@ -75,11 +75,22 @@ void Blob::modelingBlob(int offset){
                 spring.part2=interiorParticle;
                 spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
                 springs_->push_back(spring);
+
+                cable.part1=interiorRow_->at((i+j*nbParticlesRow_)-1);
+                cable.part2=interiorParticle;
+                cable.l0= -0.95*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
+                cables_->push_back(cable);
+
                 if(i==nbParticlesRow_-1){
                     spring.part1=interiorParticle;
                     spring.part2=interiorRow_->at(j*nbParticlesRow_);
                     spring.l0= (*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm();
                     springs_->push_back(spring);
+
+                    cable.part1=interiorParticle;
+                    cable.part2=interiorRow_->at(j*nbParticlesRow_);
+                    cable.l0= -0.95*((*(spring.part1->getPosition())-*(spring.part2->getPosition())).norm());
+                    cables_->push_back(cable);
                 }
             }
 
