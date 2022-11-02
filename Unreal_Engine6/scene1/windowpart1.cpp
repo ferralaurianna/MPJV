@@ -167,6 +167,7 @@ void WindowPart1::UpdateFrame()
     for(Particles* particle : ui->gameGUI->particles)
     {
         particle->integrer(deltatime/1000.f);
+        particle->CheckCollision();
     }
 
     // Update the position of the particle

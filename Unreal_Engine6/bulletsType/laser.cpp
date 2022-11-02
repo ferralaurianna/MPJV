@@ -48,3 +48,14 @@ void Laser::display(){
     glPopMatrix();
 
 }
+
+void Laser::CheckCollision()
+{
+    if(position_->getY()<0)
+    {
+        clearAccum();
+        hasReachedGround=true;
+        velocity_->setX(0);velocity_->setY(0);velocity_->setZ(0);
+        position_->setY(0);
+    }
+}

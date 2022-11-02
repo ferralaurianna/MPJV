@@ -39,6 +39,7 @@ public:
 
     void addForces(Vector3D force);
     void clearAccum();
+    virtual void CheckCollision();
 
 
 protected:

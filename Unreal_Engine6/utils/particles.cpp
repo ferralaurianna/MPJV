@@ -50,6 +50,8 @@ void Particles::display()
 
 }
 
+void Particles::CheckCollision(){}
+
 // Euler integration linked to the particule
 void Particles::integrer(float duration){
 
