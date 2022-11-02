@@ -11,6 +11,7 @@ Blob::Blob(float posX,float posY,float posZ,float radius, int nbParticlesRow, in
     nucleus_= new Particles(0,0,0,(float)radius_/5,0.5,0,0);
     nbParticlesRow_=nbParticlesRow;
     nbRows_=nbRows;
+    offset_=offset;
 
     modelingBlob(offset);
 
@@ -395,4 +396,19 @@ Blob::~Blob()
     delete interiorRow_;
     delete exteriorRow_;
     delete position_;
+}
+
+Blob * Blob::newShrinkedBlob() {
+
+    float newRadius = radius_ * 0.8;
+    int newNbParticlesRow = nbParticlesRow_ * 0.8;
+    int newNbRows = nbRows_ * 0.8;
+
+    // End game condition
+    if(newNbParticlesRow <= 3 || newNbRows <= 3) {
+        return nullptr;
+    }
+
+    Blob * b = new Blob(position_->getX(), position_->getY(), position_->getZ(), newRadius, newNbParticlesRow, newNbRows, offset_);
+    return b;
 }

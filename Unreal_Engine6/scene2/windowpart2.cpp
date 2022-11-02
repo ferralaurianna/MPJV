@@ -16,7 +16,8 @@ WindowPart2::WindowPart2(QWidget *parent) :
     sceneWalls_ = ui->gameGUI->getVolumes();
     detectorScene_.setWalls(sceneWalls_);
 
-    connect(ui->gameGUI->gameTimer, SIGNAL(timeout()), this, SLOT(endGame()) );
+//    connect(ui->gameGUI->gameTimer->shrinkTimer, SIGNAL(timeout()), this, SLOT(endGame()) );
+    connect(ui->gameGUI, SIGNAL(gameEndedSignal()), this, SLOT(endGame()));
 }
 
 WindowPart2::~WindowPart2()
@@ -282,9 +283,7 @@ void WindowPart2::keyPressEvent(QKeyEvent * event)
 }
 
 void WindowPart2::endGame() {
-    qDebug() << "game ended";
     int finalTime = ui->gameGUI->gameTimer->gameOver();
-    qDebug() << finalTime;
     WindowGameOver2 *window = new WindowGameOver2(finalTime);
     window->show();
     this->hide();

@@ -17,8 +17,10 @@
 #include "Assets/spike.h"
 #include "Assets/Plateforme.h"
 
-class GameGUI2:public QOpenGLWidget
+class GameGUI2: public QOpenGLWidget
 {
+    Q_OBJECT
+
 public:
     /**
      * @brief GameGUI2
@@ -85,6 +87,13 @@ public:
 
     GameTimer2 *gameTimer;
 
+public slots:
+
+    /**
+     * @brief shrink
+     * A function used to reduce the cell number and radius of the current blob
+     */
+    void shrink();
 
 protected:
     /**
@@ -168,6 +177,10 @@ private:
     vector<vector<Polygone>*> volumes = vector<vector<Polygone>*>();
 
 
+
+signals:
+
+    void gameEndedSignal();
 
 };
 
