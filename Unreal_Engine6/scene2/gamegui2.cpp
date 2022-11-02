@@ -178,12 +178,11 @@ void GameGUI2::goDown() {
 }
 
 void GameGUI2::shrink() {
-    qDebug() << "Shrink";
-    Blob * b = blobs_.front()->newShrinkedBlob();
-    if(b == nullptr) { // End game condition
-        emit gameEndedSignal();
-        return;
+    for(Blob* b : blobs_)
+    {
+        if(!b->shrinkBlob()) { // End game condition
+            emit gameEndedSignal();
+            return;
+        }
     }
-    blobs_.clear();
-    blobs_.push_back(b);
 }

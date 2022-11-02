@@ -35,5 +35,6 @@ int GameTimer2::gameOver() {
 }
 
 void GameTimer2::shrinkBlob() {
+    emit blobShrinkSignal();
     qDebug() << "shrinkBlob";
 }

@@ -398,17 +398,25 @@ Blob::~Blob()
     delete position_;
 }
 
-Blob * Blob::newShrinkedBlob() {
+bool Blob::shrinkBlob() {
 
-    float newRadius = radius_ * 0.8;
-    int newNbParticlesRow = nbParticlesRow_ * 0.8;
-    int newNbRows = nbRows_ * 0.8;
+    radius_ = radius_ * 0.95;
 
-    // End game condition
-    if(newNbParticlesRow <= 3 || newNbRows <= 3) {
-        return nullptr;
+    for(int i = 0; i<springs_->size();i++)
+    {
+        springs_->at(i).l0 = springs_->at(i).l0*0.95;
+    }
+    for(int i = 0; i<cables_->size();i++)
+    {
+        cables_->at(i).l0 = cables_->at(i).l0*0.95;
     }
 
-    Blob * b = new Blob(position_->getX(), position_->getY(), position_->getZ(), newRadius, newNbParticlesRow, newNbRows, offset_);
-    return b;
+    if(radius_<4)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }

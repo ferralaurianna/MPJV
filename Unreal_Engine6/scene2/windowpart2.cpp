@@ -30,14 +30,6 @@ WindowPart2::~WindowPart2()
 
 void WindowPart2::UpdateFrame()
 {
-    if(switch_<1200)
-    {
-        switch_++;
-    }
-    else
-    {
-        switch_=0;
-    }
     timerStart->start(deltatime);
     // Record start time
     auto start = std::chrono::high_resolution_clock::now();
@@ -53,7 +45,7 @@ void WindowPart2::UpdateFrame()
         if(jumpTimer>0)
         {
             jumpTimer-=deltatime;
-            movements=movements+Vector3D(0,75,0);
+            movements=movements+Vector3D(0,75*(blob->getRadius()/10),0);
         }
         blob->getNucleus()->addForces(movements);
     }

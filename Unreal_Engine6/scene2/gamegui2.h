@@ -178,7 +178,7 @@ private:
 
 
 
-signals:
+public: signals:
 
     void gameEndedSignal();
 

@@ -38,7 +38,7 @@ public:
     std::vector<Link>* getCables(){return cables_;};
     float getRadius(){return radius_;};
 
-    Blob * newShrinkedBlob();
+    bool shrinkBlob();
 
 private:
     int nbParticlesRow_;
