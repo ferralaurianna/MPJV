@@ -10,6 +10,8 @@ GameGUI2::GameGUI2(QWidget *parent): QOpenGLWidget(parent)
     scoreBase=0;
     Blob* b = new Blob(0,0,0,20,20,7);
     blobs_.push_back(b);
+    gameTimer = new GameTimer2();
+    gameTimer->startGameTimer(9999);
 }
 
 GameGUI2::~GameGUI2()
@@ -20,7 +22,6 @@ GameGUI2::~GameGUI2()
         delete blob;
     }
 }
-
 
 // Initialize OpenGL parameters before the first rendering
 void GameGUI2::initializeGL()
@@ -98,6 +99,9 @@ void GameGUI2::paintGL()
         blob->display();
     }
     //scene->slideSky();
+
+    // Paint timer
+    gameTimer->drawGameTimer(this);
 }
 
 

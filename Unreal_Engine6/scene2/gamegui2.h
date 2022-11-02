@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QWidget>
 #include "scene2\blob.h"
+#include "scene2\gametimer2.h"
 #include <vector>
 #include <QRandomGenerator>
 #include <QTimer>
@@ -95,7 +96,7 @@ protected:
      */
     void paintGL();
 
-
+    GameTimer2 *gameTimer;
 
 private:
     /**
