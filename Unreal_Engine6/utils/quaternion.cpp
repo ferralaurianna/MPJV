@@ -1,4 +1,5 @@
 #include "quaternion.h"
+#include <math.h>
 
 Quaternion::Quaternion()
 {
@@ -32,4 +33,21 @@ Quaternion Quaternion::operator*(const Quaternion& other)
     result._values[0] = _values[0]*other._values[2] + _values[2]*other._values[0] + _values[3]*other._values[1] - _values[1]*other._values[3];
     result._values[0] = _values[0]*other._values[3] + _values[3]*other._values[0] + _values[1]*other._values[2] - _values[2]*other._values[1];
     return result;
+}
+
+void Quaternion::Normalized()
+{
+    float magnitude = std::sqrt(_values[0]*_values[0] + _values[1]*_values[1] + _values[2]*_values[2] + _values[3]*_values[3]);
+    if (magnitude == 0){
+        return;
+    }
+    _values[0] /= magnitude;
+    _values[1] /= magnitude;
+    _values[2] /= magnitude;
+    _values[3] /= magnitude;
+}
+
+void Quaternion::RotateByVector(const Vector3D &vect)
+{
+
 }
