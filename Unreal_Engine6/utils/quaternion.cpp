@@ -29,10 +29,18 @@ Quaternion Quaternion::operator*(const Quaternion& other)
 {
     Quaternion result;
     result._values[0] = _values[0]*other._values[0] - _values[1]*other._values[1] - _values[2]*other._values[2] - _values[3]*other._values[3];
-    result._values[0] = _values[0]*other._values[1] + _values[1]*other._values[0] + _values[2]*other._values[3] - _values[3]*other._values[2];
-    result._values[0] = _values[0]*other._values[2] + _values[2]*other._values[0] + _values[3]*other._values[1] - _values[1]*other._values[3];
-    result._values[0] = _values[0]*other._values[3] + _values[3]*other._values[0] + _values[1]*other._values[2] - _values[2]*other._values[1];
+    result._values[1] = _values[0]*other._values[1] + _values[1]*other._values[0] + _values[2]*other._values[3] - _values[3]*other._values[2];
+    result._values[2] = _values[0]*other._values[2] + _values[2]*other._values[0] + _values[3]*other._values[1] - _values[1]*other._values[3];
+    result._values[3] = _values[0]*other._values[3] + _values[3]*other._values[0] + _values[1]*other._values[2] - _values[2]*other._values[1];
     return result;
+}
+
+void Quaternion::operator*=(const Quaternion& other){
+    Quaternion q = *this;
+    _values[0] = q._values[0]*other._values[0] - q._values[1]*other._values[1] - q._values[2]*other._values[2] - q._values[3]*other._values[3];
+    _values[1] = q._values[0]*other._values[1] + q._values[1]*other._values[0] + q._values[2]*other._values[3] - q._values[3]*other._values[2];
+    _values[2] = q._values[0]*other._values[2] + q._values[2]*other._values[0] + q._values[3]*other._values[1] - q._values[1]*other._values[3];
+    _values[3] = q._values[0]*other._values[3] + q._values[3]*other._values[0] + q._values[1]*other._values[2] - q._values[2]*other._values[1];
 }
 
 void Quaternion::Normalized()
@@ -49,5 +57,17 @@ void Quaternion::Normalized()
 
 void Quaternion::RotateByVector(const Vector3D &vect)
 {
+    Quaternion q(0, vect.getX(), vect.getY(), vect.getZ());
+    (*this) *= q;
+}
 
+
+void Quaternion::UpdateByAngularVelocity(const Vector3D& vect, float duration)
+{
+    Quaternion q(0, vect.getX() * duration, vect.getY() * duration, vect.getZ() * duration);
+    q *= *this;
+    _values[0] += q._values[0] * (0.5);
+    _values[1] += q._values[1] * (0.5);
+    _values[2] += q._values[2] * (0.5);
+    _values[3] += q._values[3] * (0.5);
 }
