@@ -36,6 +36,7 @@ SOURCES += \
     scene2/gametimer2.cpp \
     scene2/windowgameover2.cpp \
     utils/forceregistrery.cpp \
+    utils/quaternion.cpp \
     utils\Vector3D.cpp \
     bulletsType\cannonball.cpp \
     bulletsType\fireball.cpp \
@@ -71,6 +72,7 @@ HEADERS += \
     scene2/gametimer2.h \
     scene2/windowgameover2.h \
     utils/forceregistrery.h \
+    utils/quaternion.h \
     utils\Vector3D.h \
     bulletsType\cannonball.h \
     bulletsType\fireball.h \
