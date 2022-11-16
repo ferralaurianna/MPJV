@@ -2,6 +2,7 @@
 #define RIGIDBODY_H
 
 #include "quaternion.h"
+#include "matrix.h"
 
 
 class Rigidbody

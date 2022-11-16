@@ -44,33 +44,34 @@ void Rigidbody::integrate(float duration) {
 void Rigidbody::calculateDerivedData() {
 
     // TODO compute the transform matrix
-    //Matrix * quat2Mat = orientation_->tomatrix();
+    Matrix * quat2Mat = new Matrix(3);
+    quat2Mat->SetOrientation(*orientation_);
     vector<float> * tab = new vector<float>();
-    //for(i=0;i<16;i++)
-    //{
-    //  int line =(int)i/4;
-    //  int col = i%4;
-    //  if(col<4&&line<4)
-    //  {
-    //    tab->push_back(quat2Mat->get(line,col));
-    //  }
-    //  else if(col==4&&line<4)
-    //  {
-    //    tab->push_back(position_->get[line]);
-    //  }
-    //  else if(col<4&&line=4)
-    //  {
-    //    tab->push_back(0);
-    //  }
-    //  else { tab->push_back(1); }
-    //}
-    //transformMatrix_= new Matrix(4,tab->data());
+    for(int i=0;i<16;i++)
+    {
+      int line =(int)i/4;
+      int col = i%4;
+      if(col<4&&line<4)
+      {
+        tab->push_back((*quat2Mat)(line,col));
+      }
+      else if(col==4&&line<4)
+      {
+        tab->push_back((*position_)[line]);
+      }
+      else if(col<4&&line==4)
+      {
+        tab->push_back(0);
+      }
+      else { tab->push_back(1); }
+    }
+    transformMatrix_= new Matrix(4,tab->data());
 
     // Normalizes the orientation
     orientation_->Normalized();
 
-    //inverseInertia_=transformMatrix_*inverseInertia_*transformMatrix_->inverse();
-
+    Matrix inverseTransformMatrix = transformMatrix_->Inverse();
+    *inverseInertia_=(*transformMatrix_)*(*inverseInertia_)*inverseTransformMatrix;
 }
 
 void Rigidbody::addForces(Vector3D force)
@@ -81,13 +82,13 @@ void Rigidbody::addForces(Vector3D force)
 void Rigidbody::addForcesAtWorldPoint(Vector3D force, Vector3D point)
 {
     *accumForce_ = (*accumForce_)+force;
-    *accumTorque_ = (*accumTorque_)+((*position_)-point)*force*(*inverseInertia_);
+    *accumTorque_ = (*accumTorque_)+(*inverseInertia_)*((*position_)-point)*force;
 }
 
 void Rigidbody::addForcesAtBodyPoint(Vector3D force, Vector3D point)
 {
     *accumForce_ = (*accumForce_)+(force);
-    *accumTorque_ = (*accumTorque_)+point*force*(*inverseInertia_);
+    *accumTorque_ = (*accumTorque_)+(*inverseInertia_)*point*force;
 }
 
 
