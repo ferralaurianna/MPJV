@@ -1,38 +1,35 @@
 #include "rigidbody.h"
+#include <QtMath>
 
-Rigidbody::Rigidbody(float posX=0,float posY=0,float posZ=0,float radius=1,float mass=1,float velocity=1,Quaternion * orientation=new Quaternion(),Vector3D * rotation=new Vector3D()) {
+Rigidbody::Rigidbody(float posX,float posY,float posZ,float mass,Quaternion * orientation) {
 
     position_ = new Vector3D(posX,posY,posZ);
-    radius_ = radius;
     inverseMass_ = float(1)/mass;
-    velocity_ = new Vector3D(velocity*qCos(qDegreesToRadians(orientation)),velocity*qSin(qDegreesToRadians(orientation)),0);
+    velocity_ = new Vector3D(0,0,0);
     orientation_ = orientation;
-    rotation_ = rotation;
-
 };
 
 Rigidbody::~Rigidbody() {
     delete orientation_;
-    delete rotation_;
-}
-
-void Rigidbody::display() {
-    // TODO je ne sais pas faire d'OpenGL :(
-    ((Particles *) this)->display();
+    delete angularVelocity_;
+    delete position_;
+    delete velocity_;
 }
 
 void Rigidbody::integrate(float duration) {
 
-    ((Particles *) this)->integrer(duration);
-
-    // Updates the orientation
-    // Pas opti, recréation de la variable à chaque frame, bofbof
-    Quaternion * omega = new Quaternion(0, rotation_->getX(), rotation_->getY(), rotation_->getZ());
-    (*orientation_)=(*orientation_) + (duration/2)*(*omega)*(*orientation_);
+    //Update of the current velocity
+    (*velocity_)=(*velocity_)*qPow(damping_,duration)+(*accumForce_*inverseMass_)*duration;
 
     // Update angular velocity
-    Vector3D * angularAcc = new Vector3D(); // Todo with angular momentum
-    (*rotation_)=(*rotation_)+(*angularAcc)*duration;
+    (*angularVelocity_)=(*angularVelocity_)*qPow(damping_,duration)+(*accumTorque_)*duration;
+
+
+    //Udpate of the current position
+    (*position_)=(*position_)+(*velocity_)*duration;
+
+    // Updates the orientation
+    orientation_->UpdateByAngularVelocity(*angularVelocity_,duration);
 
 }
 
@@ -41,8 +38,13 @@ void Rigidbody::calculateDerivedData() {
     // TODO compute the transform matrix
 
     // Normalizes the orientation
-    *orientation_->normalize();
+    orientation_->Normalized();
 
+}
+
+void Rigidbody::addForces(Vector3D force)
+{
+    *accumForce_ = (*accumForce_)+(force);
 }
 
 void Rigidbody::addForcesAtWorldPoint(Vector3D force, Vector3D point)
@@ -60,6 +62,6 @@ void Rigidbody::addForcesAtBodyPoint(Vector3D force, Vector3D point)
 
 void Rigidbody::clearAccum()
 {
-    ((Particles *) this)->clearAccum();
+    *accumForce_ = Vector3D(0,0,0);
     *accumTorque_ = Vector3D(0,0,0);
 }
