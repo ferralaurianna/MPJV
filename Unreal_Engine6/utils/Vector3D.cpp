@@ -98,20 +98,6 @@ Vector3D Vector3D::operator*(Vector3D const& other){
     return result;
 }
 
-// Product between a vector and a matrix. If the matrix has not a size 3, it return an error.
-Vector3D Vector3D::operator*(Matrix const& other){
-    Vector3D result = Vector3D();
-    if(other.getSize() != 3){
-        throw "The matrix has not the right size. It should be a 3-Matrix.";
-    }
-    for(int j = 0; j < 3; j++){
-        result._x = result._x + other(0, j) * _x;
-         result._y = result._y + other(1, j) * _y;
-         result._z = result._z + other(2, j) * _z;
-    }
-    return result;
-}
-
 // Product between a vector and a scalar.
 Vector3D Vector3D::operator*(float scalar){
     Vector3D result = Vector3D();

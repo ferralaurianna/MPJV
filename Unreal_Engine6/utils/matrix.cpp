@@ -136,6 +136,23 @@ Matrix Matrix::operator*(float scalar){
     return result;
 }
 
+// Product between a vector and a matrix. If the matrix has not a size 3, it return an error.
+Vector3D Matrix::operator*(const Vector3D& vect){
+    float x = 0.0f;
+    float y = 0.0f;
+    float z = 0.0f;
+    if(_size != 3){
+        throw "The matrix has not the right size. It should be a 3-Matrix.";
+    }
+    for(int j = 0; j < 3; j++){
+        x += _matrix[j] * vect.getX();
+        y += _matrix[j + _size] * vect.getY();
+        z += _matrix[j + 2*_size] * vect.getZ();
+    }
+    Vector3D result(x,y,z);
+    return result;
+}
+
 // Division between a matrix and a scalar
 Matrix Matrix::operator/(float scalar){
     Matrix result = Matrix(_size);
@@ -145,27 +162,8 @@ Matrix Matrix::operator/(float scalar){
     return result;
 }
 
-// Operator to display a matrix for the debugging
-ostream& operator<<(ostream &os, Matrix const& m){
-    os << "[";
-    for(int i = 0; i<m._size; i++){
-        os << "[";
-        for(int j = 0; j<m._size-1; j++){
-            os << m._matrix[i*m._size+j] << ", ";
-        }
-        os << m._matrix[i*m._size+m._size-1];
-        os << "]";
-        if(i != m._size-1){
-            os << ", ";
-        }
-        
-    }
-    os << "]";
-    return os;
-}
-
 // Get the transposed matrix
-Matrix Matrix::transpose(){
+Matrix Matrix::Transpose(){
     Matrix result = Matrix(_size);
     for(int i = 0;i<result._size;i++){
         for(int j = 0; j<result._size;j++){
@@ -176,7 +174,7 @@ Matrix Matrix::transpose(){
 }
 
 // Calculation of the determinant of a 3x3 matrix
-float Matrix::determinant(){
+float Matrix::Determinant(){
     float result = 0.f;
     if(_size == 3){
         result += _matrix[0] * (_matrix[4] * _matrix[8] - _matrix[7] * _matrix[5]);
@@ -185,3 +183,65 @@ float Matrix::determinant(){
     }
     return result;
 }
+
+Matrix Matrix::Inverse(){
+    float det = this->Determinant();
+    if(det == 0){
+        Matrix m;
+        return m;
+    }
+    Matrix result(3);
+    result._matrix[0] = (_matrix[4] * _matrix[8] - _matrix[5] * _matrix[7]) / det;
+    result._matrix[1] = (_matrix[2] * _matrix[7] - _matrix[1] * _matrix[8]) / det;
+    result._matrix[2] = (_matrix[1] * _matrix[5] - _matrix[2] * _matrix[4]) / det;
+    result._matrix[3] = (_matrix[5] * _matrix[6] - _matrix[3] * _matrix[8]) / det;
+    result._matrix[4] = (_matrix[0] * _matrix[8] - _matrix[2] * _matrix[6]) / det;
+    result._matrix[5] = (_matrix[2] * _matrix[3] - _matrix[0] * _matrix[5]) / det;
+    result._matrix[6] = (_matrix[3] * _matrix[7] - _matrix[4] * _matrix[6]) / det;
+    result._matrix[7] = (_matrix[1] * _matrix[6] - _matrix[0] * _matrix[7]) / det;
+    result._matrix[8] = (_matrix[0] * _matrix[4] - _matrix[1] * _matrix[3]) / det;
+    return result;
+}
+
+void Matrix::SetOrientation(const Quaternion& q){
+    if(_size != 3){
+        return;
+    }
+    float w = q.getW();
+    float x = q.getI();
+    float y = q.getJ();
+    float z = q.getK();
+    _matrix[0] = 1 - (2*y*y + 2*z*z);
+    _matrix[1] = 2*x*y + 2*z*w;
+    _matrix[2] = 2*x*z - 2*y*w;
+    _matrix[3] = 2*x*y - 2*z*w;
+    _matrix[4] = 1 - (2*x*x + 2*x*w);
+    _matrix[5] = 2*y*z + 2*x*w;
+    _matrix[6] = 2*x*z + 2*y*w;
+    _matrix[7] = 2*y*z - 2*x*w;
+    _matrix[8] = 1 - (2*x*x + 2*y*y);
+}
+
+void Matrix::SetOrientationAndPosition(const Quaternion& q, const Vector3D& vect){
+    if(_size != 4){
+        return;
+    }
+    float w = q.getW();
+    float x = q.getI();
+    float y = q.getJ();
+    float z = q.getK();
+    _matrix[0] = 1 - (2*y*y + 2*z*z);
+    _matrix[1] = 2*x*y + 2*z*w;
+    _matrix[2] = 2*x*z - 2*y*w;
+    _matrix[4] = 2*x*y - 2*z*w;
+    _matrix[5] = 1 - (2*x*x + 2*x*w);
+    _matrix[6] = 2*y*z + 2*x*w;
+    _matrix[8] = 2*x*z + 2*y*w;
+    _matrix[9] = 2*y*z - 2*x*w;
+    _matrix[10] = 1 - (2*x*x + 2*y*y);
+
+    _matrix[3] = vect.getX();
+    _matrix[6] = vect.getY();
+    _matrix[9] = vect.getZ();
+}
+
