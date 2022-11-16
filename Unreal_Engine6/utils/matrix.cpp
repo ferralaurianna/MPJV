@@ -183,3 +183,25 @@ float Matrix::Determinant(){
     }
     return result;
 }
+
+Matrix Matrix::Inverse(){
+    float det = this->Determinant();
+    if(det == 0){
+        Matrix m;
+        return m;
+    }
+    Matrix result(3);
+    result._matrix[0] = (_matrix[4] * _matrix[8] - _matrix[5] * _matrix[7]) / det;
+    result._matrix[1] = (_matrix[2] * _matrix[7] - _matrix[1] * _matrix[8]) / det;
+    result._matrix[2] = (_matrix[1] * _matrix[5] - _matrix[2] * _matrix[4]) / det;
+    result._matrix[3] = (_matrix[5] * _matrix[6] - _matrix[3] * _matrix[8]) / det;
+    result._matrix[4] = (_matrix[0] * _matrix[8] - _matrix[2] * _matrix[6]) / det;
+    result._matrix[5] = (_matrix[2] * _matrix[3] - _matrix[0] * _matrix[5]) / det;
+    result._matrix[6] = (_matrix[3] * _matrix[7] - _matrix[4] * _matrix[6]) / det;
+    result._matrix[7] = (_matrix[1] * _matrix[6] - _matrix[0] * _matrix[7]) / det;
+    result._matrix[8] = (_matrix[0] * _matrix[4] - _matrix[1] * _matrix[3]) / det;
+    return result;
+}
+
+
+
