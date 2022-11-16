@@ -245,3 +245,39 @@ void Matrix::SetOrientationAndPosition(const Quaternion& q, const Vector3D& vect
     _matrix[9] = vect.getZ();
 }
 
+Vector3D Matrix::TransformPosition(const Vector3D& vector){
+    if(_size != 4){
+        Vector3D result;
+        return result;
+    }
+    float xRes;
+    float yRes;
+    float zRes;
+    float x = vector.getX();
+    float y = vector.getY();
+    float z = vector.getZ();
+    xRes = _matrix[0] * x + _matrix[1]*y + _matrix[2]*z + _matrix[3];
+    yRes = _matrix[4] * x + _matrix[5]*y + _matrix[6]*z + _matrix[7];
+    zRes = _matrix[8] * x + _matrix[9]*y + _matrix[10]*z + _matrix[11];
+    Vector3D result(xRes, yRes, zRes);
+    return result;
+}
+
+Vector3D Matrix::TransformDirection(const Vector3D& vector){
+    if(_size != 4){
+        Vector3D result;
+        return result;
+    }
+    float xRes;
+    float yRes;
+    float zRes;
+    float x = vector.getX();
+    float y = vector.getY();
+    float z = vector.getZ();
+    xRes = _matrix[0] * x + _matrix[1]*y + _matrix[2]*z;
+    yRes = _matrix[4] * x + _matrix[5]*y + _matrix[6]*z;
+    zRes = _matrix[8] * x + _matrix[9]*y + _matrix[10]*z;
+    Vector3D result(xRes, yRes, zRes);
+    return result;
+}
+
