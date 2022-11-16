@@ -203,5 +203,45 @@ Matrix Matrix::Inverse(){
     return result;
 }
 
+void Matrix::SetOrientation(const Quaternion& q){
+    if(_size != 3){
+        return;
+    }
+    float w = q.getW();
+    float x = q.getI();
+    float y = q.getJ();
+    float z = q.getK();
+    _matrix[0] = 1 - (2*y*y + 2*z*z);
+    _matrix[1] = 2*x*y + 2*z*w;
+    _matrix[2] = 2*x*z - 2*y*w;
+    _matrix[3] = 2*x*y - 2*z*w;
+    _matrix[4] = 1 - (2*x*x + 2*x*w);
+    _matrix[5] = 2*y*z + 2*x*w;
+    _matrix[6] = 2*x*z + 2*y*w;
+    _matrix[7] = 2*y*z - 2*x*w;
+    _matrix[8] = 1 - (2*x*x + 2*y*y);
+}
 
+void Matrix::SetOrientationAndPosition(const Quaternion& q, const Vector3D& vect){
+    if(_size != 4){
+        return;
+    }
+    float w = q.getW();
+    float x = q.getI();
+    float y = q.getJ();
+    float z = q.getK();
+    _matrix[0] = 1 - (2*y*y + 2*z*z);
+    _matrix[1] = 2*x*y + 2*z*w;
+    _matrix[2] = 2*x*z - 2*y*w;
+    _matrix[4] = 2*x*y - 2*z*w;
+    _matrix[5] = 1 - (2*x*x + 2*x*w);
+    _matrix[6] = 2*y*z + 2*x*w;
+    _matrix[8] = 2*x*z + 2*y*w;
+    _matrix[9] = 2*y*z - 2*x*w;
+    _matrix[10] = 1 - (2*x*x + 2*y*y);
+
+    _matrix[3] = vect.getX();
+    _matrix[6] = vect.getY();
+    _matrix[9] = vect.getZ();
+}
 

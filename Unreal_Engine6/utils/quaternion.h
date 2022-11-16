@@ -25,6 +25,12 @@ public:
 
     // Apply the quaternion update by the angular velcity.
     void UpdateByAngularVelocity(const Vector3D& vect, float duration);
+
+    // Getter
+    float  getW() const { return _values[0];}
+    float getI() const { return _values[1];}
+    float getJ() const { return _values[2];}
+    float getK() const { return _values[3];}
 };
 
 #endif // QUATERNION_H
