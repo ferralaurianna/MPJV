@@ -22,9 +22,12 @@ else {
 
 SOURCES += \
     bulletsType\ball.cpp \
+    generators/forcegenerator.cpp \
     generators/geneinterface.cpp \
+    generators/gravityforcegenerator.cpp \
     generators/gravitygenerator.cpp \
     generators/springfloatability.cpp \
+    generators/springforcegenerator.cpp \
     generators/springtwoparticle.cpp \
     menu/windowmainmenu.cpp \
     scene2/Assets/Plateforme.cpp \
@@ -59,9 +62,12 @@ SOURCES += \
 
 HEADERS += \
     bulletsType\ball.h \
+    generators/forcegenerator.h \
     generators/geneinterface.h \
+    generators/gravityforcegenerator.h \
     generators/gravitygenerator.h \
     generators/springflotability.h \
+    generators/springforcegenerator.h \
     generators/springtwoparticle.h \
     menu/windowmainmenu.h \
     scene2/Assets/Plateforme.h \
