@@ -38,7 +38,7 @@ public:
     bool isOnGround(){return hasReachedGround;}
 
     void addForces(Vector3D force);
-    void clearAccum();
+    virtual void clearAccum();
     virtual void CheckCollision();
 
 
