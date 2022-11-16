@@ -145,25 +145,6 @@ Matrix Matrix::operator/(float scalar){
     return result;
 }
 
-// Operator to display a matrix for the debugging
-ostream& operator<<(ostream &os, Matrix const& m){
-    os << "[";
-    for(int i = 0; i<m._size; i++){
-        os << "[";
-        for(int j = 0; j<m._size-1; j++){
-            os << m._matrix[i*m._size+j] << ", ";
-        }
-        os << m._matrix[i*m._size+m._size-1];
-        os << "]";
-        if(i != m._size-1){
-            os << ", ";
-        }
-        
-    }
-    os << "]";
-    return os;
-}
-
 // Get the transposed matrix
 Matrix Matrix::transpose(){
     Matrix result = Matrix(_size);
