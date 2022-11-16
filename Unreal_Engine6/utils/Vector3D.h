@@ -1,8 +1,6 @@
 #ifndef VECTOR3D_H
 #define VECTOR3D_H
 
-#include "matrix.h"
-
 class Vector3D {
 private:
     float _x;
@@ -45,7 +43,6 @@ public:
     Vector3D operator^(Vector3D const& other);
     Vector3D operator*(Vector3D const& other);
     Vector3D operator*(float scalar);
-    Vector3D operator*(Matrix const& matrix);
     Vector3D operator/(float scalar);
     Vector3D operator=(const Vector3D & other);
     bool operator==(const Vector3D &other);

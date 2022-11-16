@@ -136,6 +136,23 @@ Matrix Matrix::operator*(float scalar){
     return result;
 }
 
+// Product between a vector and a matrix. If the matrix has not a size 3, it return an error.
+Vector3D Matrix::operator*(const Vector3D& vect){
+    float x = 0.0f;
+    float y = 0.0f;
+    float z = 0.0f;
+    if(_size != 3){
+        throw "The matrix has not the right size. It should be a 3-Matrix.";
+    }
+    for(int j = 0; j < 3; j++){
+        x += _matrix[j] * vect.getX();
+        y += _matrix[j + _size] * vect.getY();
+        z += _matrix[j + 2*_size] * vect.getZ();
+    }
+    Vector3D result(x,y,z);
+    return result;
+}
+
 // Division between a matrix and a scalar
 Matrix Matrix::operator/(float scalar){
     Matrix result = Matrix(_size);
@@ -146,7 +163,7 @@ Matrix Matrix::operator/(float scalar){
 }
 
 // Get the transposed matrix
-Matrix Matrix::transpose(){
+Matrix Matrix::Transpose(){
     Matrix result = Matrix(_size);
     for(int i = 0;i<result._size;i++){
         for(int j = 0; j<result._size;j++){
@@ -157,7 +174,7 @@ Matrix Matrix::transpose(){
 }
 
 // Calculation of the determinant of a 3x3 matrix
-float Matrix::determinant(){
+float Matrix::Determinant(){
     float result = 0.f;
     if(_size == 3){
         result += _matrix[0] * (_matrix[4] * _matrix[8] - _matrix[7] * _matrix[5]);

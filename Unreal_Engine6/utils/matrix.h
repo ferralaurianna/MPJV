@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstring>
 #include <math.h>
+#include "quaternion.h"
 
 using namespace std;
 
@@ -35,20 +36,16 @@ public:
     Matrix operator-(Matrix const& other);
     Matrix operator-();
     Matrix operator*(Matrix const& other);
+    Vector3D operator*(Vector3D const& vect);
     Matrix operator*(float scalar);
     Matrix operator/(float scalar);
 
     //Method
-    Matrix transpose();
-    float determinant();
-    //Static method
-    static Matrix identity(long int n){
-        Matrix result = Matrix(n);
-        for(int  i = 0; i < n; i++){
-            result[i][i] = 1;
-        }
-        return result;
-    }
+    Matrix Transpose();
+    float Determinant();
+    Matrix Inverse();
+    void SetOrientation(const Quaternion& q);
+    void SetOrientationAndPosition(const Quaternion& q, const Vector3D& p);
 
 };
 
