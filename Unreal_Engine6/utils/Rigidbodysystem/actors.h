@@ -8,6 +8,13 @@
 class Actors
 {
 public:
+    struct Connection
+    {
+        int idOther;
+        Vector3D bodyAnchor_;
+        Vector3D otherBodyAnchor_;
+    };
+
     Actors(Rigidbody rigidbody, std::vector<Polygone> polygones, int id, bool gravity = true);
 
     std::vector<Polygone>* getPolygones(){return &polygones_;};
@@ -15,9 +22,9 @@ public:
     Rigidbody* getRigidbody(){return &rigidbody_;};
 
 // WARNING : use manually for init only !
-    void addLink(int link){linksTo_.push_back(link);}
+    void addLink(int idOther, Vector3D anchor, Vector3D otherAnchor){linksTo_.push_back({idOther,anchor,otherAnchor});}
 // WARNING : use manually for init only !
-    void addCable(int cable){cablesTo_.push_back(cable);}
+    void addCable(int idOther, Vector3D anchor, Vector3D otherAnchor){cablesTo_.push_back({idOther,anchor,otherAnchor});}
 
 protected:
     std::vector<Polygone> polygones_;
@@ -26,9 +33,9 @@ protected:
 
     int id_;
 
-    std::vector<int> linksTo_= std::vector<int>();
+    std::vector<Connection> linksTo_= std::vector<Connection>();
 
-    std::vector<int> cablesTo_= std::vector<int>();
+    std::vector<Connection> cablesTo_= std::vector<Connection>();
 
     bool hasGravity_;
 };
