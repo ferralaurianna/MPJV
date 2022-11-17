@@ -1,8 +1,8 @@
 #ifndef RIGIDBODY_H
 #define RIGIDBODY_H
 
-#include "quaternion.h"
-#include "matrix.h"
+#include "utils/quaternion.h"
+#include "utils/matrix.h"
 
 
 class Rigidbody

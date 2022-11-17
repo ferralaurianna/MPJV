@@ -2,7 +2,7 @@
 #define FORCEREGISTRERY_H
 
 #include "generators/geneinterface.h"
-#include "utils/particles.h"
+#include "utils/ParticlesSystem/particles.h"
 #include <vector>
 
 class ForceRegistrery
@@ -24,7 +24,7 @@ public:
     void updateForces(float duration);
 
 private:
-    vector<Registration> register_;
+    std::vector<Registration> register_;
 };
 
 #endif // FORCEREGISTRERY_H

@@ -5,7 +5,7 @@ SpringForceGenerator::SpringForceGenerator(Vector3D* bodyAnchor,Rigidbody* other
 {
     bodyAnchor_=bodyAnchor;
     otherRigidbody_=otherRigidbody;
-    otherBodyAnchor=otherBodyAnchor;
+    otherBodyAnchor_=otherBodyAnchor;
     k_=k;
     restLenght_=restLenght;
 }
@@ -20,5 +20,6 @@ void SpringForceGenerator::updateForce(Rigidbody* rigidbody,float duration){
     Vector3D difference = (*bodyAnchor_)-(*otherBodyAnchor_);
     float l = difference.norm();
     Vector3D force = difference.normalize()*((l-restLenght_)*k_);
+    //Ajouter les forces au bon pt d'application
     rigidbody->addForces(force);
 }

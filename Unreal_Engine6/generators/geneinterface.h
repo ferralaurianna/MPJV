@@ -1,9 +1,8 @@
 #ifndef GENEINTERFACE_H
 #define GENEINTERFACE_H
 
-#include "utils/particles.h"
+#include "utils/ParticlesSystem/particles.h"
 #include "utils/Vector3D.h"
-
 
 class GeneInterface
 {

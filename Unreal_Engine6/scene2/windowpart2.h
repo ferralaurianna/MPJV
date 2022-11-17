@@ -5,9 +5,10 @@
 #include <QTimer>
 #include <chrono>
 #include <QKeyEvent>
-#include "utils/collisiondetector.h"
-#include "utils/collisionregistrery.h"
-#include "utils/particles.h"
+#include "utils/ParticlesSystem/collisiondetector.h"
+#include "utils/ParticlesSystem/collisionregistrery.h"
+#include "utils/ParticlesSystem/forceregistrery.h"
+#include "utils/ParticlesSystem/particles.h"
 #include "utils/forceregistrery.h"
 #include "generators/springtwoparticle.h"
 #include "generators/springflotability.h"
@@ -35,7 +36,7 @@ private:
 
     CollisionRegistrery* registeryCol_ = new CollisionRegistrery();
 
-    vector<vector<Polygone>*>* sceneWalls_ = new vector<vector<Polygone>*>();
+    std::vector<std::vector<Polygone>*>* sceneWalls_ = new std::vector<std::vector<Polygone>*>();
 
     CollisionDetector detectorScene_ = CollisionDetector(registeryCol_,sceneWalls_);
 

@@ -36,7 +36,7 @@ void WindowPart2::UpdateFrame()
 
     for(Blob* blob : ui->gameGUI->blobs_)
     {
-        vector<Blob::Link>* links = blob->getSprings();
+        std::vector<Blob::Link>* links = blob->getSprings();
         for(Blob::Link link: *links)
         {
             registrery->add(link.part1,new SpringTwoParticle(link.part2,2,link.l0));
@@ -54,7 +54,7 @@ void WindowPart2::UpdateFrame()
     {
         float lowestY = blob->getNucleus()->getPosition()->getY();
         float yPart = 0;
-        vector<Particles*>* particles = blob->getExteriorRow();
+        std::vector<Particles*>* particles = blob->getExteriorRow();
         for(Particles* part : *particles)
         {
             GravityGenerator * graveGen = new GravityGenerator();
@@ -83,7 +83,7 @@ void WindowPart2::UpdateFrame()
     // Update the position of the particles
     for(Blob* blob : ui->gameGUI->blobs_)
     {
-        vector<Particles*>* particles = blob->getExteriorRow();
+        std::vector<Particles*>* particles = blob->getExteriorRow();
         for(Particles* part : *particles)
         {
             part->integrer(deltatime);

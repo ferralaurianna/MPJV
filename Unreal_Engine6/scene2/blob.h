@@ -1,7 +1,7 @@
 #ifndef BLOB_H
 #define BLOB_H
 
-#include <utils/particles.h>
+#include <utils/ParticlesSystem/particles.h>
 #include <utils/Vector3D.h>
 #include <vector>
 #include <QtMath>

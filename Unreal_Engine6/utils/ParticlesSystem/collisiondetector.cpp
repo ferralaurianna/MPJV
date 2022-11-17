@@ -1,6 +1,6 @@
 #include "collisiondetector.h"
 
-CollisionDetector::CollisionDetector(CollisionRegistrery* registery, vector<vector<Polygone> *> *walls)
+CollisionDetector::CollisionDetector(CollisionRegistrery* registery, std::vector<std::vector<Polygone> *> *walls)
 {
     registery_ = registery;
     walls_ = walls;

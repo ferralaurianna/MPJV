@@ -2,7 +2,7 @@
 #define COLLISIONREGISTRERY_H
 
 
-#include "utils/particlecontact.h"
+#include "utils/ParticlesSystem/particlecontact.h"
 class CollisionRegistrery
 {
 public:
@@ -16,7 +16,7 @@ public:
     void handleCollision();
 
 private:
-    vector<ParticleContact> register_;
+    std::vector<ParticleContact> register_;
 };
 
 #endif // COLLISIONREGISTRERY_H

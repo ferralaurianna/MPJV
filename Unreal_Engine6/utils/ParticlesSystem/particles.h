@@ -3,7 +3,7 @@
 
 #include <QtOpenGLWidgets/QOpenGLWidget>
 #include <GL/glu.h>
-#include "Vector3D.h"
+#include "utils\Vector3D.h"
 #include <QtMath>
 
 class Particles

@@ -1,7 +1,7 @@
 #ifndef FORCEGENERATOR_H
 #define FORCEGENERATOR_H
 
-#include "utils/rigidbody.h"
+#include "utils/Rigidbodysystem/rigidbody.h"
 #include "utils/Vector3D.h"
 
 class ForceGenerator

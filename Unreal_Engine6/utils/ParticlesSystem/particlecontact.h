@@ -2,7 +2,7 @@
 #define PARTICLECONTACT_H
 
 #include "particles.h"
-#include "Vector3D.h"
+#include "utils\Vector3D.h"
 
 class ParticleContact
 {
