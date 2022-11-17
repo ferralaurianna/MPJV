@@ -103,7 +103,7 @@ void WindowPart2::UpdateFrame()
     //Find the collissions with the scene
     for(Blob* blob : ui->gameGUI->blobs_)
     {
-        vector<Particles*>* particles = blob->getExteriorRow();
+        std::vector<Particles*>* particles = blob->getExteriorRow();
         for(Particles* part : *particles)
         {
             detectorScene_.detectCollision(part);
@@ -119,7 +119,7 @@ void WindowPart2::UpdateFrame()
     //Find the collissions with the cables
     for(Blob* blob : ui->gameGUI->blobs_)
     {
-        vector<Blob::Link>* cables = blob->getCables();
+        std::vector<Blob::Link>* cables = blob->getCables();
         for(Blob::Link cable: *cables)
         {
             Vector3D p1p2 = (*(cable.part2->getPosition())-*(cable.part1->getPosition()));

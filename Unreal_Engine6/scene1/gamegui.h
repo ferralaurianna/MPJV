@@ -4,7 +4,7 @@
 
 #include <QObject>
 #include <QWidget>
-#include "utils\particles.h"
+#include "utils\ParticlesSystem\particles.h"
 #include "bulletsType\ball.h"
 #include "bulletsType\cannonball.h"
 #include "bulletsType\laser.h"
@@ -31,7 +31,7 @@ public:
      * @brief particles
      * A list of pointers to the particles present in the scene.
      */
-    vector<Particles*> particles;
+    std::vector<Particles*> particles;
     /**
      * @brief gun, scene
      * Pointers to the objects used to draw the gun and the background.

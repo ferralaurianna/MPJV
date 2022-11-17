@@ -1,6 +1,6 @@
 #ifndef BALL_H
 #define BALL_H
-#include "utils\particles.h"
+#include "utils\ParticlesSystem\particles.h"
 
 class Ball: public Particles
 {

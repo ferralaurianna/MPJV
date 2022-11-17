@@ -46,7 +46,7 @@ void Rigidbody::calculateDerivedData() {
     // TODO compute the transform matrix
     Matrix * quat2Mat = new Matrix(3);
     quat2Mat->SetOrientation(*orientation_);
-    vector<float> * tab = new vector<float>();
+    std::vector<float> * tab = new std::vector<float>();
     for(int i=0;i<16;i++)
     {
       int line =(int)i/4;

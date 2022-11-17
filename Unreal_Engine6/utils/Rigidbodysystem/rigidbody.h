@@ -3,6 +3,7 @@
 
 #include "utils/quaternion.h"
 #include "utils/matrix.h"
+#include <vector>
 
 
 class Rigidbody

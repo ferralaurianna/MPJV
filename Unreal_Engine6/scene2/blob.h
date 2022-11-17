@@ -31,8 +31,8 @@ public:
     //void setNucleus(Particles* nucleus){nucleus_=nucleus;};
     //void setSprings(std::vector<Particles[2]>* springs){springs_=springs;};
     // Getters
-    vector<Particles*>* getExteriorRow(){return exteriorRow_;};
-    vector<Particles*>* getInteriorRow(){return interiorRow_;};
+    std::vector<Particles*>* getExteriorRow(){return exteriorRow_;};
+    std::vector<Particles*>* getInteriorRow(){return interiorRow_;};
     Particles* getNucleus(){return nucleus_;};
     std::vector<Link>* getSprings(){return springs_;};
     std::vector<Link>* getCables(){return cables_;};
@@ -45,13 +45,13 @@ private:
     int nbRows_;
     int offset_;
 
-    vector<Particles*>* exteriorRow_ = new vector<Particles*>();
-    vector<Particles*>* interiorRow_ = new vector<Particles*>();
+    std::vector<Particles*>* exteriorRow_ = new std::vector<Particles*>();
+    std::vector<Particles*>* interiorRow_ = new std::vector<Particles*>();
     Particles* nucleus_;
 
-    std::vector<Link>* springs_ = new vector<Link>();
+    std::vector<Link>* springs_ = new std::vector<Link>();
 
-    std::vector<Link>* cables_ = new vector<Link>();
+    std::vector<Link>* cables_ = new std::vector<Link>();
 
     Vector3D* position_;
     float radius_;

@@ -14,7 +14,7 @@ void CollisionDetector::detectCollision(Particles* part)
     float contactBack = 0;
     float distance = 0;
     Vector3D normalSurf;
-    for(vector<Polygone> *wall : *walls_)
+    for(std::vector<Polygone> *wall : *walls_)
     {
         for(Polygone p : *wall)
         {

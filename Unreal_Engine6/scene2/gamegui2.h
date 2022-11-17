@@ -37,7 +37,7 @@ public:
      * @brief particles
      * A list of pointers to the particles present in the scene.
      */
-    vector<Blob*> blobs_;
+    std::vector<Blob*> blobs_;
 
 
     /**
@@ -83,7 +83,7 @@ public:
 
     int getScore(){return score;};
 
-    vector<vector<Polygone>*>* getVolumes(){return &volumes;};
+    std::vector<std::vector<Polygone>*>* getVolumes(){return &volumes;};
 
     GameTimer2 *gameTimer;
 
@@ -174,7 +174,7 @@ private:
      * @brief particles
      * A list of volumes present in the scene.
      */
-    vector<vector<Polygone>*> volumes = vector<vector<Polygone>*>();
+    std::vector<std::vector<Polygone>*> volumes = std::vector<std::vector<Polygone>*>();
 
 
 

@@ -9,7 +9,6 @@
 #include "utils/ParticlesSystem/collisionregistrery.h"
 #include "utils/ParticlesSystem/forceregistrery.h"
 #include "utils/ParticlesSystem/particles.h"
-#include "utils/forceregistrery.h"
 #include "generators/springtwoparticle.h"
 #include "generators/springflotability.h"
 

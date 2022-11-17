@@ -1,6 +1,6 @@
 #ifndef LASER_H
 #define LASER_H
-#include "utils\particles.h"
+#include "utils\ParticlesSystem\particles.h"
 
 class Laser : public Particles
 {

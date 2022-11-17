@@ -5,7 +5,7 @@
 #include <QTimer>
 #include <chrono>
 #include <QKeyEvent>
-#include "utils/particles.h"
+#include "utils/ParticlesSystem/particles.h"
 
 namespace Ui {
 class WindowPart1;
