@@ -10,7 +10,7 @@ void ActorList::addActor(Actors actor)
 
 }
 
-void ActorList::removeActor()
+void ActorList::removeActor(int id)
 {
 
 }
