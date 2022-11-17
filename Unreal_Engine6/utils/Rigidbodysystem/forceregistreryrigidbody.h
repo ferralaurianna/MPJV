@@ -1,10 +1,12 @@
 #ifndef FORCEREGISTRERYRIGIDBODY_H
 #define FORCEREGISTRERYRIGIDBODY_H
 
-
 #include "generators/Rigibody/forcegenerator.h"
+#include "generators/Rigibody/gravityforcegenerator.h"
+#include "generators/Rigibody/springforcegenerator.h"
 #include "utils/Rigidbodysystem/rigidbody.h"
 #include <vector>
+
 class ForceRegistreryRigidbody
 {
 

@@ -2,7 +2,7 @@
 
 ForceRegistreryRigidbody::ForceRegistreryRigidbody()
 {
-
+    register_ = std::vector<Registration>();
 }
 
 void ForceRegistreryRigidbody::add(Rigidbody* particle, ForceGenerator* fg, int idSujet, int idOther)

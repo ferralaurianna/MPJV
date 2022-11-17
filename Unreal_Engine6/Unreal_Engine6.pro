@@ -34,7 +34,9 @@ SOURCES += \
     scene2/Assets/asset.cpp \
     scene2/Assets/coin.cpp \
     scene2/Assets/spike.cpp \
+    scene3/actorlist.cpp \
     utils/RigidBodySystem/forceregistreryrigidbody.cpp \
+    utils/RigidBodySystem/physicsystem.cpp \
     utils\RigidBodySystem/actors.cpp \
     scene3/windowpart3.cpp \
     utils/ParticlesSystem\collisiondetector.cpp \
@@ -76,7 +78,9 @@ HEADERS += \
     scene2/Assets/asset.h \
     scene2/Assets/coin.h \
     scene2/Assets/spike.h \
+    scene3/actorlist.h \
     utils/RigidBodySystem/forceregistreryrigidbody.h \
+    utils/RigidBodySystem/physicsystem.h \
     utils\RigidBodySystem\actors.h \
     scene3/windowpart3.h \
     utils/Polygon.h \
