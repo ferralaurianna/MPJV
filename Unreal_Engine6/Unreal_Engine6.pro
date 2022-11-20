@@ -31,6 +31,8 @@ SOURCES += \
     scene2/Assets/asset.cpp \
     scene2/Assets/coin.cpp \
     scene2/Assets/spike.cpp \
+    scene3/gamegui3.cpp \
+    scene3/windowpart3.cpp \
     utils/collisiondetector.cpp \
     utils/collisionregistrery.cpp \
     scene2/gametimer2.cpp \
@@ -52,7 +54,7 @@ SOURCES += \
     scene2\blob.cpp \
     scene2\gamegui2.cpp \
     scene1\windowpart1.cpp \
-    scene2\windowpart2.cpp
+    scene2\windowpart2.cpp \
 
 HEADERS += \
     bulletsType\ball.h \
@@ -65,6 +67,7 @@ HEADERS += \
     scene2/Assets/asset.h \
     scene2/Assets/coin.h \
     scene2/Assets/spike.h \
+    scene3/gamegui3.h \
     utils/Polygon.h \
     utils/collisiondetector.h \
     utils/collisionregistrery.h \
@@ -86,7 +89,8 @@ HEADERS += \
     scene2\blob.h \
     scene2\gamegui2.h \
     scene1\windowpart1.h \
-    scene2\windowpart2.h
+    scene2\windowpart2.h \
+    scene3\windowpart3.h \
 
 RESOURCES += \
     ../res/textures.qrc
@@ -95,7 +99,8 @@ FORMS += \
     menu/windowmainmenu.ui \
     scene1\windowpart1.ui \
     scene2\windowgameover2.ui \
-    scene2\windowpart2.ui
+    scene2\windowpart2.ui \
+    scene3\windowpart3.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
