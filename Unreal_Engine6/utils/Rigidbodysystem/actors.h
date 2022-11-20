@@ -26,6 +26,20 @@ public:
 // WARNING : use manually for init only !
     void addCable(int idOther, Vector3D anchor, Vector3D otherAnchor){cablesTo_.push_back({idOther,anchor,otherAnchor});}
 
+    void setGrav(bool grav){hasGravity_ = grav;};
+
+    int getId(){return id_;};
+
+    bool getGrav(){return hasGravity_;};
+
+    std::vector<Connection>* getLinks(){return &linksTo_;};
+
+    std::vector<Connection>* getCables(){return &cablesTo_;};
+
+    void removeLink(int id, int idOther);
+
+    void removeCable(int id, int idOther);
+
 protected:
     std::vector<Polygone> polygones_;
 

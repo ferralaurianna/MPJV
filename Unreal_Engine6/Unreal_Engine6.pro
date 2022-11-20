@@ -22,6 +22,7 @@ else {
 
 SOURCES += \
     bulletsType\ball.cpp \
+    generators/Rigibody/inputforcegenerator.cpp \
     generators/Rigibody\forcegenerator.cpp \
     generators/geneinterface.cpp \
     generators/Rigibody\gravityforcegenerator.cpp \
@@ -66,6 +67,7 @@ SOURCES += \
 
 HEADERS += \
     bulletsType\ball.h \
+    generators/Rigibody/inputforcegenerator.h \
     generators/Rigibody\forcegenerator.h \
     generators/geneinterface.h \
     generators/Rigibody\gravityforcegenerator.h \

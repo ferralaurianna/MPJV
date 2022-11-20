@@ -24,6 +24,20 @@ void ForceRegistreryRigidbody::remove(int idSujet, int idOther)
     }
 }
 
+void ForceRegistreryRigidbody::removeAll(int idSujet)
+{
+    std::vector<Registration>::iterator it = register_.begin();
+    while (it != register_.end()) {
+      if (it->idSubject == idSujet) {
+        delete it->forceGen;
+        it = register_.erase(it);
+      }
+      else {
+        ++it;
+      }
+    }
+}
+
 void ForceRegistreryRigidbody::clear()
 {
     std::vector<Registration>::iterator it = register_.begin();

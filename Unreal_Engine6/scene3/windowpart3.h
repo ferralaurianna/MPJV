@@ -1,6 +1,7 @@
 #ifndef WINDOWPART3_H
 #define WINDOWPART3_H
 
+#include "scene3/actorlist.h"
 #include "utils/Vector3D.h"
 #include "menu/windowmainmenu.h"
 #include <QTimer>
@@ -37,6 +38,10 @@ private:
     Vector3D movements= Vector3D(0,0,0);
 
     void updateInputs();
+
+    PhysicSystem physic_;
+
+    ActorList actorlist_;
 };
 
 #endif // WINDOWPART3_H

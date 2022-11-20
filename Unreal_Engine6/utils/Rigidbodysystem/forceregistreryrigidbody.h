@@ -4,6 +4,7 @@
 #include "generators/Rigibody/forcegenerator.h"
 #include "generators/Rigibody/gravityforcegenerator.h"
 #include "generators/Rigibody/springforcegenerator.h"
+#include "generators/Rigibody/inputforcegenerator.h"
 #include "utils/Rigidbodysystem/rigidbody.h"
 #include <vector>
 
@@ -26,6 +27,8 @@ public:
     void add(Rigidbody* rigidbody, ForceGenerator* fg, int idSujet, int idOther);
 
     void remove(int idSujet, int idOther);
+
+    void removeAll(int idSujet);
 
     void clear();
 

@@ -17,6 +17,10 @@ public:
 
     void removeForce(int id, int idOther);
 
+    void UpdateForces(float duration);
+
+    void removeForces(int id);
+
 private:
     ForceRegistreryRigidbody forces_;
 };

@@ -7,6 +7,15 @@ WindowPart3::WindowPart3(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    physic_ = PhysicSystem();
+
+    actorlist_ = ActorList();
+
+    actorlist_.setPhysic(&physic_);
+
+    //Xavier cette ligne est en commentairejusqu'à ce que tu mettes en GUI
+//  ui->gameGui->setactorList(&actorList_)
+
     connect(this->timerLogic, &QTimer::timeout, this, &WindowPart3::updateLogic);
 //    timerLogic->setSingleShot(true);
     timerLogic->start(deltatimeLogic);
@@ -23,17 +32,21 @@ WindowPart3::~WindowPart3()
 
 void WindowPart3::updateLogic()
 {
-
+    updateInputs();
+    physic_.UpdateForces(deltatimeLogic);
+    actorlist_.integrateAll(deltatimeLogic);
+    actorlist_.clearForces();
 }
 
 void WindowPart3::updateRender()
 {
-    updateInputs();
+    //ui->gameGUI->update()
 }
 
 void WindowPart3::updateInputs()
 {
-
+    physic_.removeForce(0,-3);
+    physic_.addSimpleForce(actorlist_.getActor(0)->getRigidbody(),0,-3,-3,movements*1000);
 }
 
 
