@@ -13,7 +13,15 @@ public:
         int idOther;
         Vector3D bodyAnchor_;
         Vector3D otherBodyAnchor_;
+
+        bool operator ==(const int& y) {
+            return idOther == y;
+        }
     };
+
+    bool operator ==(const int& y) {
+        return id_  == y;
+    }
 
     Actors(Rigidbody rigidbody, std::vector<Polygone> polygones, int id, bool gravity = true);
 

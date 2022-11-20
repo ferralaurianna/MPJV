@@ -23,7 +23,7 @@ void ActorList::removeActor(int id)
 {
     physic_->removeForces(id);
     vector<Actors>::iterator it;
-    it = std::find_if(list.begin(), list.end(), it->getId()==id);
+    it = std::find(list.begin(), list.end(), id);
     if(it!=list.end())
     {
         list.erase(it);
@@ -73,7 +73,7 @@ void ActorList::removeCable(int id, int idOther)
 Actors* ActorList::getActor(int id)
 {
     vector<Actors>::iterator it;
-    it = std::find_if(list.begin(), list.end(), it->getId()==id);
+    it = std::find(list.begin(), list.end(), id);
     return &(*it);
 }
 

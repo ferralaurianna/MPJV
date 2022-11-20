@@ -12,7 +12,7 @@ Actors::Actors(Rigidbody rigidbody, std::vector<Polygone> polygones, int id, boo
 void Actors::removeLink(int id, int idOther)
 {
     vector<Connection>::iterator it;
-    it = std::find_if(linksTo_.begin(), linksTo_.end(), it->idOther == idOther);
+    it = std::find(linksTo_.begin(), linksTo_.end(), idOther) ;
     if(it != linksTo_.end())
     {
         linksTo_.erase(it);
@@ -22,7 +22,7 @@ void Actors::removeLink(int id, int idOther)
 void Actors::removeCable(int id, int idOther)
 {
     vector<Connection>::iterator it;
-    it = std::find_if(cablesTo_.begin(), cablesTo_.end(), it->idOther == idOther);
+    it = std::find(cablesTo_.begin(), cablesTo_.end(), idOther);
     if(it != cablesTo_.end())
     {
         cablesTo_.erase(it);
