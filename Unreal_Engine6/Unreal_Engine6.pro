@@ -36,6 +36,7 @@ SOURCES += \
     scene2/Assets/coin.cpp \
     scene2/Assets/spike.cpp \
     scene3/actorlist.cpp \
+    scene3/gamegui3.cpp \
     utils/RigidBodySystem/forceregistreryrigidbody.cpp \
     utils/RigidBodySystem/physicsystem.cpp \
     utils\RigidBodySystem/actors.cpp \
@@ -81,6 +82,7 @@ HEADERS += \
     scene2/Assets/coin.h \
     scene2/Assets/spike.h \
     scene3/actorlist.h \
+    scene3/gamegui3.h \
     utils/RigidBodySystem/forceregistreryrigidbody.h \
     utils/RigidBodySystem/physicsystem.h \
     utils\RigidBodySystem\actors.h \
