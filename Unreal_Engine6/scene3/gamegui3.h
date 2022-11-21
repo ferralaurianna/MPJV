@@ -11,9 +11,8 @@
 #include <QGenericMatrix>
 #include <GL/glu.h>
 
-class GameGUI3 : public QOpenGLWidget
+class GameGUI3: public QOpenGLWidget
 {
-    Q_OBJECT
 
 public:
     /**
@@ -22,7 +21,7 @@ public:
      */
     GameGUI3(QWidget *parent=nullptr);
     /**
-     * @brief ~GameGUI2
+     * @brief ~GameGUI3
      * The destructor of the GameGUI3 class.
      */
     ~GameGUI3();

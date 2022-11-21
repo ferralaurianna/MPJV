@@ -24,6 +24,8 @@ private slots:
 
     void on_phase2Button_pressed();
 
+    void on_phase3Button_pressed();
+
     void on_phase3Button_clicked();
 
 private:

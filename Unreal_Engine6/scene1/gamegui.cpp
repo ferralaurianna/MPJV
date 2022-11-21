@@ -8,8 +8,6 @@
 #include <QGenericMatrix>
 #include <GL/glu.h>
 
-using namespace std;
-
 //const float PI=3.14159;
 
 

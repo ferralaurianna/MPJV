@@ -1,8 +1,6 @@
 #include "particles.h"
 #include <iostream>
 
-using namespace std;
-
 Particles::Particles(float posX,float posY,float posZ,float radius,float mass,float velocity,float angle)
 {
     position_=new Vector3D(posX,posY,posZ);

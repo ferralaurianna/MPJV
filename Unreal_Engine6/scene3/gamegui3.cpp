@@ -1,13 +1,4 @@
 #include "gamegui3.h"
-#include <QRandomGenerator>
-#include <iostream>
-#include <QKeyEvent>
-#include <QTimer>
-#include <QtMath>
-#include <QGenericMatrix>
-#include <GL/glu.h>
-
-using namespace std;
 
 const float PI=3.14159;
 
@@ -27,7 +18,7 @@ GameGUI3::~GameGUI3()
 void GameGUI3::initializeGL()
 {
     // Background color
-    background=QColor(0,0,0,1);
+    background=QColor(0,0,255,1);
     glClearColor(background.redF(),background.greenF(),background.blueF(),background.alphaF());
 
     // VERY IMPORTANT :: allow to draw with an automatic management of depth. DO NOT REMOVE.

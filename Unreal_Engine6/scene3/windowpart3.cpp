@@ -1,4 +1,5 @@
 #include "windowpart3.h"
+#include "menu/windowmainmenu.h"
 #include "ui_windowpart3.h"
 
 WindowPart3::WindowPart3(QWidget *parent) :

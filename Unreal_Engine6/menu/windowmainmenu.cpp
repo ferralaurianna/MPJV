@@ -61,6 +61,11 @@ void WindowMainMenu::on_phase2Button_pressed()
     ui->phase2Button->setStyleSheet(hoverStyleSheet);
 }
 
+void WindowMainMenu::on_phase3Button_pressed()
+{
+    ui->phase3Button->setStyleSheet(hoverStyleSheet);
+}
+
 
 void WindowMainMenu::on_phase3Button_clicked()
 {
