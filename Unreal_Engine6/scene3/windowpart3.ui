@@ -14,13 +14,13 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QOpenGLWidget" name="openGLWidget">
+   <widget class="GameGUI3" name="openGLWidget">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>270</y>
-      <width>300</width>
-      <height>200</height>
+      <x>0</x>
+      <y>-1</y>
+      <width>801</width>
+      <height>571</height>
      </rect>
     </property>
    </widget>
@@ -37,6 +37,13 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GameGUI3</class>
+   <extends>QOpenGLWidget</extends>
+   <header>scene3/gamegui3.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
