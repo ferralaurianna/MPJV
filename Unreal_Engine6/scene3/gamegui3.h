@@ -70,6 +70,10 @@ public:
 
     void setactorList(ActorList* actorlist_);
 
+    void DrawPolygone(Polygone polygone);
+
+    std::vector<Polygone> CreateCubePolygone(float x,float y,float z,float lx,float ly,float lz);
+
 protected:
     /**
      * @brief initializeGL

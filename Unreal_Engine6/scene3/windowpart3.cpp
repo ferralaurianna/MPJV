@@ -41,7 +41,7 @@ void WindowPart3::updateLogic()
 
 void WindowPart3::updateRender()
 {
-    //ui->gameGUI->update()
+    ui->gameGui3->update();
 }
 
 void WindowPart3::updateInputs()

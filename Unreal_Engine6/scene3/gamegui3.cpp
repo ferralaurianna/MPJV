@@ -17,6 +17,32 @@ GameGUI3::~GameGUI3()
 // Initialize OpenGL parameters before the first rendering
 void GameGUI3::initializeGL()
 {
+
+    ActorList actorlist =  ActorList();
+
+    Rigidbody groundBody = Rigidbody(0,0,0,100,new Quaternion(),new Matrix());
+    std::vector<Polygone> groundPolygones = CreateCubePolygone(0,0,0,400,1,400);
+    Actors ground = Actors(groundBody, groundPolygones, 0, false);
+
+
+//    Rigidbody blockBody1 = Rigidbody(0,10,0,10,new Quaternion(0,0,1,0),new Matrix());
+//    std::vector<Polygone> block1Polygones = CreateCubePolygone(0,10,0,10,10,20);
+//    Actors block1 = Actors(blockBody1,block1Polygones, 1);
+
+//    Rigidbody blockBody2 = Rigidbody(0,10,-50,10,new Quaternion(),new Matrix());
+//    std::vector<Polygone> block2Polygones = CreateCubePolygone(0,10,-50,10,10,20);
+//    Actors block2 = Actors(blockBody2,block2Polygones, 2);
+
+//    actorlist.addActor(ground);
+//    actorlist.addActor(block1);
+//    actorlist.addActor(block2);
+
+//    setactorList(&actorlist);
+
+//    pactorList->addActor(ground);
+//    pactorList->addActor(block1);
+//    pactorList->addActor(block2);
+
     // Background color
     background=QColor(0,0,0,1);
     glClearColor(background.redF(),background.greenF(),background.blueF(),background.alphaF());
@@ -65,6 +91,19 @@ void GameGUI3::paintGL()
 
     // Colorize every single objects after that in white
     glColor3f(1, 1, 1);
+
+//    int i = 0;
+//    while(i < pactorList->size()){
+//        Actors* act = pactorList->getActor(i);
+//        if(act!=nullptr)
+//        {
+//            for( Polygone pol : *(act->getPolygones()))
+//            {
+//                DrawPolygone(pol);
+//            }
+//            i++;
+//        }
+//    }
 
 }
 
@@ -122,4 +161,59 @@ void GameGUI3::goDown() {
     centralY_-=1;
 }
 
+std::vector<Polygone> GameGUI3::CreateCubePolygone(float x,float y,float z,float lx,float ly,float lz){
 
+    std::vector<Polygone> polygones;
+
+    //1st vertex
+    Vector3D Topleftback = Vector3D(x + lx/2, y + ly/2,z + lz/2);
+
+    //2nd vertex
+    Vector3D Topleftfront = Vector3D(x + lx/2, y + ly/2,z - lz/2);
+
+    //3rd vertex
+    Vector3D Toprightfront = Vector3D(x - lx/2, y + ly/2,z - lz/2);
+
+    //4th vertex
+    Vector3D Toprightback = Vector3D(x - lx/2, y + ly/2,z + lz/2);
+
+    //5th vertex
+    Vector3D Botleftback = Vector3D(x + lx/2, y - ly/2,z + lz/2);
+
+    //6th vertex
+    Vector3D Botleftfront = Vector3D(x + lx/2, y - ly/2,z - lz/2);
+
+    //7th vertex
+    Vector3D Botrightfront = Vector3D(x - lx/2, y - ly/2,z - lz/2);
+
+    //8th vertex
+    Vector3D Botrightback = Vector3D(x - lx/2, y - ly/2,z + lz/2);
+
+    Polygone Topface = Polygone(Topleftback, Topleftfront, Toprightfront, Toprightback);
+    Polygone Botface = Polygone(Botleftback, Botleftfront, Botrightfront, Botrightback);
+    Polygone Rightface = Polygone(Toprightback, Toprightfront, Botrightfront, Botrightback);
+    Polygone Leftface = Polygone(Topleftback, Topleftfront, Botleftfront, Botleftback);
+    Polygone Frontface = Polygone(Topleftfront, Toprightfront, Botrightfront, Botleftfront);
+    Polygone Backface = Polygone(Topleftback, Toprightback, Botrightback, Botleftback);
+
+    polygones.push_back(Topface);
+    polygones.push_back(Botface);
+    polygones.push_back(Rightface);
+    polygones.push_back(Leftface);
+    polygones.push_back(Frontface);
+    polygones.push_back(Backface);
+
+    return polygones;
+}
+
+void GameGUI3::DrawPolygone(Polygone polygone){
+
+    glBegin(GL_QUADS);
+
+    glVertex3f(polygone.s0.getX(),polygone.s0.getY(),polygone.s0.getZ());
+    glVertex3f(polygone.s0.getX(),polygone.s0.getY(),polygone.s0.getZ());
+    glVertex3f(polygone.s0.getX(),polygone.s0.getY(),polygone.s0.getZ());
+    glVertex3f(polygone.s0.getX(),polygone.s0.getY(),polygone.s0.getZ());
+
+    glEnd();
+}

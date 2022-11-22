@@ -23,6 +23,8 @@ public:
         return id_  == y;
     }
 
+    Actors();
+
     Actors(Rigidbody rigidbody, std::vector<Polygone> polygones, int id, bool gravity = true);
 
     std::vector<Polygone>* getPolygones(){return &polygones_;};

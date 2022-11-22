@@ -34,7 +34,7 @@ public:
 
     void integrateAll(float duration);
 
-
+    int size() {return list.size();};
 
 private:
     std::vector<Actors> list;
