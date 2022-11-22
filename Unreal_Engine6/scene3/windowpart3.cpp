@@ -47,7 +47,11 @@ void WindowPart3::updateRender()
 void WindowPart3::updateInputs()
 {
     physic_.removeForce(0,-3);
-    physic_.addSimpleForce(actorlist_.getActor(0)->getRigidbody(),0,-3,-3,movements*1000);
+    Actors* actor0 = actorlist_.getActor(0);
+    if(actor0!=nullptr)
+    {
+        physic_.addSimpleForce(actor0->getRigidbody(),0,-3,-3,movements*1000);
+    }
 }
 
 

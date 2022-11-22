@@ -74,7 +74,11 @@ Actors* ActorList::getActor(int id)
 {
     std::vector<Actors>::iterator it;
     it = std::find(list.begin(), list.end(), id);
-    return &(*it);
+    if(it!=list.end())
+    {
+        return &(*it);
+    }
+    return nullptr;
 }
 
 void ActorList::clearForces()

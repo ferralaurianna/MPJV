@@ -65,7 +65,7 @@ protected:
     //Initialize the gravity, damping and type of Particles (protected to have access in derived class)
     float damping_ = 0;
     float angularDamping_=0;
-    Vector3D *accumForce_ = new Vector3D();
+    Vector3D *accumForce_ = new Vector3D(0,0,0);
 
     Vector3D *position_ = new Vector3D();
     Vector3D *velocity_ = new Vector3D();
