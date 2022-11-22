@@ -33,10 +33,10 @@ WindowPart3::~WindowPart3()
 
 void WindowPart3::updateLogic()
 {
-    updateInputs();
-    physic_.UpdateForces(deltatimeLogic);
-    actorlist_.integrateAll(deltatimeLogic);
-    actorlist_.clearForces();
+//    updateInputs();
+//    physic_.UpdateForces(deltatimeLogic);
+//    actorlist_.integrateAll(deltatimeLogic);
+//    actorlist_.clearForces();
 }
 
 void WindowPart3::updateRender()

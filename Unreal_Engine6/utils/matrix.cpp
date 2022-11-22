@@ -10,7 +10,6 @@ Matrix::Matrix(){
 Matrix::Matrix(long int size){
     _matrix = new float[size*size]();
     _size = size;
-    
 }
 
 Matrix::Matrix(long int size, float *tab){

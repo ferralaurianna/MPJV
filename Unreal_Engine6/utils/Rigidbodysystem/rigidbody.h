@@ -81,7 +81,7 @@ protected:
 
     // Transform matrix (from orientation & rotation)
     Matrix * transformMatrix_ = new Matrix(3);
-    Matrix * inverseInertia_ = new Matrix(3);
+    Matrix inverseInertia_ = Matrix(3);
 
 };
 

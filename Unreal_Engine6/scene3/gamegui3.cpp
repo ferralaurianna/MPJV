@@ -17,32 +17,6 @@ GameGUI3::~GameGUI3()
 // Initialize OpenGL parameters before the first rendering
 void GameGUI3::initializeGL()
 {
-
-    ActorList actorlist =  ActorList();
-
-    Rigidbody groundBody = Rigidbody(0,0,0,100,new Quaternion(),new Matrix());
-    std::vector<Polygone> groundPolygones = CreateCubePolygone(0,0,0,400,1,400);
-    Actors ground = Actors(groundBody, groundPolygones, 0, false);
-
-
-//    Rigidbody blockBody1 = Rigidbody(0,10,0,10,new Quaternion(0,0,1,0),new Matrix());
-//    std::vector<Polygone> block1Polygones = CreateCubePolygone(0,10,0,10,10,20);
-//    Actors block1 = Actors(blockBody1,block1Polygones, 1);
-
-//    Rigidbody blockBody2 = Rigidbody(0,10,-50,10,new Quaternion(),new Matrix());
-//    std::vector<Polygone> block2Polygones = CreateCubePolygone(0,10,-50,10,10,20);
-//    Actors block2 = Actors(blockBody2,block2Polygones, 2);
-
-//    actorlist.addActor(ground);
-//    actorlist.addActor(block1);
-//    actorlist.addActor(block2);
-
-//    setactorList(&actorlist);
-
-//    pactorList->addActor(ground);
-//    pactorList->addActor(block1);
-//    pactorList->addActor(block2);
-
     // Background color
     background=QColor(0,0,0,1);
     glClearColor(background.redF(),background.greenF(),background.blueF(),background.alphaF());
@@ -92,23 +66,47 @@ void GameGUI3::paintGL()
     // Colorize every single objects after that in white
     glColor3f(1, 1, 1);
 
-//    int i = 0;
-//    while(i < pactorList->size()){
-//        Actors* act = pactorList->getActor(i);
-//        if(act!=nullptr)
-//        {
-//            for( Polygone pol : *(act->getPolygones()))
-//            {
-//                DrawPolygone(pol);
-//            }
-//            i++;
-//        }
-//    }
+    int i = 0;
+    while(i < pactorList->size()){
+        Actors* act = pactorList->getActor(i);
+        if(act!=nullptr)
+        {
+            for( Polygone pol : *(act->getPolygones()))
+            {
+                DrawPolygone(pol);
+            }
+            i++;
+        }
+    }
 
 }
 
 void GameGUI3::setactorList(ActorList* actorlist_) {
     pactorList = actorlist_;
+
+    //100 est la masse
+    float valueDiagCuboid = float(1)/float(12)*float(100)*float(2);
+    float cuboidInertia[16] = {valueDiagCuboid,0,0,0,0,valueDiagCuboid,0,0,0,0,valueDiagCuboid,0,0,0,0,1};
+
+    Matrix * inertiaInitializer = new Matrix(4,cuboidInertia);
+
+    Rigidbody bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(),inertiaInitializer);
+    std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,0,400,1,400);
+    Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, false);
+
+    pactorList->addActor(actorInitializer);
+
+    bodyInitializer = Rigidbody(0,10,0,10,new Quaternion(0,0,1,0),inertiaInitializer);
+    polygonesInitializer = CreateCubePolygone(0,10,0,10,10,20);
+    actorInitializer = Actors(bodyInitializer,polygonesInitializer, 1);
+
+    pactorList->addActor(actorInitializer);
+
+    bodyInitializer = Rigidbody(0,10,-50,10,new Quaternion(),inertiaInitializer);
+    polygonesInitializer = CreateCubePolygone(0,10,-50,10,10,20);
+    actorInitializer = Actors(bodyInitializer,polygonesInitializer, 2);
+
+    pactorList->addActor(actorInitializer);
 }
 
 

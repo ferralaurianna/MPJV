@@ -8,14 +8,14 @@ Rigidbody::Rigidbody(float posX,float posY,float posZ,float mass,Quaternion * or
     velocity_ = new Vector3D(0,0,0);
     orientation_ = orientation;
     //TODO : replace inertia by the inverse
-    inverseInertia_=inertia;
+    inverseInertia_= inertia->Inverse();
 };
 
 Rigidbody::~Rigidbody() {
-    delete orientation_;
-    delete angularVelocity_;
-    delete position_;
-    delete velocity_;
+//    delete orientation_;
+//    delete angularVelocity_;
+//    delete position_;
+//    delete velocity_;
 }
 
 void Rigidbody::integrate(float duration) {
@@ -51,15 +51,15 @@ void Rigidbody::calculateDerivedData() {
     {
       int line =(int)i/4;
       int col = i%4;
-      if(col<4&&line<4)
+      if(col<3&&line<3)
       {
         tab->push_back((*quat2Mat)(line,col));
       }
-      else if(col==4&&line<4)
+      else if(col==3&&line<3)
       {
         tab->push_back((*position_)[line]);
       }
-      else if(col<4&&line==4)
+      else if(col<3&&line==3)
       {
         tab->push_back(0);
       }
@@ -71,7 +71,7 @@ void Rigidbody::calculateDerivedData() {
     orientation_->Normalized();
 
     Matrix inverseTransformMatrix = transformMatrix_->Inverse();
-    *inverseInertia_=(*transformMatrix_)*(*inverseInertia_)*inverseTransformMatrix;
+    inverseInertia_=(*transformMatrix_)*inverseInertia_*inverseTransformMatrix;
 }
 
 void Rigidbody::addForces(Vector3D force)
@@ -82,13 +82,13 @@ void Rigidbody::addForces(Vector3D force)
 void Rigidbody::addForcesAtWorldPoint(Vector3D force, Vector3D point)
 {
     *accumForce_ = (*accumForce_)+force;
-    *accumTorque_ = (*accumTorque_)+(*inverseInertia_)*((*position_)-point)*force;
+    *accumTorque_ = (*accumTorque_)+inverseInertia_*((*position_)-point)*force;
 }
 
 void Rigidbody::addForcesAtBodyPoint(Vector3D force, Vector3D point)
 {
     *accumForce_ = (*accumForce_)+(force);
-    *accumTorque_ = (*accumTorque_)+(*inverseInertia_)*point*force;
+    *accumTorque_ = (*accumTorque_)+inverseInertia_*point*force;
 }
 
 
