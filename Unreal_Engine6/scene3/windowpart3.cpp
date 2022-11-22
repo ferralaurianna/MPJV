@@ -15,7 +15,7 @@ WindowPart3::WindowPart3(QWidget *parent) :
     actorlist_.setPhysic(&physic_);
 
     //Xavier cette ligne est en commentairejusqu'à ce que tu mettes en GUI
-//  ui->gameGui->setactorList(&actorList_)
+    ui->gameGui3->setactorList(&actorlist_);
 
     connect(this->timerLogic, &QTimer::timeout, this, &WindowPart3::updateLogic);
 //    timerLogic->setSingleShot(true);

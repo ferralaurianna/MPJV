@@ -68,6 +68,9 @@ void GameGUI3::paintGL()
 
 }
 
+void GameGUI3::setactorList(ActorList* actorlist_) {
+    pactorList = actorlist_;
+}
 
 
 

@@ -10,6 +10,7 @@
 #include <QtMath>
 #include <QGenericMatrix>
 #include <GL/glu.h>
+#include "actorlist.h"
 
 class GameGUI3: public QOpenGLWidget
 {
@@ -67,6 +68,8 @@ public:
      */
     void goDown();
 
+    void setactorList(ActorList* actorlist_);
+
 protected:
     /**
      * @brief initializeGL
@@ -122,6 +125,8 @@ private:
      */
     GLfloat light_tab[4]={1.0,1.0,1.0,1.0};
     GLfloat light_tab_pos[4]= {0.0,0.0,1.0,0.0};
+
+    ActorList* pactorList;
 
 };
 
