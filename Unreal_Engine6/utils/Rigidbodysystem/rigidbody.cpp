@@ -67,9 +67,6 @@ void Rigidbody::calculateDerivedData() {
     }
     transformMatrix_= new Matrix(4,tab->data());
 
-    // Normalizes the orientation
-    orientation_->Normalized();
-
     if(transformMatrix_->Determinant()!=0)
     {
         Matrix inverseTransformMatrix = transformMatrix_->Inverse();
