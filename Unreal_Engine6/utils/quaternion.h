@@ -27,7 +27,7 @@ public:
     void UpdateByAngularVelocity(const Vector3D& vect, float duration);
 
     // Getter
-    float  getW() const { return _values[0];}
+    float getW() const { return _values[0];}
     float getI() const { return _values[1];}
     float getJ() const { return _values[2];}
     float getK() const { return _values[3];}
