@@ -16,7 +16,6 @@ public:
      * The constructor of the Rigidbody class, with many physical variables as parameters.
      */
     Rigidbody(float posX=0,float posY=0,float posZ=0,float mass=1,Quaternion * orientation=new Quaternion(),Matrix * inertia=new Matrix());
-//    Rigidbody operator=(Rigidbody const &copy);
     ~Rigidbody();
 
     // Getters / Setters
