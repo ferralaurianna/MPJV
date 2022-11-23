@@ -31,9 +31,9 @@ public:
 
     Rigidbody* getRigidbody(){return &rigidbody_;};
 
-// WARNING : use manually for init only !
+// WARNING : Never use manually !
     void addLink(int idOther, Vector3D anchor, Vector3D otherAnchor){linksTo_.push_back({idOther,anchor,otherAnchor});}
-// WARNING : use manually for init only !
+// WARNING : Never use manually !
     void addCable(int idOther, Vector3D anchor, Vector3D otherAnchor){cablesTo_.push_back({idOther,anchor,otherAnchor});}
 
     void setGrav(bool grav){hasGravity_ = grav;};
