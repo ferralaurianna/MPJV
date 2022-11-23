@@ -70,8 +70,11 @@ void Rigidbody::calculateDerivedData() {
     // Normalizes the orientation
     orientation_->Normalized();
 
-    Matrix inverseTransformMatrix = transformMatrix_->Inverse();
-    inverseInertia_=(*transformMatrix_)*inverseInertia_*inverseTransformMatrix;
+    if(transformMatrix_->Determinant()!=0)
+    {
+        Matrix inverseTransformMatrix = transformMatrix_->Inverse();
+        inverseInertia_=(*transformMatrix_)*inverseInertia_*inverseTransformMatrix;
+    }
 }
 
 void Rigidbody::addForces(Vector3D force)

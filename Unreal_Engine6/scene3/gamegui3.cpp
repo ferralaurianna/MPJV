@@ -209,9 +209,9 @@ void GameGUI3::DrawPolygone(Polygone polygone){
     glBegin(GL_QUADS);
 
     glVertex3f(polygone.s0.getX(),polygone.s0.getY(),polygone.s0.getZ());
-    glVertex3f(polygone.s0.getX(),polygone.s0.getY(),polygone.s0.getZ());
-    glVertex3f(polygone.s0.getX(),polygone.s0.getY(),polygone.s0.getZ());
-    glVertex3f(polygone.s0.getX(),polygone.s0.getY(),polygone.s0.getZ());
+    glVertex3f(polygone.s1.getX(),polygone.s1.getY(),polygone.s1.getZ());
+    glVertex3f(polygone.s2.getX(),polygone.s2.getY(),polygone.s2.getZ());
+    glVertex3f(polygone.s3.getX(),polygone.s3.getY(),polygone.s3.getZ());
 
     glEnd();
 }
