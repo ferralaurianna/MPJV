@@ -335,8 +335,7 @@ void GameGUI3::DrawPolygone(Polygone polygone, int id)
    //              pactorList->getActor(id)->getRigidbody()->getPosition()->getZ());
 
 
-
-    if (id == 0){
+   if (id == 0){
         GLfloat colorAmbientBl_tab[] = {0.25,0.25,0.5,1.0};
         glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbientBl_tab);
         GLfloat colorDiffuseBl_tab[] = {0.5,0.5,1.0,0.0};
