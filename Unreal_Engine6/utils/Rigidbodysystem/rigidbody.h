@@ -75,13 +75,13 @@ protected:
     float inverseMass_;
 
     // Orientation of the rigidbody
-    Quaternion * orientation_ = new Quaternion();
+    Quaternion *orientation_ = new Quaternion();
 
     // Accumulated Torque (added by the force generator)
     Vector3D  accumTorque_ = Vector3D(0,0,0);
 
     // Transform matrix (from orientation & rotation)
-    Matrix * transformMatrix_ = new Matrix(3);
+    Matrix transformMatrix_ = Matrix(3);
     Matrix inverseInertia_ = Matrix(3);
 
 };

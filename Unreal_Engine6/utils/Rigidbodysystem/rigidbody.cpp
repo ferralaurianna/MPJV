@@ -81,10 +81,10 @@ void Rigidbody::calculateDerivedData() {
       }
       else { tab->push_back(1); }
     }
-    transformMatrix_= new Matrix(4,tab->data());
+    transformMatrix_= Matrix(4,tab->data());
 
-    Matrix inverseTransformMatrix = transformMatrix_->Inverse();
-    inverseInertia_=((*transformMatrix_)*(inverseInertia_).To4()*inverseTransformMatrix).To3();
+    Matrix inverseTransformMatrix = transformMatrix_.Inverse();
+    inverseInertia_=(transformMatrix_*(inverseInertia_).To4()*inverseTransformMatrix).To3();
 }
 
 void Rigidbody::addForces(Vector3D force)
