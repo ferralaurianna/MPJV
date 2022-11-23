@@ -13,7 +13,7 @@ void ActorList::addActor(Actors actor)
     Actors* act = getActor(id);
     if(actor.getGrav())
     {
-        physic_->addSimpleForce(act->getRigidbody(),id,-1,-1);;
+        physic_->addSimpleForce(act->getRigidbody(),id,-1);;
     }
 }
 
@@ -39,7 +39,7 @@ void ActorList::addGravity(int id)
 {
     Actors* act = getActor(id);
     act->setGrav(true);
-    physic_->addSimpleForce(act->getRigidbody(),id,-1,-1);
+    physic_->addSimpleForce(act->getRigidbody(),id,-1);
 }
 
 void ActorList::addLink(int id, int idOther,Vector3D bodyAnchor, Vector3D otherBodyAnchor)

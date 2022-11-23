@@ -25,14 +25,34 @@ public:
 
     Actors();
 
+    /**
+     * @brief Actors
+     * @param rigidbody : the rigidbody to be used for this actor
+     * @param polygones : a vector of polygones representing the visual appearence of the object
+     * @param id : the id of the actor
+     * @param gravity : wether gravity should be activated for this actor
+     * The constructor of the Actors class, which store an ID, a rigidbody, wheter it is affected by gravity and lists of the actors it is linked to.
+     */
     Actors(Rigidbody rigidbody, std::vector<Polygone> polygones, int id, bool gravity = true);
 
     std::vector<Polygone>* getPolygones(){return &polygones_;};
 
     Rigidbody* getRigidbody(){return &rigidbody_;};
 
+    /**
+     * @brief addLink
+     * @param id : the id of the actor attached
+     * @param idOther : the id of the actor to wich the link is attached to
+     * A function used to add a registered one-way spring link to an actor, does not add the link to the physic system.
+     */
 // WARNING : Never use manually !
     void addLink(int idOther, Vector3D anchor, Vector3D otherAnchor){linksTo_.push_back({idOther,anchor,otherAnchor});}
+    /**
+     * @brief addCable
+     * @param id : the id of the actor attached
+     * @param idOther : the id of the actor to wich the cable is attached to
+     * A function used to add a registered one-way cable to an actor, does not add the cable to the physic system.
+     */
 // WARNING : Never use manually !
     void addCable(int idOther, Vector3D anchor, Vector3D otherAnchor){cablesTo_.push_back({idOther,anchor,otherAnchor});}
 
@@ -46,8 +66,20 @@ public:
 
     std::vector<Connection>* getCables(){return &cablesTo_;};
 
+    /**
+     * @brief addCabel
+     * @param id : the id of the actor attached
+     * @param idOther : the id of the actor to wich the cable is attached to
+     * A function used to remove a registered one-way spring link to an actor, does not remove the cable from the physic system.
+     */
     void removeLink(int id, int idOther);
 
+    /**
+     * @brief addCabel
+     * @param id : the id of the actor attached
+     * @param idOther : the id of the actor to wich the cable is attached to
+     * A function used to remove a registered one-way cable to an actor, does not remove the cable from the physic system.
+     */
     void removeCable(int id, int idOther);
 
 protected:
@@ -57,8 +89,15 @@ protected:
 
     int id_;
 
+    /**
+     * @brief linksTo_
+     * The list of actors it this one is attached to by a one-way spring link.
+     */
     std::vector<Connection> linksTo_= std::vector<Connection>();
-
+    /**
+     * @brief cablesTo_
+     * The list of actors it this one is attached to by a one-way cable.
+     */
     std::vector<Connection> cablesTo_= std::vector<Connection>();
 
     bool hasGravity_;
