@@ -76,6 +76,10 @@ public:
 
     std::vector<Polygone> CreateOddPolygone(float x,float y,float z,float lx,float ly,float lz);
 
+    void demo1();
+
+    void demo2();
+
 protected:
     /**
      * @brief initializeGL
@@ -130,7 +134,7 @@ private:
      * GLfloats that store the intensity and positions of the lights
      */
     GLfloat light_tab[4]={1.0,1.0,1.0,1.0};
-    GLfloat light_tab_pos[4]= {0.0,1.0,0.0,0.0};
+    GLfloat light_tab_pos[4]= {20.0,30.0,0.0,0.0};
 
     ActorList* pactorList;
 

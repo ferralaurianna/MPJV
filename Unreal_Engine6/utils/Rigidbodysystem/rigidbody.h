@@ -77,7 +77,7 @@ protected:
     Quaternion * orientation_ = new Quaternion();
 
     // Accumulated Torque (added by the force generator)
-    Vector3D * accumTorque_ = new Vector3D();
+    Vector3D  accumTorque_ = Vector3D(0,0,0);
 
     // Transform matrix (from orientation & rotation)
     Matrix * transformMatrix_ = new Matrix(3);

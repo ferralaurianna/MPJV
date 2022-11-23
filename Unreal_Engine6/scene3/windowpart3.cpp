@@ -50,7 +50,7 @@ void WindowPart3::updateInputs()
     Actors* actor0 = actorlist_.getActor(0);
     if(actor0!=nullptr)
     {
-        physic_.addSimpleForce(actor0->getRigidbody(),0,-3,-3,movements*1000);
+        physic_.addSimpleForce(actor0->getRigidbody(),0,-3,movements*1000);
     }
 }
 
@@ -156,7 +156,17 @@ void WindowPart3::keyPressEvent(QKeyEvent * event)
             this->hide();
             break;
         }
-
+        case Qt::Key_1:
+        {
+            ui->gameGui3->demo1();
+            actorlist_.getActor(0)->getRigidbody()->addForcesAtBodyPoint(Vector3D(10000,0,0),Vector3D(20,20,20));
+            break;
+        }
+        case Qt::Key_2:
+        {
+            ui->gameGui3->demo2();
+            break;
+        }
         // Default case
         default:
         {

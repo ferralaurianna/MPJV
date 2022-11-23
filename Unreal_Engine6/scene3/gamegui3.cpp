@@ -115,6 +115,54 @@ void GameGUI3::setactorList(ActorList* actorlist_) {
     pactorList->addActor(actorInitializer);
 }
 
+void GameGUI3::demo1()
+{
+    int i = 0;
+    int size = pactorList->size();
+    while(i < pactorList->size()){
+        Actors* act = pactorList->getActor(i);
+        if(act!=nullptr)
+        {
+            pactorList->removeActor(i);
+            i++;
+        }
+    }
+
+    float valueDiagCuboid = float(1)/float(12)*float(100)*float(2);
+    float cuboidInertia[16] = {valueDiagCuboid,0,0,0,0,valueDiagCuboid,0,0,0,0,valueDiagCuboid,0,0,0,0,1};
+
+    Matrix * inertiaInitializer = new Matrix(4,cuboidInertia);
+    float test = inertiaInitializer->Determinant();
+    Rigidbody bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(1,0,0,0),inertiaInitializer);
+    std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,0,20,20,20);
+    Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, true);
+
+    pactorList->addActor(actorInitializer);
+}
+
+void GameGUI3::demo2()
+{
+    int i = 0;
+    while(i < pactorList->size()){
+        Actors* act = pactorList->getActor(i);
+        if(act!=nullptr)
+        {
+            pactorList->removeActor(i);
+            i++;
+        }
+    }
+
+    float valueDiagCuboid = float(1)/float(12)*float(100)*float(2);
+    float cuboidInertia[16] = {valueDiagCuboid,0,0,0,0,valueDiagCuboid,0,0,0,0,valueDiagCuboid,0,0,0,0,1};
+
+    Matrix * inertiaInitializer = new Matrix(4,cuboidInertia);
+
+    Rigidbody bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(1,0,0,0),inertiaInitializer);
+    std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,0,20,20,20);
+    Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, false);
+
+    pactorList->addActor(actorInitializer);
+}
 
 
 // Camera controls
