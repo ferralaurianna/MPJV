@@ -277,12 +277,26 @@ std::vector<Polygone> GameGUI3::CreateOddPolygone(float x,float y,float z,float 
 
 void GameGUI3::DrawPolygone(Polygone polygone, int id)
 {
+    Matrix* orientation = new Matrix(3);
+    orientation->SetOrientation(*pactorList->getActor(id)->getRigidbody()->getOrientation());
+    GLfloat* m = new float[8];
+    m[0] = orientation->operator()(0,0);
+    m[1] = orientation->operator()(0,1);
+    m[2] = orientation->operator()(0,2);
+    m[3] = orientation->operator()(1,0);
+    m[4] = orientation->operator()(1,1);
+    m[5] = orientation->operator()(1,2);
+    m[6] = orientation->operator()(2,0);
+    m[7] = orientation->operator()(2,1);
+    m[8] = orientation->operator()(2,2);
+
+
     glPushMatrix();
-    float angle = qRadiansToDegrees(2*qAcos(pactorList->getActor(id)->getRigidbody()->getOrientation()->getW()));
-    float rx = qRadiansToDegrees(2*qAsin(pactorList->getActor(id)->getRigidbody()->getOrientation()->getI()));
-    float ry = qRadiansToDegrees(2*qAsin(pactorList->getActor(id)->getRigidbody()->getOrientation()->getJ()));
-    float rz = qRadiansToDegrees(2*qAsin(pactorList->getActor(id)->getRigidbody()->getOrientation()->getK()));
-    glRotatef(angle,rx,ry,rz);
+//    float angle = qRadiansToDegrees(2*qAcos(pactorList->getActor(id)->getRigidbody()->getOrientation()->getW()));
+//    float rx = qRadiansToDegrees(2*qAsin(pactorList->getActor(id)->getRigidbody()->getOrientation()->getI()));
+//    float ry = qRadiansToDegrees(2*qAsin(pactorList->getActor(id)->getRigidbody()->getOrientation()->getJ()));
+//    float rz = qRadiansToDegrees(2*qAsin(pactorList->getActor(id)->getRigidbody()->getOrientation()->getK()));
+    glMultMatrixf(m);
 
     glTranslatef(pactorList->getActor(id)->getRigidbody()->getPosition()->getX(),pactorList->getActor(id)->getRigidbody()->getPosition()->getY(),
                  pactorList->getActor(id)->getRigidbody()->getPosition()->getZ());
