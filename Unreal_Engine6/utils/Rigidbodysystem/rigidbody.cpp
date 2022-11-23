@@ -21,7 +21,7 @@ Rigidbody::~Rigidbody() {
 void Rigidbody::integrate(float duration) {
 
     //Update of the current velocity
-    (*velocity_)=(*velocity_)*qPow(damping_,duration)+(*accumForce_*inverseMass_)*duration;
+    (*velocity_)=(*velocity_)*qPow(damping_,duration)+accumForce_*inverseMass_*duration;
 
     //Update of the angular velocity
     (*angularVelocity_)=(*angularVelocity_)*qPow(angularDamping_,duration)+(*accumTorque_)*duration;
@@ -79,24 +79,24 @@ void Rigidbody::calculateDerivedData() {
 
 void Rigidbody::addForces(Vector3D force)
 {
-    *accumForce_ = (*accumForce_)+force;
+    accumForce_ = accumForce_+force;
 }
 
 void Rigidbody::addForcesAtWorldPoint(Vector3D force, Vector3D point)
 {
-    *accumForce_ = (*accumForce_)+force;
+    accumForce_ = accumForce_+force;
     *accumTorque_ = (*accumTorque_)+inverseInertia_*((*position_)-point)*force;
 }
 
 void Rigidbody::addForcesAtBodyPoint(Vector3D force, Vector3D point)
 {
-    *accumForce_ = (*accumForce_)+(force);
+    accumForce_ = accumForce_+(force);
     *accumTorque_ = (*accumTorque_)+inverseInertia_*point*force;
 }
 
 
 void Rigidbody::clearAccum()
 {
-    *accumForce_ = Vector3D(0,0,0);
+    accumForce_ = Vector3D(0,0,0);
     *accumTorque_ = Vector3D(0,0,0);
 }

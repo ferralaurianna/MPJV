@@ -27,10 +27,10 @@ private:
     void updateRender();
 
     QTimer *timerLogic = new QTimer(this);
-    float deltatimeLogic = 0;
+    float deltatimeLogic = 1000/200;
 
     QTimer *timerRender = new QTimer(this);
-    float deltatimeRender = 0;
+    float deltatimeRender = 1000/60;
 
     void keyPressEvent(QKeyEvent * event);
 
