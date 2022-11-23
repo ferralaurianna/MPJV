@@ -184,22 +184,55 @@ float Matrix::Determinant(){
 }
 
 Matrix Matrix::Inverse(){
-    float det = this->Determinant();
-    if(det == 0){
-        Matrix m;
-        return m;
+    if(_size == 3){
+        float det = this->Determinant();
+        if(det == 0){
+            Matrix m;
+            return m;
+        }
+        Matrix result(3);
+        result._matrix[0] = (_matrix[4] * _matrix[8] - _matrix[5] * _matrix[7]) / det;
+        result._matrix[1] = (_matrix[2] * _matrix[7] - _matrix[1] * _matrix[8]) / det;
+        result._matrix[2] = (_matrix[1] * _matrix[5] - _matrix[2] * _matrix[4]) / det;
+        result._matrix[3] = (_matrix[5] * _matrix[6] - _matrix[3] * _matrix[8]) / det;
+        result._matrix[4] = (_matrix[0] * _matrix[8] - _matrix[2] * _matrix[6]) / det;
+        result._matrix[5] = (_matrix[2] * _matrix[3] - _matrix[0] * _matrix[5]) / det;
+        result._matrix[6] = (_matrix[3] * _matrix[7] - _matrix[4] * _matrix[6]) / det;
+        result._matrix[7] = (_matrix[1] * _matrix[6] - _matrix[0] * _matrix[7]) / det;
+        result._matrix[8] = (_matrix[0] * _matrix[4] - _matrix[1] * _matrix[3]) / det;
+        return result;
     }
-    Matrix result(3);
-    result._matrix[0] = (_matrix[4] * _matrix[8] - _matrix[5] * _matrix[7]) / det;
-    result._matrix[1] = (_matrix[2] * _matrix[7] - _matrix[1] * _matrix[8]) / det;
-    result._matrix[2] = (_matrix[1] * _matrix[5] - _matrix[2] * _matrix[4]) / det;
-    result._matrix[3] = (_matrix[5] * _matrix[6] - _matrix[3] * _matrix[8]) / det;
-    result._matrix[4] = (_matrix[0] * _matrix[8] - _matrix[2] * _matrix[6]) / det;
-    result._matrix[5] = (_matrix[2] * _matrix[3] - _matrix[0] * _matrix[5]) / det;
-    result._matrix[6] = (_matrix[3] * _matrix[7] - _matrix[4] * _matrix[6]) / det;
-    result._matrix[7] = (_matrix[1] * _matrix[6] - _matrix[0] * _matrix[7]) / det;
-    result._matrix[8] = (_matrix[0] * _matrix[4] - _matrix[1] * _matrix[3]) / det;
-    return result;
+    if(_size == 4){
+        float mat[9] = {_matrix[0],_matrix[1],_matrix[2],_matrix[4],_matrix[5],_matrix[6],_matrix[8],_matrix[9],_matrix[10]};
+        Vector3D v(_matrix[3],_matrix[7],_matrix[11]);
+
+        Matrix m(3,mat);
+        Matrix mInverse=m.Inverse();
+        Vector3D mIV=mInverse*v*(-1);
+
+        Matrix result(4);
+        result._matrix[0] = mInverse(0,0);
+        result._matrix[1] = mInverse(0,1);
+        result._matrix[2] = mInverse(0,2);
+        result._matrix[3] = mIV[0];
+        result._matrix[4] = mInverse(1,0);
+        result._matrix[5] = mInverse(1,1);
+        result._matrix[6] = mInverse(1,2);
+        result._matrix[7] = mIV[1];
+        result._matrix[8] = mInverse(2,0);
+        result._matrix[9] = mInverse(2,1);
+        result._matrix[10] = mInverse(2,2);
+        result._matrix[11] = mIV[2];
+        result._matrix[12] = 0;
+        result._matrix[13] = 0;
+        result._matrix[14] = 0;
+        result._matrix[15] = 1;
+        return result;
+    }
+    else{
+        Matrix result;
+        return result;
+    }
 }
 
 void Matrix::SetOrientation(const Quaternion& q){
