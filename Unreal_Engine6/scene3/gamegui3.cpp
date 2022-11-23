@@ -107,6 +107,12 @@ void GameGUI3::setactorList(ActorList* actorlist_) {
     actorInitializer = Actors(bodyInitializer,polygonesInitializer, 2);
 
     pactorList->addActor(actorInitializer);
+
+    bodyInitializer = Rigidbody(40,10,-30,10,new Quaternion(1,0,0,0),inertiaInitializer);
+    polygonesInitializer = CreateOddPolygone(0,0,0,15,10,15);
+    actorInitializer = Actors(bodyInitializer,polygonesInitializer, 3);
+
+    pactorList->addActor(actorInitializer);
 }
 
 
@@ -284,6 +290,45 @@ void GameGUI3::DrawPolygone(Polygone polygone, int id)
 
     glBegin(GL_QUADS);
 
+    if (id == 0){
+        GLfloat colorAmbientBl_tab[] = {0.25,0.25,0.5,1.0};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbientBl_tab);
+        GLfloat colorDiffuseBl_tab[] = {0.5,0.5,1.0,0.0};
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuseBl_tab);
+        GLfloat colorSpecularBl_tab[] = {0.0,0.0,0.0,0.0};
+        glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecularBl_tab);
+    }
+
+    if (id == 1){
+        GLfloat colorAmbient_tab[] = {0.24725f,0.1995f,0.0745f,0.4};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient_tab);
+        GLfloat colorDiffuse_tab[] = {0.75164f,0.60648f,0.22648f,0.4};
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuse_tab);
+        GLfloat colorSpecular_tab[] = {0.628281,0.555802,0.366065,0.4};
+        glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tab);
+        glMaterialf(GL_FRONT, GL_SHININESS, 76.f);
+    }
+
+    if (id == 2){
+        GLfloat colorAmbient_tab[] = {0.19125, 0.0735, 0.0225, 0.1};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient_tab);
+        GLfloat colorDiffuse_tab[] = {0.7038, 0.27048,	0.0828,0.1};
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuse_tab);
+        GLfloat colorSpecular_tab[] = {0.256777, 0.137622, 0.086014, 0.1};
+        glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tab);
+        glMaterialf(GL_FRONT, GL_SHININESS, 76.f);
+    }
+
+    if (id == 3){
+        GLfloat colorAmbient_tab[] = {0.25, 0.25, 0.25,0.6};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient_tab);
+        GLfloat colorDiffuse_tab[] = {0.4, 0.4,	0.4, 0.6};
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuse_tab);
+        GLfloat colorSpecular_tab[] = {0.774597, 0.774597, 0.774597,0.6};
+        glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tab);
+        glMaterialf(GL_FRONT, GL_SHININESS, 76.f);
+    }
+
     glVertex3f(polygone.s0.getX(),polygone.s0.getY(),polygone.s0.getZ());
     glVertex3f(polygone.s1.getX(),polygone.s1.getY(),polygone.s1.getZ());
     glVertex3f(polygone.s2.getX(),polygone.s2.getY(),polygone.s2.getZ());
@@ -291,4 +336,6 @@ void GameGUI3::DrawPolygone(Polygone polygone, int id)
 
 
     glEnd();
+
+    glPopMatrix();
 }
