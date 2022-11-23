@@ -41,7 +41,17 @@ Matrix::~Matrix(){
 }
 
 Matrix Matrix::operator=(const Matrix &other){
-    _size = other._size;
+    if(other._matrix == nullptr){
+        _matrix = nullptr;
+        _size = 0;
+    }
+    else
+    {
+        _matrix = new float[other._size*other._size];
+        memcpy(_matrix,other._matrix,other._size*other._size*sizeof(float));
+        _size = other._size;
+    }
+
     return *this;
 }
 
@@ -233,6 +243,28 @@ Matrix Matrix::Inverse(){
         Matrix result;
         return result;
     }
+}
+
+Matrix Matrix::To4()
+{
+    if(_size==3)
+    {
+        float mat[16] = {_matrix[0],_matrix[1],_matrix[2],0,_matrix[3],_matrix[4],_matrix[5],0,_matrix[6],_matrix[7],_matrix[8,0,0,0,0,1]};
+        Matrix m(4,mat);
+        return m;
+    }
+    else{return *this;}
+}
+
+Matrix Matrix::To3()
+{
+    if(_size==4)
+    {
+        float mat[9] = {_matrix[0],_matrix[1],_matrix[2],_matrix[4],_matrix[5],_matrix[6],_matrix[8],_matrix[9],_matrix[10]};
+        Matrix m(3,mat);
+        return m;
+    }
+    else{return *this;}
 }
 
 void Matrix::SetOrientation(const Quaternion& q){

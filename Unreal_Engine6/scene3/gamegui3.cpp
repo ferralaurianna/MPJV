@@ -67,16 +67,18 @@ void GameGUI3::paintGL()
     glColor3f(1, 1, 1);
 
     int i = 0;
+    int ind = 0;
     while(i < pactorList->size()){
-        Actors* act = pactorList->getActor(i);
+        Actors* act = pactorList->getActor(ind);
         if(act!=nullptr)
         {
             for( Polygone pol : *(act->getPolygones()))
             {
-                DrawPolygone(pol,i);
+                DrawPolygone(pol,ind);
             }
             i++;
         }
+        ind++;
     }
 
 }
@@ -84,57 +86,62 @@ void GameGUI3::paintGL()
 void GameGUI3::setactorList(ActorList* actorlist_) {
     pactorList = actorlist_;
 
-    //100 est la masse
-    float valueDiagCuboid = float(1)/float(12)*float(100)*float(2);
-    float cuboidInertia[16] = {valueDiagCuboid,0,0,0,0,valueDiagCuboid,0,0,0,0,valueDiagCuboid,0,0,0,0,1};
+//    //100 est la masse
+//    float valueDiagCuboidX = float(1)/float(12)*float(100)*float(500);
+//    float valueDiagCuboidY = float(1)/float(12)*float(100)*float(500);
+//    float valueDiagCuboidZ = float(1)/float(12)*float(100)*float(200);
+//    float cuboidInertia[9] = {valueDiagCuboidX,0,0,0,valueDiagCuboidY,0,0,0,valueDiagCuboidZ};
 
-    Matrix * inertiaInitializer = new Matrix(4,cuboidInertia);
+//    Matrix * inertiaInitializer = new Matrix(3,cuboidInertia);
 
-    Rigidbody bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(1,0,0,0),inertiaInitializer);
-    std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,0,400,1,400);
-    Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, false);
+//    Rigidbody bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(1,0,0,0),inertiaInitializer);
+//    std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,0,400,1,400);
+//    Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, false);
 
-    pactorList->addActor(actorInitializer);
+//    pactorList->addActor(actorInitializer);
 
-    bodyInitializer = Rigidbody(0,10,0,10,new Quaternion(0,1,0,0),inertiaInitializer);
-    polygonesInitializer = CreateCubePolygone(0,0,0,10,10,20);
-    actorInitializer = Actors(bodyInitializer,polygonesInitializer, 1);
+//    bodyInitializer = Rigidbody(0,10,0,100,new Quaternion(0,1,0,0),inertiaInitializer);
+//    polygonesInitializer = CreateCubePolygone(0,0,0,10,10,20);
+//    actorInitializer = Actors(bodyInitializer,polygonesInitializer, 1);
 
-    pactorList->addActor(actorInitializer);
+//    pactorList->addActor(actorInitializer);
 
-    bodyInitializer = Rigidbody(0,10,-50,10,new Quaternion(1,0,0,0),inertiaInitializer);
-    polygonesInitializer = CreateCubePolygone(0,0,0,10,10,20);
-    actorInitializer = Actors(bodyInitializer,polygonesInitializer, 2);
+//    bodyInitializer = Rigidbody(0,10,-50,100,new Quaternion(1,0,0,0),inertiaInitializer);
+//    polygonesInitializer = CreateCubePolygone(0,0,0,10,10,20);
+//    actorInitializer = Actors(bodyInitializer,polygonesInitializer, 2);
 
-    pactorList->addActor(actorInitializer);
+//    pactorList->addActor(actorInitializer);
 
-    bodyInitializer = Rigidbody(40,10,-30,10,new Quaternion(1,0,0,0),inertiaInitializer);
-    polygonesInitializer = CreateOddPolygone(0,0,0,15,10,15);
-    actorInitializer = Actors(bodyInitializer,polygonesInitializer, 3);
+//    bodyInitializer = Rigidbody(40,10,-30,100,new Quaternion(1,0,0,0),inertiaInitializer);
+//    polygonesInitializer = CreateOddPolygone(0,0,0,10,10,20);
+//    actorInitializer = Actors(bodyInitializer,polygonesInitializer, 3);
 
-    pactorList->addActor(actorInitializer);
+//    pactorList->addActor(actorInitializer);
 }
 
 void GameGUI3::demo1()
 {
     int i = 0;
+    int ind = 0;
     int size = pactorList->size();
-    while(i < pactorList->size()){
-        Actors* act = pactorList->getActor(i);
+    while(i < size){
+        Actors* act = pactorList->getActor(ind);
         if(act!=nullptr)
         {
-            pactorList->removeActor(i);
+            pactorList->removeActor(ind);
             i++;
         }
+        ind++;
     }
 
-    float valueDiagCuboid = float(1)/float(12)*float(100)*float(2);
-    float cuboidInertia[16] = {valueDiagCuboid,0,0,0,0,valueDiagCuboid,0,0,0,0,valueDiagCuboid,0,0,0,0,1};
+    float valueDiagCuboidX = float(1)/float(12)*float(100)*float(800);
+    float valueDiagCuboidY = float(1)/float(12)*float(100)*float(800);
+    float valueDiagCuboidZ = float(1)/float(12)*float(100)*float(800);
+    float cuboidInertia[9] = {valueDiagCuboidX,0,0,0,valueDiagCuboidY,0,0,0,valueDiagCuboidZ};
 
-    Matrix * inertiaInitializer = new Matrix(4,cuboidInertia);
-    float test = inertiaInitializer->Determinant();
+    Matrix * inertiaInitializer = new Matrix(3,cuboidInertia);
     Rigidbody bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(1,0,0,0),inertiaInitializer);
-    std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,0,20,20,20);
+    std::vector<Polygone> polygonesInitializer = CreateOddPolygone(0,0,0,20,20,20);
     Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, true);
 
     pactorList->addActor(actorInitializer);
@@ -143,23 +150,40 @@ void GameGUI3::demo1()
 void GameGUI3::demo2()
 {
     int i = 0;
-    while(i < pactorList->size()){
-        Actors* act = pactorList->getActor(i);
+    int ind = 0;
+    int size = pactorList->size();
+    while(i < size){
+        Actors* act = pactorList->getActor(ind);
         if(act!=nullptr)
         {
-            pactorList->removeActor(i);
+            pactorList->removeActor(ind);
             i++;
         }
+        ind++;
     }
 
-    float valueDiagCuboid = float(1)/float(12)*float(100)*float(2);
-    float cuboidInertia[16] = {valueDiagCuboid,0,0,0,0,valueDiagCuboid,0,0,0,0,valueDiagCuboid,0,0,0,0,1};
+    float valueDiagCuboidX = float(1)/float(12)*float(100)*float(125);
+    float valueDiagCuboidY = float(1)/float(12)*float(100)*float(425);
+    float valueDiagCuboidZ = float(1)/float(12)*float(100)*float(500);
+    float cuboidInertia[9] = {valueDiagCuboidX,0,0,0,valueDiagCuboidY,0,0,0,valueDiagCuboidZ};
 
-    Matrix * inertiaInitializer = new Matrix(4,cuboidInertia);
-
-    Rigidbody bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(1,0,0,0),inertiaInitializer);
-    std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,0,20,20,20);
+    Matrix * inertiaInitializer = new Matrix(3,cuboidInertia);
+    Rigidbody bodyInitializer = Rigidbody(100,5,0,100,new Quaternion(1,0,0,0),inertiaInitializer);
+    std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,0,20,10,5);
     Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, false);
+
+    pactorList->addActor(actorInitializer);
+
+    valueDiagCuboidX = float(1)/float(12)*float(200)*float(325);
+    valueDiagCuboidY = float(1)/float(12)*float(200)*float(1000);
+    valueDiagCuboidZ = float(1)/float(12)*float(200)*float(1125);
+    float cuboidInertia2[9] = {valueDiagCuboidX,0,0,0,valueDiagCuboidY,0,0,0,valueDiagCuboidZ};
+
+    inertiaInitializer = new Matrix(3,cuboidInertia2);
+
+    bodyInitializer = Rigidbody(-100,-5,0,200,new Quaternion(1,0,0,0),inertiaInitializer);
+    polygonesInitializer = CreateCubePolygone(0,0,0,30,15,10);
+    actorInitializer = Actors(bodyInitializer, polygonesInitializer, 1, false);
 
     pactorList->addActor(actorInitializer);
 }
