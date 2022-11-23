@@ -277,19 +277,52 @@ std::vector<Polygone> GameGUI3::CreateOddPolygone(float x,float y,float z,float 
 
 void GameGUI3::DrawPolygone(Polygone polygone, int id)
 {
-    Matrix* orientation = new Matrix(3);
-    orientation->SetOrientation(*pactorList->getActor(id)->getRigidbody()->getOrientation());
-    GLfloat* m = new float[8];
-    m[0] = orientation->operator()(0,0);
-    m[1] = orientation->operator()(0,1);
-    m[2] = orientation->operator()(0,2);
-    m[3] = orientation->operator()(1,0);
-    m[4] = orientation->operator()(1,1);
-    m[5] = orientation->operator()(1,2);
-    m[6] = orientation->operator()(2,0);
-    m[7] = orientation->operator()(2,1);
-    m[8] = orientation->operator()(2,2);
+    Matrix* orientationMat = new Matrix(3);
+    orientationMat->SetOrientation(*pactorList->getActor(id)->getRigidbody()->getOrientation());
+    Vector3D* translationVec = pactorList->getActor(id)->getRigidbody()->getPosition();
 
+
+    std::vector<float> * tab = new std::vector<float>();
+    for(int i=0;i<16;i++)
+    {
+      int line =(int)i/4;
+      int col = i%4;
+      if(col<3&&line<3)
+      {
+        tab->push_back((*orientationMat)(line,col));
+      }
+      else if(col==3&&line<3)
+      {
+        tab->push_back((*translationVec)[line]);
+      }
+      else if(col<3&&line==3)
+      {
+        tab->push_back(0);
+      }
+      else { tab->push_back(1); }
+    }
+    Matrix* transformMatrix= new Matrix(4,tab->data());
+
+    GLfloat* m = new float[16];
+    m[0] = transformMatrix->operator()(0,0);
+    m[1] = transformMatrix->operator()(1,0);
+    m[2] = transformMatrix->operator()(2,0);
+    m[3] = transformMatrix->operator()(3,0);
+    m[4] = transformMatrix->operator()(0,1);
+    m[5] = transformMatrix->operator()(1,1);
+    m[6] = transformMatrix->operator()(2,1);
+    m[7] = transformMatrix->operator()(3,1);
+    m[8] = transformMatrix->operator()(0,2);
+    m[9] = transformMatrix->operator()(1,2);
+    m[10] = transformMatrix->operator()(2,2);
+    m[11] = transformMatrix->operator()(3,2);
+    m[12] = transformMatrix->operator()(0,3);
+    m[13] = transformMatrix->operator()(1,3);
+    m[14] = transformMatrix->operator()(2,3);
+    m[15] = transformMatrix->operator()(3,3);
+
+    //for(int i=0;i<16;i++){
+    //std::cout<<m[i]<<std::endl;}
 
     glPushMatrix();
 //    float angle = qRadiansToDegrees(2*qAcos(pactorList->getActor(id)->getRigidbody()->getOrientation()->getW()));
@@ -298,11 +331,10 @@ void GameGUI3::DrawPolygone(Polygone polygone, int id)
 //    float rz = qRadiansToDegrees(2*qAsin(pactorList->getActor(id)->getRigidbody()->getOrientation()->getK()));
     glMultMatrixf(m);
 
-    glTranslatef(pactorList->getActor(id)->getRigidbody()->getPosition()->getX(),pactorList->getActor(id)->getRigidbody()->getPosition()->getY(),
-                 pactorList->getActor(id)->getRigidbody()->getPosition()->getZ());
+   // glTranslatef(pactorList->getActor(id)->getRigidbody()->getPosition()->getX(),pactorList->getActor(id)->getRigidbody()->getPosition()->getY(),
+   //              pactorList->getActor(id)->getRigidbody()->getPosition()->getZ());
 
 
-    glBegin(GL_QUADS);
 
     if (id == 0){
         GLfloat colorAmbientBl_tab[] = {0.25,0.25,0.5,1.0};
@@ -342,6 +374,8 @@ void GameGUI3::DrawPolygone(Polygone polygone, int id)
         glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tab);
         glMaterialf(GL_FRONT, GL_SHININESS, 76.f);
     }
+
+    glBegin(GL_QUADS);
 
     glVertex3f(polygone.s0.getX(),polygone.s0.getY(),polygone.s0.getZ());
     glVertex3f(polygone.s1.getX(),polygone.s1.getY(),polygone.s1.getZ());
