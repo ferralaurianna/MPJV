@@ -73,7 +73,7 @@ void GameGUI3::paintGL()
         {
             for( Polygone pol : *(act->getPolygones()))
             {
-                DrawPolygone(pol);
+                DrawPolygone(pol,i);
             }
             i++;
         }
@@ -90,21 +90,27 @@ void GameGUI3::setactorList(ActorList* actorlist_) {
 
     Matrix * inertiaInitializer = new Matrix(4,cuboidInertia);
 
-    Rigidbody bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(),inertiaInitializer);
+    Rigidbody bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(1,0,0,0),inertiaInitializer);
     std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,0,400,1,400);
     Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, false);
 
     pactorList->addActor(actorInitializer);
 
-    bodyInitializer = Rigidbody(0,10,0,10,new Quaternion(0,0,1,0),inertiaInitializer);
-    polygonesInitializer = CreateCubePolygone(0,10,0,10,10,20);
+    bodyInitializer = Rigidbody(0,10,0,10,new Quaternion(0,1,0,0),inertiaInitializer);
+    polygonesInitializer = CreateCubePolygone(0,0,0,10,10,20);
     actorInitializer = Actors(bodyInitializer,polygonesInitializer, 1);
 
     pactorList->addActor(actorInitializer);
 
-    bodyInitializer = Rigidbody(0,10,-50,10,new Quaternion(),inertiaInitializer);
-    polygonesInitializer = CreateCubePolygone(0,10,-50,10,10,20);
+    bodyInitializer = Rigidbody(0,10,-50,10,new Quaternion(1,0,0,0),inertiaInitializer);
+    polygonesInitializer = CreateCubePolygone(0,0,0,10,10,20);
     actorInitializer = Actors(bodyInitializer,polygonesInitializer, 2);
+
+    pactorList->addActor(actorInitializer);
+
+    bodyInitializer = Rigidbody(40,10,-30,10,new Quaternion(1,0,0,0),inertiaInitializer);
+    polygonesInitializer = CreateOddPolygone(0,0,0,15,10,15);
+    actorInitializer = Actors(bodyInitializer,polygonesInitializer, 3);
 
     pactorList->addActor(actorInitializer);
 }
@@ -204,14 +210,132 @@ std::vector<Polygone> GameGUI3::CreateCubePolygone(float x,float y,float z,float
     return polygones;
 }
 
-void GameGUI3::DrawPolygone(Polygone polygone){
+std::vector<Polygone> GameGUI3::CreateOddPolygone(float x,float y,float z,float lx,float ly,float lz){
+
+    std::vector<Polygone> polygones;
+
+    //1st vertex
+    Vector3D Topleftback = Vector3D(x + lx/2, y + ly/2,z + lz/2);
+
+    //2nd vertex
+    Vector3D Topleftfront = Vector3D(x + lx/2, y + ly/2,z - lz/2);
+
+    //3rd vertex
+    Vector3D TopMiddlefront = Vector3D(x, y + ly/2,z - lz/2);
+
+    //4th vertex
+    Vector3D TopMiddleMiddle = Vector3D(x, y + ly/2,z);
+
+    //5th vertex
+    Vector3D TopMiddleright = Vector3D(x - lx/2, y + ly/2,z);
+
+    //6th vertex
+    Vector3D Toprightback = Vector3D(x - lx/2, y + ly/2,z + lz/2);
+
+    //7th vertex
+    Vector3D Botleftback = Vector3D(x + lx/2, y - ly/2,z + lz/2);
+
+    //8th vertex
+    Vector3D Botleftfront = Vector3D(x + lx/2, y - ly/2,z - lz/2);
+
+    //9th vertex
+    Vector3D BotMiddlefront = Vector3D(x, y - ly/2,z - lz/2);
+
+    //10th vertex
+    Vector3D BotMiddleMiddle = Vector3D(x, y - ly/2,z);
+
+    //11th vertex
+    Vector3D BotMiddleright = Vector3D(x - lx/2, y - ly/2,z);
+
+    //6th vertex
+    Vector3D Botrightback = Vector3D(x - lx/2, y - ly/2,z + lz/2);
+
+    Polygone Topleftface = Polygone(Topleftback, Topleftfront, TopMiddlefront, TopMiddleMiddle);
+    Polygone Toprightface = Polygone(Topleftback, TopMiddleMiddle, TopMiddleright, Toprightback);
+    Polygone Botleftface = Polygone(Botleftback, Botleftfront, BotMiddlefront, BotMiddleMiddle);
+    Polygone Botrightface = Polygone(Botleftback, BotMiddleMiddle, BotMiddleright, Botrightback);
+    Polygone Rightface = Polygone(Toprightback, TopMiddleright, BotMiddleright, Botrightback);
+    Polygone Leftface = Polygone(Topleftback, Topleftfront, Botleftfront, Botleftback);
+    Polygone Frontface = Polygone(Topleftfront, TopMiddlefront, BotMiddlefront, Botleftfront);
+    Polygone Backface = Polygone(Topleftback, Toprightback, Botrightback, Botleftback);
+    Polygone Inwardfrontface = Polygone(TopMiddleMiddle,TopMiddleright,BotMiddleright,BotMiddleMiddle);
+    Polygone Inwardsideface = Polygone(TopMiddleMiddle,TopMiddlefront,BotMiddlefront,BotMiddleMiddle);
+
+    polygones.push_back(Topleftface);
+    polygones.push_back(Toprightface);
+    polygones.push_back(Botleftface);
+    polygones.push_back(Botrightface);
+    polygones.push_back(Rightface);
+    polygones.push_back(Leftface);
+    polygones.push_back(Frontface);
+    polygones.push_back(Backface);
+    polygones.push_back(Inwardfrontface);
+    polygones.push_back(Inwardsideface);
+
+    return polygones;
+}
+
+void GameGUI3::DrawPolygone(Polygone polygone, int id)
+{
+    glPushMatrix();
+    float angle = qRadiansToDegrees(2*qAcos(pactorList->getActor(id)->getRigidbody()->getOrientation()->getW()));
+    float rx = qRadiansToDegrees(2*qAsin(pactorList->getActor(id)->getRigidbody()->getOrientation()->getI()));
+    float ry = qRadiansToDegrees(2*qAsin(pactorList->getActor(id)->getRigidbody()->getOrientation()->getJ()));
+    float rz = qRadiansToDegrees(2*qAsin(pactorList->getActor(id)->getRigidbody()->getOrientation()->getK()));
+    glRotatef(angle,rx,ry,rz);
+
+    glTranslatef(pactorList->getActor(id)->getRigidbody()->getPosition()->getX(),pactorList->getActor(id)->getRigidbody()->getPosition()->getY(),
+                 pactorList->getActor(id)->getRigidbody()->getPosition()->getZ());
+
 
     glBegin(GL_QUADS);
 
+    if (id == 0){
+        GLfloat colorAmbientBl_tab[] = {0.25,0.25,0.5,1.0};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbientBl_tab);
+        GLfloat colorDiffuseBl_tab[] = {0.5,0.5,1.0,0.0};
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuseBl_tab);
+        GLfloat colorSpecularBl_tab[] = {0.0,0.0,0.0,0.0};
+        glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecularBl_tab);
+    }
+
+    if (id == 1){
+        GLfloat colorAmbient_tab[] = {0.24725f,0.1995f,0.0745f,0.4};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient_tab);
+        GLfloat colorDiffuse_tab[] = {0.75164f,0.60648f,0.22648f,0.4};
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuse_tab);
+        GLfloat colorSpecular_tab[] = {0.628281,0.555802,0.366065,0.4};
+        glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tab);
+        glMaterialf(GL_FRONT, GL_SHININESS, 76.f);
+    }
+
+    if (id == 2){
+        GLfloat colorAmbient_tab[] = {0.19125, 0.0735, 0.0225, 0.1};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient_tab);
+        GLfloat colorDiffuse_tab[] = {0.7038, 0.27048,	0.0828,0.1};
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuse_tab);
+        GLfloat colorSpecular_tab[] = {0.256777, 0.137622, 0.086014, 0.1};
+        glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tab);
+        glMaterialf(GL_FRONT, GL_SHININESS, 76.f);
+    }
+
+    if (id == 3){
+        GLfloat colorAmbient_tab[] = {0.25, 0.25, 0.25,0.6};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient_tab);
+        GLfloat colorDiffuse_tab[] = {0.4, 0.4,	0.4, 0.6};
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuse_tab);
+        GLfloat colorSpecular_tab[] = {0.774597, 0.774597, 0.774597,0.6};
+        glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tab);
+        glMaterialf(GL_FRONT, GL_SHININESS, 76.f);
+    }
+
     glVertex3f(polygone.s0.getX(),polygone.s0.getY(),polygone.s0.getZ());
-    glVertex3f(polygone.s0.getX(),polygone.s0.getY(),polygone.s0.getZ());
-    glVertex3f(polygone.s0.getX(),polygone.s0.getY(),polygone.s0.getZ());
-    glVertex3f(polygone.s0.getX(),polygone.s0.getY(),polygone.s0.getZ());
+    glVertex3f(polygone.s1.getX(),polygone.s1.getY(),polygone.s1.getZ());
+    glVertex3f(polygone.s2.getX(),polygone.s2.getY(),polygone.s2.getZ());
+    glVertex3f(polygone.s3.getX(),polygone.s3.getY(),polygone.s3.getZ());
+
 
     glEnd();
+
+    glPopMatrix();
 }
