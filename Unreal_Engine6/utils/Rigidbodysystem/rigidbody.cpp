@@ -11,27 +11,7 @@ Rigidbody::Rigidbody(float posX,float posY,float posZ,float mass,Quaternion * or
     inverseInertia_= inertia->Inverse();
 };
 
-//Rigidbody Rigidbody::operator=(Rigidbody const &copy)
-//{
-//    position_ = copy.position_;
-//    inverseMass_ = copy.inverseMass_;
-//    velocity_ = copy.velocity_;
-//    orientation_ = copy.orientation_;
-//    inverseInertia_ = copy.inverseInertia_;
-//    accumForce_ = copy.accumForce_;
-//    accumTorque_ = copy.accumTorque_;
-//    angularDamping_ = copy.angularDamping_;
-//    angularVelocity_ = copy.angularVelocity_;
-//    damping_ = copy.damping_;
-//    transformMatrix_ = copy.transformMatrix_;
-//    return *this;
-//}
-
 Rigidbody::~Rigidbody() {
-//    delete orientation_;
-//    delete angularVelocity_;
-//    delete position_;
-//    delete velocity_;
 }
 
 void Rigidbody::integrate(float duration) {
@@ -81,10 +61,10 @@ void Rigidbody::calculateDerivedData() {
       }
       else { tab->push_back(1); }
     }
-    transformMatrix_= new Matrix(4,tab->data());
+    transformMatrix_= Matrix(4,tab->data());
 
-    Matrix inverseTransformMatrix = transformMatrix_->Inverse();
-    inverseInertia_=((*transformMatrix_)*(inverseInertia_).To4()*inverseTransformMatrix).To3();
+    Matrix inverseTransformMatrix = transformMatrix_.Inverse();
+    inverseInertia_=(transformMatrix_*(inverseInertia_).To4()*inverseTransformMatrix).To3();
 }
 
 void Rigidbody::addForces(Vector3D force)

@@ -117,6 +117,7 @@ void GameGUI3::setactorList(ActorList* actorlist_) {
 //    actorInitializer = Actors(bodyInitializer,polygonesInitializer, 3);
 
 //    pactorList->addActor(actorInitializer);
+//    delete inertiaInitializer;
 }
 
 void GameGUI3::demo1()
@@ -145,6 +146,7 @@ void GameGUI3::demo1()
     Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, true);
 
     pactorList->addActor(actorInitializer);
+    delete inertiaInitializer;
 }
 
 void GameGUI3::demo2()
@@ -173,6 +175,7 @@ void GameGUI3::demo2()
     Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, false);
 
     pactorList->addActor(actorInitializer);
+    delete inertiaInitializer;
 
     valueDiagCuboidX = float(1)/float(12)*float(200)*float(325);
     valueDiagCuboidY = float(1)/float(12)*float(200)*float(1000);
@@ -186,6 +189,7 @@ void GameGUI3::demo2()
     actorInitializer = Actors(bodyInitializer, polygonesInitializer, 1, false);
 
     pactorList->addActor(actorInitializer);
+    delete inertiaInitializer;
 }
 
 
