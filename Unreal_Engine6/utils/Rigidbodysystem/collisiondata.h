@@ -14,7 +14,7 @@ struct Collisiondata{
     float friction;
 
     Collisiondata(Vector3D pos,Vector3D norm, float pen, float resti, float frict, Rigidbody* body1, Rigidbody* body2) :
-        position(pos),normal(norm),penetration(pen),restitution(resti),friction(frict),rigidbody1(body1),rigidbody2(body2){};
+        position(pos),normal(norm),penetration(pen),rigidbody1(body1),rigidbody2(body2),restitution(resti),friction(frict){};
 };
 
 #endif // COLLISIONDATA_H
