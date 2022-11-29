@@ -37,8 +37,13 @@ SOURCES += \
     scene2/Assets/spike.cpp \
     scene3/actorlist.cpp \
     scene3/gamegui3.cpp \
+    utils/RigidBodySystem/Primitives/box.cpp \
+    utils/RigidBodySystem/Primitives/plane.cpp \
+    utils/RigidBodySystem/Primitives/primitives.cpp \
+    utils/RigidBodySystem/Primitives/sphere.cpp \
     utils/RigidBodySystem/forceregistreryrigidbody.cpp \
     utils/RigidBodySystem/physicsystem.cpp \
+    utils/RigidBodySystem/primitives.cpp \
     utils\RigidBodySystem/actors.cpp \
     scene3/windowpart3.cpp \
     utils/ParticlesSystem\collisiondetector.cpp \
@@ -83,8 +88,13 @@ HEADERS += \
     scene2/Assets/spike.h \
     scene3/actorlist.h \
     scene3/gamegui3.h \
+    utils/RigidBodySystem/Primitives/box.h \
+    utils/RigidBodySystem/Primitives/plane.h \
+    utils/RigidBodySystem/Primitives/primitives.h \
+    utils/RigidBodySystem/Primitives/sphere.h \
     utils/RigidBodySystem/forceregistreryrigidbody.h \
     utils/RigidBodySystem/physicsystem.h \
+    utils/RigidBodySystem/primitives.h \
     utils\RigidBodySystem\actors.h \
     scene3/windowpart3.h \
     utils/Polygon.h \
