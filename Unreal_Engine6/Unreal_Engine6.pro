@@ -83,6 +83,7 @@ HEADERS += \
     scene2/Assets/spike.h \
     scene3/actorlist.h \
     scene3/gamegui3.h \
+    utils/RigidBodySystem/collisiondata.h \
     utils/RigidBodySystem/forceregistreryrigidbody.h \
     utils/RigidBodySystem/physicsystem.h \
     utils\RigidBodySystem\actors.h \
