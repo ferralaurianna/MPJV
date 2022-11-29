@@ -4,7 +4,9 @@
 
 #include "utils/polygon.h"
 #include "utils/Rigidbodysystem/rigidbody.h"
+#include "utils/Rigidbodysystem/Primitives/primitives.h"
 #include <vector>
+
 class Actors
 {
 public:
@@ -31,11 +33,14 @@ public:
      * @param polygones : a vector of polygones representing the visual appearence of the object
      * @param id : the id of the actor
      * @param gravity : wether gravity should be activated for this actor
+     * @param primitives : a vector of primitives representing the combined hitboxed of the object
      * The constructor of the Actors class, which store an ID, a rigidbody, wheter it is affected by gravity and lists of the actors it is linked to.
      */
-    Actors(Rigidbody rigidbody, std::vector<Polygone> polygones, int id, bool gravity = true);
+    Actors(Rigidbody rigidbody, std::vector<Polygone> polygones, int id, bool gravity = true,std::vector<Primitives> primitives);
 
     std::vector<Polygone>* getPolygones(){return &polygones_;};
+
+    std::vector<Primitives>* getPrimitives(){return &primitives_;};
 
     Rigidbody* getRigidbody(){return &rigidbody_;};
 
@@ -84,6 +89,8 @@ public:
 
 protected:
     std::vector<Polygone> polygones_;
+
+    std::vector<Primitives> primitives_;
 
     Rigidbody rigidbody_;
 
