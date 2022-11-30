@@ -1,7 +1,9 @@
 #ifndef PHYSICSYSTEM_H
 #define PHYSICSYSTEM_H
 
+#include "utils/Rigidbodysystem/collisionregistreryrigidody.h"
 #include "utils/Rigidbodysystem/forceregistreryrigidbody.h"
+#include "utils/Rigidbodysystem/narrowphasedetector.h"
 
 class PhysicSystem
 {
@@ -19,10 +21,27 @@ public:
 
     void UpdateForces(float duration);
 
+    void handleCollisions(float duration);
+
     void removeForces(int id);
+
+    void addMoved(int id){movedThisframe_.push_back(id);};
+
+    void addToCollision(int id, Actors* actor);
+
+    void removeCollisions(int id);
 
 private:
     ForceRegistreryRigidbody forces_;
+
+    std::vector<int> movedThisframe_;
+
+    std::vector<int[2]> possibleCollisions_;
+
+    collisionRegistreryRigidody collisions_;
+
+    NarrowPhaseDetector narrowPhase = NarrowPhaseDetector(&collisions_,&possibleCollisions_);
+
 };
 
 #endif // PHYSICSYSTEM_H

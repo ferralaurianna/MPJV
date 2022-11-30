@@ -41,9 +41,10 @@ SOURCES += \
     utils/RigidBodySystem/Primitives/plane.cpp \
     utils/RigidBodySystem/Primitives/primitives.cpp \
     utils/RigidBodySystem/Primitives/sphere.cpp \
+    utils/RigidBodySystem/collisionregistreryrigidody.cpp \
     utils/RigidBodySystem/forceregistreryrigidbody.cpp \
+    utils/RigidBodySystem/narrowphasedetector.cpp \
     utils/RigidBodySystem/physicsystem.cpp \
-    utils/RigidBodySystem/primitives.cpp \
     utils\RigidBodySystem/actors.cpp \
     scene3/windowpart3.cpp \
     utils/ParticlesSystem\collisiondetector.cpp \
@@ -93,9 +94,10 @@ HEADERS += \
     utils/RigidBodySystem/Primitives/plane.h \
     utils/RigidBodySystem/Primitives/primitives.h \
     utils/RigidBodySystem/Primitives/sphere.h \
+    utils/RigidBodySystem/collisionregistreryrigidody.h \
     utils/RigidBodySystem/forceregistreryrigidbody.h \
+    utils/RigidBodySystem/narrowphasedetector.h \
     utils/RigidBodySystem/physicsystem.h \
-    utils/RigidBodySystem/primitives.h \
     utils\RigidBodySystem\actors.h \
     scene3/windowpart3.h \
     utils/Polygon.h \

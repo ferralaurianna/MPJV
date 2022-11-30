@@ -36,7 +36,7 @@ public:
      * @param primitives : a vector of primitives representing the combined hitboxed of the object
      * The constructor of the Actors class, which store an ID, a rigidbody, wheter it is affected by gravity and lists of the actors it is linked to.
      */
-    Actors(Rigidbody rigidbody, std::vector<Polygone> polygones, int id, bool gravity = true,std::vector<Primitives> primitives);
+    Actors(Rigidbody rigidbody, std::vector<Polygone> polygones, int id, bool gravity = true, std::vector<Primitives> primitives = std::vector<Primitives>(), bool collisions = true);
 
     std::vector<Polygone>* getPolygones(){return &polygones_;};
 
@@ -63,9 +63,13 @@ public:
 
     void setGrav(bool grav){hasGravity_ = grav;};
 
+    void setCol(bool col){hasCollisions_ = col;};
+
     int getId(){return id_;};
 
     bool getGrav(){return hasGravity_;};
+
+    bool getCol(){return hasCollisions_;};
 
     std::vector<Connection>* getLinks(){return &linksTo_;};
 
@@ -86,6 +90,8 @@ public:
      * A function used to remove a registered one-way cable to an actor, does not remove the cable from the physic system.
      */
     void removeCable(int id, int idOther);
+
+    bool willMove(){return rigidbody_.willMove();};
 
 protected:
     std::vector<Polygone> polygones_;
@@ -108,6 +114,8 @@ protected:
     std::vector<Connection> cablesTo_= std::vector<Connection>();
 
     bool hasGravity_;
+
+    bool hasCollisions_;
 };
 
 #endif // ACTORS_H

@@ -57,6 +57,8 @@ public:
      */
     void addForcesAtBodyPoint(Vector3D force, Vector3D point);
 
+    bool willMove(){return (accumForce_==Vector3D(0,0,0) && accumTorque_ ==Vector3D(0,0,0));};
+
 
     void clearAccum();
 

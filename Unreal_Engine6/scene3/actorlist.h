@@ -98,6 +98,11 @@ public:
      */
     int size() {return list.size();};
 
+    void removecollisions(int id);
+
+    void addCollisions(int id);
+
+
 private:
     std::vector<Actors> list;
 
