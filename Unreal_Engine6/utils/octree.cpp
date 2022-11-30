@@ -9,12 +9,7 @@ void Octree::insert(BoundingVolume* element)
         }
         if(elements.size() >= MAX_NUMBER_ELEMENT) // On regarde maintenant si on peut véritablement le mettre
         {
-            isLeaf = false;
-            for(BoundingVolume* elt : elements)
-            {
-                this->insert(elt);
-            }
-            elements.assign(MAX_NUMBER_ELEMENT, nullptr);
+            this->makeLeaf();
             this->insert(element);
         }
         else

@@ -42,12 +42,18 @@ private:
         children[5] = new Octree(topLeftFront->x, topLeftFront->y, midz, midx, midy, bottomRightBack->z);
         children[6] = new Octree(midx, topLeftFront->y, midz, bottomRightBack->x, midy, bottomRightBack->z);
         children[7] = new Octree(midx, topLeftFront->y, topLeftFront->z, bottomRightBack->x, midy, midz);
+
+        for(BoundingVolume* elt : elements)
+        {
+            this->insert(elt);
+        }
+        elements.assign(MAX_NUMBER_ELEMENT, nullptr);
     }
 
 public:
     //Constructor
     Octree(){
-        elements.assign(6, nullptr);
+        elements.assign(MAX_NUMBER_ELEMENT, nullptr);
     }
     // Constructor with six arguments
     Octree(int x1, int y1, int z1, int x2, int y2, int z2)
