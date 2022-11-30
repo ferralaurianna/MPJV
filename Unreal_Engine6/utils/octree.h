@@ -69,6 +69,7 @@ public:
     void insert(BoundingVolume* element);
     void remove(BoundingVolume* element);
     std::vector<std::tuple<BoundingVolume*, BoundingVolume*>> findPossibleCollision();
+    std::vector<BoundingVolume*> getUniqueElements();
 
 };
 

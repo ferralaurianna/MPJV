@@ -4,7 +4,7 @@
 void Octree::insert(BoundingVolume* element)
 {
     if(isLeaf){
-        if(std::find(elements.begin(), elements.end(), element)){ // L'element est deja present
+        if(std::find(elements.begin(), elements.end(), element) != elements.end()){ // L'element est deja present
             return;
         }
         if(elements.size() >= MAX_NUMBER_ELEMENT) // On regarde maintenant si on peut véritablement le mettre
@@ -68,7 +68,7 @@ void Octree::remove(BoundingVolume* element) // TODO: Pas de merge encore effect
 {
     if(isLeaf)
     {
-        for (int i = 0; i < elements.size(); i++)
+        for (int i = 0; i < (int) elements.size(); i++)
         {
             if(element == elements.at(i))
             {
@@ -79,12 +79,41 @@ void Octree::remove(BoundingVolume* element) // TODO: Pas de merge encore effect
     }
     else
     {
-        for(int i = 0; i < children.size(); i++)
+        for(int i = 0; i < (int) children.size(); i++)
         {
             children[i]->remove(element);
         }
-        // Faire le merge ici !
+        // Faire le merge ici ! Il faut compter le nombre d'élement différent que nos fils ont et apres
+        std::vector<BoundingVolume*> tmp = this->getUniqueElements();
+        if(tmp.size() < MAX_NUMBER_ELEMENT)
+        {
+            elements = tmp;
+            children.assign(8, nullptr);
+        }
     }
+}
+
+
+std::vector<BoundingVolume*> Octree::getUniqueElements()
+{
+    std::vector<BoundingVolume*> result;
+    if(isLeaf)
+    {
+        return elements;
+    }
+    std::vector<BoundingVolume*> tmp;
+    for(int i = 0; i < (int) children.size(); i++)
+    {
+        tmp = children[i]->getUniqueElements();
+        for(auto elt : tmp)
+        {
+            if(std::find(result.begin(), result.end(), elt) == result.end())
+            {
+                result.push_back(elt);
+            }
+        }
+    }
+    return result;
 }
 
 std::vector<std::tuple<BoundingVolume*, BoundingVolume*>> Octree::findPossibleCollision()
@@ -92,9 +121,9 @@ std::vector<std::tuple<BoundingVolume*, BoundingVolume*>> Octree::findPossibleCo
     std::vector<std::tuple<BoundingVolume*, BoundingVolume*>> result;
     if(isLeaf)
     {
-        for (int i = 0; i < elements.size() - 1; i++)
+        for (int i = 0; i < (int) elements.size() - 1; i++)
         {
-            for (int j = i+1; j < elements.size(); ++j)
+            for (int j = i+1; j < (int) elements.size(); ++j)
             {
                 result.push_back(std::tuple<BoundingVolume*, BoundingVolume*>(elements[i], elements[j]));
             }
@@ -103,12 +132,12 @@ std::vector<std::tuple<BoundingVolume*, BoundingVolume*>> Octree::findPossibleCo
     else
     {
         std::vector<std::tuple<BoundingVolume*, BoundingVolume*>> tmp;
-        for(int i = 0; i < children.size(); i++)
+        for(int i = 0; i < (int) children.size(); i++)
         {
             tmp = children[i]->findPossibleCollision();
             for(auto elt : tmp)
             {
-                if(!std::find(result.begin(), result.end(), elt))
+                if(std::find(result.begin(), result.end(), elt) == result.end())
                 {
                     result.push_back(elt);
                 }
