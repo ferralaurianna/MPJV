@@ -44,6 +44,8 @@ public:
     Matrix Transpose();
     float Determinant();
     Matrix Inverse();
+    Matrix To4();
+    Matrix To3();
 
     //Set the matrix based on a Quaternion.
     void SetOrientation(const Quaternion& q);

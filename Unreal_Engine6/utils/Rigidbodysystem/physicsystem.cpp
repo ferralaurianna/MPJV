@@ -6,7 +6,7 @@ PhysicSystem::PhysicSystem()
     forces_ = ForceRegistreryRigidbody();
 }
 
-void PhysicSystem::addSimpleForce(Rigidbody* rb,int id, int idOther, int idForce, Vector3D bodyAnchor)
+void PhysicSystem::addSimpleForce(Rigidbody* rb,int id, int idForce, Vector3D bodyAnchor)
 {
     if(idForce == -1)
     {

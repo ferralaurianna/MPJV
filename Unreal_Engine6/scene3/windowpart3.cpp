@@ -14,7 +14,6 @@ WindowPart3::WindowPart3(QWidget *parent) :
 
     actorlist_.setPhysic(&physic_);
 
-    //Xavier cette ligne est en commentairejusqu'à ce que tu mettes en GUI
     ui->gameGui3->setactorList(&actorlist_);
 
     connect(this->timerLogic, &QTimer::timeout, this, &WindowPart3::updateLogic);
@@ -24,6 +23,8 @@ WindowPart3::WindowPart3(QWidget *parent) :
     connect(this->timerRender, &QTimer::timeout, this, &WindowPart3::updateRender);
 //    timerRender->setSingleShot(true);
     timerRender->start(deltatimeRender);
+
+    connect(this->timerFakeCollision, &QTimer::timeout, this, &WindowPart3::FakeCollision);
 }
 
 WindowPart3::~WindowPart3()
@@ -34,14 +35,14 @@ WindowPart3::~WindowPart3()
 void WindowPart3::updateLogic()
 {
     updateInputs();
-    physic_.UpdateForces(deltatimeLogic);
-    actorlist_.integrateAll(deltatimeLogic);
-    actorlist_.clearForces();
+    physic_.UpdateForces(deltatimeLogic/1000);
+    actorlist_.integrateAll(deltatimeLogic/1000);
+//    actorlist_.clearForces();
 }
 
 void WindowPart3::updateRender()
 {
-    //ui->gameGUI->update()
+    ui->gameGui3->update();
 }
 
 void WindowPart3::updateInputs()
@@ -50,7 +51,7 @@ void WindowPart3::updateInputs()
     Actors* actor0 = actorlist_.getActor(0);
     if(actor0!=nullptr)
     {
-        physic_.addSimpleForce(actor0->getRigidbody(),0,-3,-3,movements*1000);
+        physic_.addSimpleForce(actor0->getRigidbody(),0,-3,movements*1000);
     }
 }
 
@@ -156,7 +157,21 @@ void WindowPart3::keyPressEvent(QKeyEvent * event)
             this->hide();
             break;
         }
-
+        case Qt::Key_1:
+        {
+            timerFakeCollision->stop();
+            ui->gameGui3->demo1();
+            actorlist_.getActor(0)->getRigidbody()->addForcesAtBodyPoint(Vector3D(100000,100000,0),Vector3D(10,10,10));
+            break;
+        }
+        case Qt::Key_2:
+        {
+            ui->gameGui3->demo2();
+            actorlist_.getActor(0)->getRigidbody()->addForcesAtBodyPoint(Vector3D(-500000,0,0),Vector3D(0,0,0));
+            actorlist_.getActor(1)->getRigidbody()->addForcesAtBodyPoint(Vector3D(1000000,0,0),Vector3D(0,0,0));
+            timerFakeCollision->start(11000);
+            break;
+        }
         // Default case
         default:
         {
@@ -168,4 +183,10 @@ void WindowPart3::keyPressEvent(QKeyEvent * event)
 
     // Acceptation of the event and update rendering
     event->accept();
+}
+
+void WindowPart3::FakeCollision()
+{
+    actorlist_.getActor(0)->getRigidbody()->addForcesAtBodyPoint(Vector3D(500000,0,0),Vector3D(-10,5,0));
+    actorlist_.getActor(1)->getRigidbody()->addForcesAtBodyPoint(Vector3D(-500000,0,0),Vector3D(10,-5,0));
 }

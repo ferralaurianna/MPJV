@@ -9,3 +9,5 @@ Une fois le logiciel installé, il suffit d'ouvrir le projet depuis QT Creator e
 On laissera les paramètres de configuration du projet par défaut.
 
 La compilation se fait par la flèche en bas à gauche.
+
+Une fois sur la scène de la partie 3, il faut appuyez sur 1 pour lancer la première démo (objet tournouyant), et 2 pour lancer la seconde (collsion de pavés hardcodée).

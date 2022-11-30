@@ -29,7 +29,7 @@ public:
     void setVelocity(Vector3D *velocity){velocity_=velocity;};
     Vector3D* getPosition(){return position_;};
     void setPosition(Vector3D *position){position_=position;};
-    Vector3D* getForces(){return accumForce_;};
+    Vector3D* getForces(){return &accumForce_;};
 
     /**
      * Integrates the rigidbody, by modifiying position, orientation & velocity
@@ -65,7 +65,7 @@ protected:
     //Initialize the gravity, damping and type of Particles (protected to have access in derived class)
     float damping_ = 0;
     float angularDamping_=0;
-    Vector3D *accumForce_ = new Vector3D(0,0,0);
+    Vector3D accumForce_ = Vector3D(0,0,0);
 
     Vector3D *position_ = new Vector3D();
     Vector3D *velocity_ = new Vector3D();
@@ -74,14 +74,14 @@ protected:
     float inverseMass_;
 
     // Orientation of the rigidbody
-    Quaternion * orientation_ = new Quaternion();
+    Quaternion *orientation_ = new Quaternion();
 
     // Accumulated Torque (added by the force generator)
-    Vector3D * accumTorque_ = new Vector3D();
+    Vector3D  accumTorque_ = Vector3D(0,0,0);
 
     // Transform matrix (from orientation & rotation)
-    Matrix * transformMatrix_ = new Matrix(3);
-    Matrix * inverseInertia_ = new Matrix(3);
+    Matrix transformMatrix_ = Matrix(3);
+    Matrix inverseInertia_ = Matrix(3);
 
 };
 

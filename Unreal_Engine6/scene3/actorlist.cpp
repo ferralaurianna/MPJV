@@ -3,19 +3,17 @@
 
 ActorList::ActorList()
 {
+    list.reserve(1000);
 }
 
 void ActorList::addActor(Actors actor)
 {
     int id = actor.getId();
     list.push_back(actor);
-    for(Actors::Connection link : *actor.getLinks())
+    Actors* act = getActor(id);
+    if(actor.getGrav())
     {
-        addLink(id,link.idOther,link.bodyAnchor_,link.otherBodyAnchor_);
-    }
-    for(Actors::Connection cable : *actor.getLinks())
-    {
-        addCable(id,cable.idOther,cable.bodyAnchor_,cable.otherBodyAnchor_);
+        physic_->addSimpleForce(act->getRigidbody(),id,-1);;
     }
 }
 
@@ -41,14 +39,15 @@ void ActorList::addGravity(int id)
 {
     Actors* act = getActor(id);
     act->setGrav(true);
-    physic_->addSimpleForce(act->getRigidbody(),id,-1,-1);
+    physic_->addSimpleForce(act->getRigidbody(),id,-1);
 }
 
 void ActorList::addLink(int id, int idOther,Vector3D bodyAnchor, Vector3D otherBodyAnchor)
 {
     Actors* act = getActor(id);
+    Actors* other = getActor(idOther);
     act->addLink(idOther,bodyAnchor,otherBodyAnchor);
-    physic_->addForcesBetween(id,idOther,1,act->getRigidbody(),bodyAnchor);
+    physic_->addForcesBetween(id,idOther,1,act->getRigidbody(),bodyAnchor,other->getRigidbody(),otherBodyAnchor);
 }
 
 void ActorList::removeLink(int id, int idOther)
