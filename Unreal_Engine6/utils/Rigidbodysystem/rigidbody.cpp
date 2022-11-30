@@ -75,13 +75,19 @@ void Rigidbody::addForces(Vector3D force)
 void Rigidbody::addForcesAtWorldPoint(Vector3D force, Vector3D point)
 {
     accumForce_ = accumForce_+force;
-    accumTorque_ = accumTorque_+inverseInertia_*(((*position_)-point)^force);
+    Vector3D pointLocal = transformMatrix_*point;
+
+    addForcesAtBodyPoint(force,pointLocal);
 }
 
 void Rigidbody::addForcesAtBodyPoint(Vector3D force, Vector3D point)
 {
+    Matrix quat2Mat = Matrix(3);
+    quat2Mat.SetOrientation(*orientation_);
+
+    Vector3D forceLocal = quat2Mat*force;
     accumForce_ = accumForce_+(force);
-    accumTorque_ = accumTorque_+inverseInertia_*(point^force);
+    accumTorque_ = accumTorque_+inverseInertia_*(point^forceLocal);
 }
 
 
