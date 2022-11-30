@@ -39,6 +39,8 @@ SOURCES += \
     scene3/gamegui3.cpp \
     utils/RigidBodySystem/forceregistreryrigidbody.cpp \
     utils/RigidBodySystem/physicsystem.cpp \
+    utils/boundingvolume.cpp \
+    utils/octree.cpp \
     utils\RigidBodySystem/actors.cpp \
     scene3/windowpart3.cpp \
     utils/ParticlesSystem\collisiondetector.cpp \
@@ -85,6 +87,8 @@ HEADERS += \
     scene3/gamegui3.h \
     utils/RigidBodySystem/forceregistreryrigidbody.h \
     utils/RigidBodySystem/physicsystem.h \
+    utils/boundingvolume.h \
+    utils/octree.h \
     utils\RigidBodySystem\actors.h \
     scene3/windowpart3.h \
     utils/Polygon.h \
