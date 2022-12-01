@@ -116,6 +116,9 @@ std::vector<std::tuple<BoundingVolume*, BoundingVolume*>> Octree::findPossibleCo
     std::vector<std::tuple<BoundingVolume*, BoundingVolume*>> result;
     if(isLeaf)
     {
+        if(elements.size() < 2){
+            return result;
+        }
         for (int i = 0; i < (int) elements.size() - 1; i++)
         {
             for (int j = i+1; j < (int) elements.size(); ++j)

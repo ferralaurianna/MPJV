@@ -47,14 +47,12 @@ private:
         {
             this->insert(elt);
         }
-        elements.assign(MAX_NUMBER_ELEMENT, nullptr);
+        elements.clear();
     }
 
 public:
     //Constructor
-    Octree(){
-        elements.assign(MAX_NUMBER_ELEMENT, nullptr);
-    }
+    Octree() = delete;
     // Constructor with six arguments
     Octree(int x1, int y1, int z1, int x2, int y2, int z2)
     {
