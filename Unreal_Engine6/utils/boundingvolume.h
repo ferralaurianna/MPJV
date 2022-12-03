@@ -1,5 +1,6 @@
 #ifndef BOUNDINGVOLUME_H
 #define BOUNDINGVOLUME_H
+#include "utils/RigidBodySystem/actors.h"
 
 // Structure of a Point
 struct Point {
@@ -22,7 +23,7 @@ private:
     float radius;
 
 public:
-    BoundingVolume();
+    BoundingVolume(Actors actor);
 
     Point getCenter() const {return center;}
 
