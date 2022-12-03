@@ -80,28 +80,37 @@ BoundingVolume::BoundingVolume(Actors actor)
 
 bool BoundingVolume::intersectWithBox(int xTopLeftFront, int yTopLeftFront, int zTopLeftFront, int xBottomRightBack, int yBottomRightBack, int zBottomRightBack)
 {
+    // calcul des coordonnées du centre du cube
     float xBoxCenter = (xTopLeftFront + xBottomRightBack)/2;
     float yBoxCenter = (yTopLeftFront + yBottomRightBack)/2;
     float zBoxCenter = (zTopLeftFront + zBottomRightBack)/2;
+
+    // calcul des dimensions du cube
     float width = abs(xTopLeftFront - xBottomRightBack);
     float height = abs(yTopLeftFront - yBottomRightBack);
     float length = abs(zTopLeftFront - zBottomRightBack);
 
+    // calcul des distances centre cube centre sphère par axe
     float sphereXDistance = abs(center.x - xBoxCenter);
     float sphereYDistance = abs(center.y - yBoxCenter);
     float sphereZDistance = abs(center.z - zBoxCenter);
 
-    if (sphereXDistance >= (width + radius)) { return false; }
-    if (sphereYDistance >= (height + radius)) { return false; }
-    if (sphereZDistance >= (length + radius)) { return false; }
+    // si la distance entre les centres est plus grande que la rayon plus la dimension correspondant à l'axe/2
+    // alors impossible qu'ils soient en contact
+    if (sphereXDistance >= (width/2 + radius)) { return false; }
+    if (sphereYDistance >= (height/2 + radius)) { return false; }
+    if (sphereZDistance >= (length/2 + radius)) { return false; }
 
-    if (sphereXDistance < width) { return true; }
-    if (sphereYDistance < height) { return true; }
-    if (sphereZDistance < length) { return true; }
+    // si le centre de la sphère est dans le cube
+    // il y a contact
+    if (sphereXDistance < width/2) { return true; }
+    if (sphereYDistance < height/2) { return true; }
+    if (sphereZDistance < length/2) { return true; }
 
-    float cornerDistance_sq = ((sphereXDistance - width) * (sphereXDistance - width)) +
-                         ((sphereYDistance - height) * (sphereYDistance - height) +
-                         ((sphereYDistance - length) * (sphereYDistance - length)));
+    // calcul de la distance entre le bord du cube et le centre de la sphère
+    float cornerDistance_sq = ((sphereXDistance - width/2) * (sphereXDistance - width/2)) +
+                         ((sphereYDistance - height/2) * (sphereYDistance - height/2) +
+                         ((sphereYDistance - length/2) * (sphereYDistance - length/2)));
 
     return (cornerDistance_sq < (radius * radius));
 }
