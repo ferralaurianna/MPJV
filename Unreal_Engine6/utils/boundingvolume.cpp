@@ -106,6 +106,11 @@ bool BoundingVolume::intersectWithBox(int xTopLeftFront, int yTopLeftFront, int 
     return (cornerDistance_sq < (radius * radius));
 }
 
+void BoundingVolume::setCenter(float x_, float y_, float z_) {
+    center.x = x_;
+    center.y = y_;
+    center.z = z_;
+}
 
 
 

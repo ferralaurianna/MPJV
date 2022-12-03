@@ -4,14 +4,14 @@
 
 // Structure of a Point
 struct Point {
-    int x;
-    int y;
-    int z;
+    float x;
+    float y;
+    float z;
 
     Point():
         x(-1), y(-1), z(-1){
     }
-    Point(int a, int b, int c):
+    Point(float a, float b, float c):
         x(a), y(b), z(c){
     }
 };
@@ -26,6 +26,8 @@ public:
     BoundingVolume(Actors actor);
 
     Point getCenter() const {return center;}
+
+    void setCenter(float x_, float y_, float z_);
 
     bool intersectWithBox(int xTopLeftFront, int yTopLeftFront, int zTopLeftFront, int xBottomRightBack, int yBottomRightBack, int zBottomRightBack);
 
