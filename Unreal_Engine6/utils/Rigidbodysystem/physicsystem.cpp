@@ -5,7 +5,7 @@ PhysicSystem::PhysicSystem()
 {
     forces_ = ForceRegistreryRigidbody();
     movedThisframe_ = std::vector<int>();
-    possibleCollisions_ = std::vector<int[2]>();
+    possibleCollisions_ = std::vector<Actors*[2]>();
     collisions_ = collisionRegistreryRigidody ();
     narrowPhase = NarrowPhaseDetector(&collisions_,&possibleCollisions_);
 }

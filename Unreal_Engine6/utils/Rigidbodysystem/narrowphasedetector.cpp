@@ -1,24 +1,72 @@
 #include "narrowphasedetector.h"
 
-NarrowPhaseDetector::NarrowPhaseDetector(collisionRegistreryRigidody* detectedCols, std::vector<int[2]>* toTest)
+NarrowPhaseDetector::NarrowPhaseDetector(collisionRegistreryRigidody* detectedCols, std::vector<Actors*[2]>* toTest)
 {
     detectedCols_ = detectedCols;
     toTest_ = toTest;
-    actors_ = std::vector<Actors*>();
 }
 
-void NarrowPhaseDetector::removeActor(int id)
+void NarrowPhaseDetector::DetectCollision()
 {
-    std::vector<Actors*>::iterator it;
-    while(it!=actors_.end())
+    for(Actors** pCol : *toTest_)
     {
-        if(**it == id)
+        for(Primitives primAct1 : *pCol[0]->getPrimitives())
         {
-            actors_.erase(it);
-        }
-        else
-        {
-            it++;
+            for(Primitives primAct2 : *pCol[1]->getPrimitives())
+            {
+                switch (primAct1.type) {
+                case Primitives::SPHERE:
+                    switch (primAct2.type) {
+                    case Primitives::SPHERE:
+
+                        break;
+                    case Primitives::BOX:
+
+                        break;
+                    case Primitives::PLANE:
+
+                        break;
+                    default:
+                        break;
+                    }
+
+                    break;
+                case Primitives::BOX:
+                    switch (primAct2.type) {
+                    case Primitives::SPHERE:
+
+                        break;
+                    case Primitives::BOX:
+
+                        break;
+                    case Primitives::PLANE:
+
+                        break;
+                    default:
+                        break;
+                    }
+
+                    break;
+                case Primitives::PLANE:
+                    switch (primAct2.type) {
+                    case Primitives::SPHERE:
+
+                        break;
+                    case Primitives::BOX:
+
+                        break;
+                    case Primitives::PLANE:
+
+                        break;
+                    default:
+                        break;
+                    }
+
+                    break;
+                default:
+                    break;
+                }
+            }
         }
     }
 }

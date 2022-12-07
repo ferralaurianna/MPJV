@@ -7,18 +7,13 @@
 class NarrowPhaseDetector
 {
 public:
-    NarrowPhaseDetector(collisionRegistreryRigidody* detectedCols, std::vector<int[2]>* toTest);
+    NarrowPhaseDetector(collisionRegistreryRigidody* detectedCols, std::vector<Actors*[2]>* toTest);
 
-    void addActor(Actors* act){actors_.push_back(act);};
-
-    void removeActor(int id);
+    void DetectCollision();
 
 private:
     collisionRegistreryRigidody* detectedCols_;
-    std::vector<int[2]>* toTest_;
-    std::vector<Actors*> actors_;
-
-    Actors* getActor(int id);
+    std::vector<Actors*[2]>* toTest_;
 };
 
 #endif // NARROWPHASEDETECTOR_H
