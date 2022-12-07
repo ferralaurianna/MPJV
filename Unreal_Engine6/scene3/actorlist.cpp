@@ -17,7 +17,7 @@ void ActorList::addActor(Actors actor)
     }
     if(actor.getCol())
     {
-        physic_->addToCollision(id,act);
+        physic_->addToCollision(act);
     }
 }
 
@@ -115,5 +115,5 @@ void ActorList::addCollisions(int id)
 {
     Actors* act = getActor(id);
     act->setCol(true);
-    physic_->addToCollision(id,act);
+    physic_->addToCollision(act);
 }

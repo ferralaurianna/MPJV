@@ -27,7 +27,7 @@ public:
 
     void addMoved(int id){movedThisframe_.push_back(id);};
 
-    void addToCollision(int id, Actors* actor);
+    void addToCollision(Actors* actor);
 
     void removeCollisions(int id);
 
