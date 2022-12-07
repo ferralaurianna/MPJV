@@ -15,6 +15,10 @@ void ActorList::addActor(Actors actor)
     {
         physic_->addSimpleForce(act->getRigidbody(),id,-1);;
     }
+    if(actor.getCol())
+    {
+        physic_->addToCollision(act);
+    }
 }
 
 void ActorList::removeActor(int id)
@@ -92,6 +96,24 @@ void ActorList::integrateAll(float duration)
 {
     for(Actors act : list)
     {
+        if(act.willMove())
+        {
+            physic_->addMoved(act.getId());
+        }
         act.getRigidbody()->integrate(duration);
     }
+}
+
+void ActorList::removecollisions(int id)
+{
+    Actors* act = getActor(id);
+    act->setCol(false);
+    physic_->removeCollisions(id);
+}
+
+void ActorList::addCollisions(int id)
+{
+    Actors* act = getActor(id);
+    act->setCol(true);
+    physic_->addToCollision(act);
 }

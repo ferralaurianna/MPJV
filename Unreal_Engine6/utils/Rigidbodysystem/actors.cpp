@@ -1,12 +1,14 @@
 #include "actors.h"
 #include <algorithm>
 
-Actors::Actors(Rigidbody rigidbody, std::vector<Polygone> polygones, int id, bool gravity)
+Actors::Actors(Rigidbody rigidbody, std::vector<Polygone> polygones, int id, bool gravity, std::vector<Primitives> primitives, bool collisions)
 {
     rigidbody_ = rigidbody;
     polygones_ = polygones;
     id_ = id;
     hasGravity_ = gravity;
+    primitives_ = primitives;
+    hasCollisions_ = collisions;
 }
 
 void Actors::removeLink(int id, int idOther)

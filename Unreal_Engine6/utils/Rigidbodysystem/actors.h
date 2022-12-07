@@ -4,7 +4,9 @@
 
 #include "utils/polygon.h"
 #include "utils/Rigidbodysystem/rigidbody.h"
+#include "utils/Rigidbodysystem/Primitives/primitives.h"
 #include <vector>
+
 class Actors
 {
 public:
@@ -31,11 +33,14 @@ public:
      * @param polygones : a vector of polygones representing the visual appearence of the object
      * @param id : the id of the actor
      * @param gravity : wether gravity should be activated for this actor
+     * @param primitives : a vector of primitives representing the combined hitboxed of the object
      * The constructor of the Actors class, which store an ID, a rigidbody, wheter it is affected by gravity and lists of the actors it is linked to.
      */
-    Actors(Rigidbody rigidbody, std::vector<Polygone> polygones, int id, bool gravity = true);
+    Actors(Rigidbody rigidbody, std::vector<Polygone> polygones, int id, bool gravity = true, std::vector<Primitives> primitives = std::vector<Primitives>(), bool collisions = true);
 
     std::vector<Polygone>* getPolygones(){return &polygones_;};
+
+    std::vector<Primitives>* getPrimitives(){return &primitives_;};
 
     Rigidbody* getRigidbody(){return &rigidbody_;};
 
@@ -58,9 +63,13 @@ public:
 
     void setGrav(bool grav){hasGravity_ = grav;};
 
+    void setCol(bool col){hasCollisions_ = col;};
+
     int getId(){return id_;};
 
     bool getGrav(){return hasGravity_;};
+
+    bool getCol(){return hasCollisions_;};
 
     std::vector<Connection>* getLinks(){return &linksTo_;};
 
@@ -82,8 +91,12 @@ public:
      */
     void removeCable(int id, int idOther);
 
+    bool willMove(){return rigidbody_.willMove();};
+
 protected:
     std::vector<Polygone> polygones_;
+
+    std::vector<Primitives> primitives_;
 
     Rigidbody rigidbody_;
 
@@ -101,6 +114,8 @@ protected:
     std::vector<Connection> cablesTo_= std::vector<Connection>();
 
     bool hasGravity_;
+
+    bool hasCollisions_;
 };
 
 #endif // ACTORS_H

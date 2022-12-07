@@ -4,6 +4,10 @@
 PhysicSystem::PhysicSystem()
 {
     forces_ = ForceRegistreryRigidbody();
+    movedThisframe_ = std::vector<int>();
+    possibleCollisions_ = std::vector<int[2]>();
+    collisions_ = collisionRegistreryRigidody ();
+    narrowPhase = NarrowPhaseDetector(&collisions_,&possibleCollisions_);
 }
 
 void PhysicSystem::addSimpleForce(Rigidbody* rb,int id, int idForce, Vector3D bodyAnchor)
@@ -43,4 +47,23 @@ void PhysicSystem::removeForces(int id)
 void PhysicSystem::UpdateForces(float duration)
 {
     forces_.updateForces(duration);
+}
+
+void PhysicSystem::handleCollisions(float duration)
+{
+    collisions_.handleCollisions(duration);
+}
+
+void PhysicSystem::addToCollision(Actors* actor)
+{
+    //add the object into the octree (just the Rigidbody*)
+    //Octree.add(actor)
+    narrowPhase.addActor(actor);
+}
+
+void PhysicSystem::removeCollisions(int id)
+{
+    //remove the object from the octree, it will not collide with anything
+    //Octree.remove(id);
+    narrowPhase.removeActor(id);
 }
