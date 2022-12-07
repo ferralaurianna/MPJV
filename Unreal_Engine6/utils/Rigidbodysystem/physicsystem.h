@@ -4,6 +4,7 @@
 #include "utils/Rigidbodysystem/collisionregistreryrigidody.h"
 #include "utils/Rigidbodysystem/forceregistreryrigidbody.h"
 #include "utils/Rigidbodysystem/narrowphasedetector.h"
+#include "utils/octree.h"
 
 class PhysicSystem
 {
@@ -41,6 +42,8 @@ private:
     collisionRegistreryRigidody collisions_;
 
     NarrowPhaseDetector narrowPhase = NarrowPhaseDetector(&collisions_,&possibleCollisions_);
+
+    Octree octree = Octree(-100,-100,-100,100,100,100);
 
 };
 

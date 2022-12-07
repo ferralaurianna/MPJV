@@ -57,13 +57,11 @@ void PhysicSystem::handleCollisions(float duration)
 void PhysicSystem::addToCollision(Actors* actor)
 {
     //add the object into the octree (just the Rigidbody*)
-    //Octree.add(actor)
-    narrowPhase.addActor(actor);
+    octree.add(actor);
 }
 
 void PhysicSystem::removeCollisions(int id)
 {
     //remove the object from the octree, it will not collide with anything
-    //Octree.remove(id);
-    narrowPhase.removeActor(id);
+    octree.remove(id);
 }
