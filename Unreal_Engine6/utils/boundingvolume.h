@@ -21,13 +21,16 @@ class BoundingVolume
 private:
     Point center;
     float radius;
+    Actors* actor_;
 
 public:
-    BoundingVolume(Actors actor);
+    BoundingVolume(Actors* actor);
 
     Point getCenter() const {return center;}
 
     void setCenter(float x_, float y_, float z_);
+
+    void Update();
 
     bool intersectWithBox(int xTopLeftFront, int yTopLeftFront, int zTopLeftFront, int xBottomRightBack, int yBottomRightBack, int zBottomRightBack);
 
