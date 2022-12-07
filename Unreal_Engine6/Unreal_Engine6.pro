@@ -45,6 +45,8 @@ SOURCES += \
     utils/RigidBodySystem/forceregistreryrigidbody.cpp \
     utils/RigidBodySystem/narrowphasedetector.cpp \
     utils/RigidBodySystem/physicsystem.cpp \
+    utils/boundingvolume.cpp \
+    utils/octree.cpp \
     utils\RigidBodySystem/actors.cpp \
     scene3/windowpart3.cpp \
     utils/ParticlesSystem\collisiondetector.cpp \
@@ -98,6 +100,8 @@ HEADERS += \
     utils/RigidBodySystem/forceregistreryrigidbody.h \
     utils/RigidBodySystem/narrowphasedetector.h \
     utils/RigidBodySystem/physicsystem.h \
+    utils/boundingvolume.h \
+    utils/octree.h \
     utils\RigidBodySystem\actors.h \
     scene3/windowpart3.h \
     utils/Polygon.h \
