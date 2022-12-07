@@ -70,9 +70,12 @@ public:
         // Assigning null to the children
         children.assign(8, nullptr);
     }
+    void add(Actors* actor);
     void insert(BoundingVolume* element);
+    void update(int idActor);
+    BoundingVolume* remove(int idActor);
     void remove(BoundingVolume* element);
-    std::vector<std::tuple<BoundingVolume*, BoundingVolume*>> findPossibleCollision();
+    std::vector<Actors*[2]> findPossibleCollision();
     std::vector<BoundingVolume*> getUniqueElements();
 
 };

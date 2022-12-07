@@ -34,6 +34,8 @@ public:
 
     bool intersectWithBox(int xTopLeftFront, int yTopLeftFront, int zTopLeftFront, int xBottomRightBack, int yBottomRightBack, int zBottomRightBack);
 
+    Actors* getActor() { return actor_;}
+
 };
 
 #endif // BOUNDINGVOLUME_H
