@@ -13,6 +13,8 @@ public:
 
     float radius_;
     TYPE type=TYPE::SPHERE;
+
+    float getPropFloat(){return radius_;};
 };
 
 #endif // SPHERE_H

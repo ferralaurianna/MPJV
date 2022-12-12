@@ -21,6 +21,9 @@ public:
                                                  0,0,0,0,
                                                  0,0,0,1});
     TYPE type=TYPE::UNDEFINED;
+
+    virtual float getPropFloat();
+    virtual Vector3D getPropVect();
 };
 
 #endif // PRIMITIVES_H
