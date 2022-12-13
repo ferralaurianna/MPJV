@@ -238,3 +238,46 @@ void gamegui4::DrawPolygone(Polygone polygone, int id)
 
     glPopMatrix();
 }
+
+void gamegui4::demo1()
+{
+    int i = 0;
+    int ind = 0;
+    int size = pactorList->size();
+    while(i < size){
+        Actors* act = pactorList->getActor(ind);
+        if(act!=nullptr)
+        {
+            pactorList->removeActor(ind);
+            i++;
+        }
+        ind++;
+    }
+
+    float valueDiagCuboidX = float(1)/float(12)*float(100)*float(800);
+    float valueDiagCuboidY = float(1)/float(12)*float(100)*float(800);
+    float valueDiagCuboidZ = float(1)/float(12)*float(100)*float(800);
+    float cuboidInertia[9] = {valueDiagCuboidX,0,0,0,valueDiagCuboidY,0,0,0,valueDiagCuboidZ};
+
+    Matrix * inertiaInitializer = new Matrix(3,cuboidInertia);
+    Rigidbody bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(1,0,0,0),inertiaInitializer);
+    std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,0,1,1,1);
+    Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, true);
+
+    pactorList->addActor(actorInitializer);
+    delete inertiaInitializer;
+
+    valueDiagCuboidX = float(1)/float(12)*float(200)*float(325);
+    valueDiagCuboidY = float(1)/float(12)*float(200)*float(1000);
+    valueDiagCuboidZ = float(1)/float(12)*float(200)*float(1125);
+    float cuboidInertia2[9] = {valueDiagCuboidX,0,0,0,valueDiagCuboidY,0,0,0,valueDiagCuboidZ};
+
+    inertiaInitializer = new Matrix(3,cuboidInertia2);
+
+    bodyInitializer = Rigidbody(-100,-5,0,200,new Quaternion(1,0,0,0),inertiaInitializer);
+    polygonesInitializer = CreateCubePolygone(0,0,0,10,10,10);
+    actorInitializer = Actors(bodyInitializer, polygonesInitializer, 1, false);
+
+    pactorList->addActor(actorInitializer);
+    delete inertiaInitializer;
+}
