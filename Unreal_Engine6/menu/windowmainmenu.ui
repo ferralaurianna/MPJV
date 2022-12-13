@@ -213,6 +213,36 @@ background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0  #4
      <bool>false</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="phase4Button">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>510</y>
+      <width>256</width>
+      <height>64</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: white;
+font-size: 24px;
+background-color: #404040;
+border-radius: 6px;
+border: 1px solid #707070;
+background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0  #404040, stop:1 #505050);</string>
+    </property>
+    <property name="text">
+     <string>Phase 4 - Final</string>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

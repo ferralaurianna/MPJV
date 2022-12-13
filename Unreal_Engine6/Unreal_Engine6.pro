@@ -37,6 +37,8 @@ SOURCES += \
     scene2/Assets/spike.cpp \
     scene3/actorlist.cpp \
     scene3/gamegui3.cpp \
+    scene4/gamegui4.cpp \
+    scene4/windowpart4.cpp \
     utils/RigidBodySystem/Primitives/box.cpp \
     utils/RigidBodySystem/Primitives/plane.cpp \
     utils/RigidBodySystem/Primitives/primitives.cpp \
@@ -72,7 +74,8 @@ SOURCES += \
     scene2\blob.cpp \
     scene2\gamegui2.cpp \
     scene1\windowpart1.cpp \
-    scene2\windowpart2.cpp
+    scene2\windowpart2.cpp \
+    windowpart4.cpp
 
 HEADERS += \
     bulletsType\ball.h \
@@ -91,6 +94,8 @@ HEADERS += \
     scene2/Assets/spike.h \
     scene3/actorlist.h \
     scene3/gamegui3.h \
+    scene4/gamegui4.h \
+    scene4/windowpart4.h \
     utils/RigidBodySystem/collisiondata.h \
     utils/RigidBodySystem/Primitives/box.h \
     utils/RigidBodySystem/Primitives/plane.h \
@@ -127,17 +132,21 @@ HEADERS += \
     scene2\blob.h \
     scene2\gamegui2.h \
     scene1\windowpart1.h \
-    scene2\windowpart2.h
+    scene2\windowpart2.h \
+    windowpart4.h
 
 RESOURCES += \
     ../res/textures.qrc
 
 FORMS += \
+    Windowpart4.ui \
     menu/windowmainmenu.ui \
     scene1\windowpart1.ui \
     scene2\windowgameover2.ui \
     scene2\windowpart2.ui \
-    scene3/windowpart3.ui
+    scene3/windowpart3.ui \
+    scene4/windowpart4.ui \
+    windowpart4.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
