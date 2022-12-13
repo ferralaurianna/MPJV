@@ -33,6 +33,8 @@ public:
 
     void removeCollisions(int id);
 
+    void CalculateCollision();
+
 private:
     ForceRegistreryRigidbody forces_;
 

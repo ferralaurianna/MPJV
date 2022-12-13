@@ -72,3 +72,13 @@ void PhysicSystem::removeCollisions(int id)
     //remove the object from the octree, it will not collide with anything
     octree.remove(id);
 }
+
+void PhysicSystem::CalculateCollision()
+{
+    for(int id : movedThisframe_)
+    {
+        octree.update(id);
+    }
+    octree.findPossibleCollision();
+    narrowPhase.DetectCollision();
+}
