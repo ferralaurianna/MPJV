@@ -14,7 +14,7 @@ Windowpart4::Windowpart4(QWidget *parent) :
 
     actorlist_.setPhysic(&physic_);
 
-    ui->gamegui4->setactorList(&actorlist_);
+    ui->gameGui4->setactorList(&actorlist_);
 
     connect(this->timerLogic, &QTimer::timeout, this, &Windowpart4::updateLogic);
 //    timerLogic->setSingleShot(true);
@@ -42,7 +42,7 @@ void Windowpart4::updateLogic()
 
 void Windowpart4::updateRender()
 {
-    ui->gamegui4->update();
+    ui->gameGui4->update();
 }
 
 void Windowpart4::updateInputs()
@@ -160,13 +160,13 @@ void Windowpart4::keyPressEvent(QKeyEvent * event)
         case Qt::Key_1:
         {
             timerFakeCollision->stop();
-            ui->gamegui4->demo1();
+            ui->gameGui4->demo1();
             actorlist_.getActor(0)->getRigidbody()->addForcesAtBodyPoint(Vector3D(100000,100000,0),Vector3D(10,10,10));
             break;
         }
         case Qt::Key_2:
         {
-            ui->gamegui4->demo2();
+            ui->gameGui4->demo2();
             actorlist_.getActor(0)->getRigidbody()->addForcesAtBodyPoint(Vector3D(-500000,0,0),Vector3D(0,0,0));
             actorlist_.getActor(1)->getRigidbody()->addForcesAtBodyPoint(Vector3D(1000000,0,0),Vector3D(0,0,0));
             timerFakeCollision->start(11000);

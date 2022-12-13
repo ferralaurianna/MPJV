@@ -75,7 +75,6 @@ SOURCES += \
     scene2\gamegui2.cpp \
     scene1\windowpart1.cpp \
     scene2\windowpart2.cpp \
-    windowpart4.cpp
 
 HEADERS += \
     bulletsType\ball.h \
@@ -133,20 +132,17 @@ HEADERS += \
     scene2\gamegui2.h \
     scene1\windowpart1.h \
     scene2\windowpart2.h \
-    windowpart4.h
 
 RESOURCES += \
     ../res/textures.qrc
 
 FORMS += \
-    Windowpart4.ui \
     menu/windowmainmenu.ui \
     scene1\windowpart1.ui \
     scene2\windowgameover2.ui \
     scene2\windowpart2.ui \
     scene3/windowpart3.ui \
     scene4/windowpart4.ui \
-    windowpart4.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
