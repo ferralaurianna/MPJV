@@ -79,6 +79,7 @@ void PhysicSystem::CalculateCollision()
     {
         octree.update(id);
     }
-    octree.findPossibleCollision();
-    narrowPhase.DetectCollision();
+    std::vector<std::tuple<Actors*, Actors*>> merde = octree.findPossibleCollision();
+    //se débrouiller pour passer des tuples aux tableaux
+    narrowPhase.DetectCollision(&possibleCollisions_);
 }

@@ -6,8 +6,9 @@ NarrowPhaseDetector::NarrowPhaseDetector(collisionRegistreryRigidody* detectedCo
     toTest_ = toTest;
 }
 
-void NarrowPhaseDetector::DetectCollision()
+void NarrowPhaseDetector::DetectCollision(std::vector<Actors*[2]>* toTest)
 {
+    toTest_ = toTest;
     for(Actors** pCol : *toTest_)
     {
         for(Primitives primAct1 : *pCol[0]->getPrimitives())
