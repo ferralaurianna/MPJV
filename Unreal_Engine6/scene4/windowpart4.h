@@ -2,6 +2,7 @@
 #define WINDOWPART4_H
 
 #include "scene3/actorlist.h"
+#include "gamegui4.h"
 #include "utils/Vector3D.h"
 #include <QTimer>
 #include <QKeyEvent>
@@ -26,15 +27,11 @@ private:
 
     void updateRender();
 
-    void FakeCollision();
-
     QTimer *timerLogic = new QTimer(this);
     float deltatimeLogic = 1000/200;
 
     QTimer *timerRender = new QTimer(this);
     float deltatimeRender = 1000/60;
-
-    QTimer *timerFakeCollision = new QTimer(this);
 
     void keyPressEvent(QKeyEvent * event);
 

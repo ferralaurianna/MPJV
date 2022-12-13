@@ -74,11 +74,7 @@ public:
 
     std::vector<Polygone> CreateCubePolygone(float x,float y,float z,float lx,float ly,float lz);
 
-    std::vector<Polygone> CreateOddPolygone(float x,float y,float z,float lx,float ly,float lz);
-
-    void demo1();
-
-    void demo2();
+    void demo();
 
 protected:
     /**
@@ -117,12 +113,12 @@ private:
      * Floats used to store the relative angle and distance between the camera and the X axis and it's center of view.
      */
     float angleCamera_ = 90.;
-    float distanceCamera_ = -100.;
+    float distanceCamera_ = -3.;
     /**
      * @brief cameraX_, cameraY_, cameraZ_
      * Floats used to store the position of the camera.
      */
-    float cameraX_ = 10., cameraY_ = 20., cameraZ_ = distanceCamera_;
+    float cameraX_ = 0., cameraY_ = 3., cameraZ_ = distanceCamera_;
     /**
      * @brief dirY
      * A float indicating if the view of the camera has been reversed.
@@ -134,7 +130,7 @@ private:
      * GLfloats that store the intensity and positions of the lights
      */
     GLfloat light_tab[4]={1.0,1.0,1.0,1.0};
-    GLfloat light_tab_pos[4]= {20.0,30.0,0.0,0.0};
+    GLfloat light_tab_pos[4]= {0,9.0,0.0,1}; // modif pour une lumière en (0,9,0) (1 pour qu'elle soit positionnelle
 
     ActorList* pactorList;
 

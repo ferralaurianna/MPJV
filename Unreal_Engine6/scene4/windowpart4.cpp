@@ -24,7 +24,7 @@ Windowpart4::Windowpart4(QWidget *parent) :
 //    timerRender->setSingleShot(true);
     timerRender->start(deltatimeRender);
 
-    connect(this->timerFakeCollision, &QTimer::timeout, this, &Windowpart4::FakeCollision);
+    //connect(this->timerFakeCollision, &QTimer::timeout, this, &Windowpart4::FakeCollision);
 }
 
 Windowpart4::~Windowpart4()
@@ -159,17 +159,9 @@ void Windowpart4::keyPressEvent(QKeyEvent * event)
         }
         case Qt::Key_1:
         {
-            timerFakeCollision->stop();
-            ui->gameGui4->demo1();
+            //timerFakeCollision->stop();
+            ui->gameGui4->demo();
             actorlist_.getActor(0)->getRigidbody()->addForcesAtBodyPoint(Vector3D(100000,100000,0),Vector3D(10,10,10));
-            break;
-        }
-        case Qt::Key_2:
-        {
-            ui->gameGui4->demo2();
-            actorlist_.getActor(0)->getRigidbody()->addForcesAtBodyPoint(Vector3D(-500000,0,0),Vector3D(0,0,0));
-            actorlist_.getActor(1)->getRigidbody()->addForcesAtBodyPoint(Vector3D(1000000,0,0),Vector3D(0,0,0));
-            timerFakeCollision->start(11000);
             break;
         }
         // Default case
@@ -183,10 +175,4 @@ void Windowpart4::keyPressEvent(QKeyEvent * event)
 
     // Acceptation of the event and update rendering
     event->accept();
-}
-
-void Windowpart4::FakeCollision()
-{
-    actorlist_.getActor(0)->getRigidbody()->addForcesAtBodyPoint(Vector3D(500000,0,0),Vector3D(-10,5,0));
-    actorlist_.getActor(1)->getRigidbody()->addForcesAtBodyPoint(Vector3D(-500000,0,0),Vector3D(10,-5,0));
 }

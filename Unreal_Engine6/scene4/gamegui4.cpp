@@ -1,6 +1,6 @@
 #include "gamegui4.h"
 
-const float PI=3.14159;
+//const float PI=3.14159;
 
 
 gamegui4::gamegui4(QWidget *parent): QOpenGLWidget(parent)
@@ -239,7 +239,7 @@ void gamegui4::DrawPolygone(Polygone polygone, int id)
     glPopMatrix();
 }
 
-void gamegui4::demo1()
+void gamegui4::demo()
 {
     int i = 0;
     int ind = 0;
@@ -280,4 +280,8 @@ void gamegui4::demo1()
 
     pactorList->addActor(actorInitializer);
     delete inertiaInitializer;
+}
+
+void gamegui4::setactorList(ActorList* actorlist_) {
+    pactorList = actorlist_;
 }
