@@ -164,9 +164,9 @@ std::vector<BoundingVolume*> Octree::getUniqueElements()
     return result;
 }
 
-std::vector<Actors*[2]> Octree::findPossibleCollision()
+std::vector<std::tuple<Actors*, Actors*>> Octree::findPossibleCollision()
 {
-    std::vector<Actors*[2]> result;
+    std::vector<std::tuple<Actors*, Actors*>> result;
     if(isLeaf)
     {
         if(elements.size() < 2){
@@ -176,13 +176,13 @@ std::vector<Actors*[2]> Octree::findPossibleCollision()
         {
             for (int j = i+1; j < (int) elements.size(); ++j)
             {
-                result.push_back({elements[i]->getActor(), elements[j]->getActor()});
+                result.push_back(std::tuple<Actors*, Actors*>(elements[i]->getActor(), elements[j]->getActor()));
             }
         }
     }
     else
     {
-        std::vector<Actors*[2]> tmp;
+        std::vector<std::tuple<Actors*, Actors*>> tmp;
         for(int i = 0; i < (int) children.size(); i++)
         {
             tmp = children[i]->findPossibleCollision();

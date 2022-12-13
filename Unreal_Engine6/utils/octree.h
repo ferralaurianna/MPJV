@@ -75,7 +75,7 @@ public:
     void update(int idActor);
     BoundingVolume* remove(int idActor);
     void remove(BoundingVolume* element);
-    std::vector<Actors*[2]> findPossibleCollision();
+    std::vector<std::tuple<Actors*, Actors*>> findPossibleCollision();
     std::vector<BoundingVolume*> getUniqueElements();
 
 };
