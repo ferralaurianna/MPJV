@@ -19,4 +19,14 @@ struct Collisiondata{
         idbody1(id1),idbody2(id2),position(pos),normal(norm),penetration(pen),rigidbody1(body1),rigidbody2(body2),restitution(resti),friction(frict){};
 };
 
+std::ostream& operator << (std::ostream& os, const Collisiondata& data)
+{
+   return os << "CollisionData{ Position:["
+             << data.position.getX() << "," << data.position.getY() << "," << data.position.getZ() << "], "
+             << "Normal:" << data.normal.getX() << "," << data.normal.getY() << "," << data.normal.getZ() << "], "
+             << "Penetration:" << data.penetration << ", "
+             << "Restitution:" << data.restitution << ", "
+             << "Friction" << data.friction << " }";
+}
+
 #endif // COLLISIONDATA_H

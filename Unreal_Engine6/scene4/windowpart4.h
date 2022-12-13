@@ -42,6 +42,12 @@ private:
     PhysicSystem physic_;
 
     ActorList actorlist_;
+
+    bool runSim = true; // False if simulation is not running anymore
+
+public slots:
+    void endSimulation();
+
 };
 
 #endif // WINDOWPART4_H

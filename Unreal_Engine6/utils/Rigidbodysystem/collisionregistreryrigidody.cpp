@@ -56,3 +56,16 @@ collisionRegistreryRigidody::~collisionRegistreryRigidody()
 {
     clear();
 }
+
+bool collisionRegistreryRigidody::hasCollisions()
+{
+    return !(register_.empty());
+}
+
+void collisionRegistreryRigidody::printCollisions()
+{
+    std::vector<Collisiondata>::iterator it = register_.begin();
+    while (it != register_.end()) {
+      std::cout << it.base();
+    }
+}

@@ -25,6 +25,7 @@ Windowpart4::Windowpart4(QWidget *parent) :
     timerRender->start(deltatimeRender);
 
     //connect(this->timerFakeCollision, &QTimer::timeout, this, &Windowpart4::FakeCollision);
+    connect(ui->gameGui4, SIGNAL(collisionFoundSignal()), this, SLOT(endSimulation()));
 }
 
 Windowpart4::~Windowpart4()
@@ -34,10 +35,13 @@ Windowpart4::~Windowpart4()
 
 void Windowpart4::updateLogic()
 {
-    updateInputs();
-    physic_.UpdateForces(deltatimeLogic/1000);
-    actorlist_.integrateAll(deltatimeLogic/1000);
-//    actorlist_.clearForces();
+    if(runSim)
+    {
+        updateInputs();
+        physic_.UpdateForces(deltatimeLogic/1000);
+        actorlist_.integrateAll(deltatimeLogic/1000);
+    //    actorlist_.clearForces();
+    }
 }
 
 void Windowpart4::updateRender()
@@ -53,6 +57,11 @@ void Windowpart4::updateInputs()
     {
         physic_.addSimpleForce(actor0->getRigidbody(),0,-3,movements*1000);
     }
+}
+
+void Windowpart4::endSimulation()
+{
+    runSim = false;
 }
 
 

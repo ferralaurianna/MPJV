@@ -21,6 +21,10 @@ public:
 
     void handleCollisions(float duration);
 
+    void printCollisions();
+
+    bool hasCollisions();
+
 private:
     std::vector<Collisiondata> register_;
 };
