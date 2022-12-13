@@ -51,7 +51,14 @@ void PhysicSystem::UpdateForces(float duration)
 
 void PhysicSystem::handleCollisions(float duration)
 {
-    collisions_.handleCollisions(duration);
+    //collisions_.handleCollisions(duration);
+
+    // Stop the sim and print the collision results
+    if(collisions_.hasCollisions()) {
+        emit collisionFoundSignal();
+        collisions_.printCollisions();
+    }
+
 }
 
 void PhysicSystem::addToCollision(Actors* actor)
