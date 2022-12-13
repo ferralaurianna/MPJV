@@ -30,6 +30,7 @@ public:
     Vector3D* getPosition(){return position_;};
     void setPosition(Vector3D *position){position_=position;};
     Vector3D* getForces(){return &accumForce_;};
+    Matrix getTransformMatrix(){return transformMatrix_;};
 
     /**
      * Integrates the rigidbody, by modifiying position, orientation & velocity
