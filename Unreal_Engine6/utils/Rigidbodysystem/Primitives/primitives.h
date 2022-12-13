@@ -22,8 +22,8 @@ public:
                                                  0,0,0,1});
     TYPE type=TYPE::UNDEFINED;
 
-    virtual float getPropFloat();
-    virtual Vector3D getPropVect();
+    float radiusOroffset_ = 0;
+    Vector3D normalOrhalfsize = Vector3D(0,0,0);
 };
 
 #endif // PRIMITIVES_H

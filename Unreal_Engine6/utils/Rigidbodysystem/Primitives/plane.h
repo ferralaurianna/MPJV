@@ -14,9 +14,6 @@ public:
     Vector3D normal_;
     float offset_;
     TYPE type=TYPE::PLANE;
-
-    float getPropFloat(){return offset_;};
-    Vector3D getPropVect(){return normal_;};
 };
 
 #endif // PLANE_H

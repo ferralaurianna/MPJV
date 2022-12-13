@@ -13,8 +13,6 @@ public:
 
     Vector3D halfSize_;
     TYPE type=TYPE::BOX;
-
-    Vector3D getPropVect(){return halfSize_;};
 };
 
 #endif // BOX_H

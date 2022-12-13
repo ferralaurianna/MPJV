@@ -84,11 +84,11 @@ void NarrowPhaseDetector::sphereSphere(Actors* act1, Primitives S1, Actors* act2
     Vector3D pos2 = *(act2->getRigidbody()->getPosition())+Vector3D(S2.localPosition_(0,0),S2.localPosition_(0,1),S2.localPosition_(0,2));
     Vector3D distance = pos1-pos2;
 
-    Vector3D pos = *(act1->getRigidbody()->getPosition())+(distance.normalize())*S1.getPropFloat();
+    Vector3D pos = *(act1->getRigidbody()->getPosition())+(distance.normalize())*S1.radiusOroffset_;
 
-    if(distance.norm()<(S1.getPropFloat()+S2.getPropFloat()))
+    if(distance.norm()<(S1.radiusOroffset_+S2.radiusOroffset_))
     {
-        Collisiondata data = Collisiondata(act1->getId(),act2->getId(),pos,distance.normalize(),S1.getPropFloat()+S2.getPropFloat()-distance.norm(),1,1,act1->getRigidbody(),act2->getRigidbody());
+        Collisiondata data = Collisiondata(act1->getId(),act2->getId(),pos,distance.normalize(),S1.radiusOroffset_+S2.radiusOroffset_-distance.norm(),1,1,act1->getRigidbody(),act2->getRigidbody());
         detectedCols_->add(data);
     }
 }
@@ -97,12 +97,12 @@ void NarrowPhaseDetector::spherePlane(Actors *act1, Primitives S1, Actors *act2,
 {
     Vector3D pos1 = *(act1->getRigidbody()->getPosition())+Vector3D(S1.localPosition_(0,0),S1.localPosition_(0,1),S1.localPosition_(0,2));
 
-    float distance = pos1.scalarProduct(P2.getPropVect())-P2.getPropFloat()-S1.getPropFloat();
+    float distance = pos1.scalarProduct(P2.normalOrhalfsize)-P2.radiusOroffset_-S1.radiusOroffset_;
 
-    Vector3D pos = P2.getPropVect().normalize()*(distance+S1.getPropFloat());
+    Vector3D pos = P2.normalOrhalfsize.normalize()*(distance+S1.radiusOroffset_);
 
     if(distance<0){
-        Collisiondata data = Collisiondata(act1->getId(),act2->getId(),pos,P2.getPropVect(),distance,1,1,act1->getRigidbody(),act2->getRigidbody());
+        Collisiondata data = Collisiondata(act1->getId(),act2->getId(),pos,P2.normalOrhalfsize,distance,1,1,act1->getRigidbody(),act2->getRigidbody());
         detectedCols_->add(data);
     }
 
@@ -111,7 +111,7 @@ void NarrowPhaseDetector::spherePlane(Actors *act1, Primitives S1, Actors *act2,
 void NarrowPhaseDetector::boxPlane(Actors *act1, Primitives B1, Actors *act2, Primitives P2)
 {
     Vector3D pos1 = *(act1->getRigidbody()->getPosition())+Vector3D(B1.localPosition_(0,0),B1.localPosition_(0,1),B1.localPosition_(0,2));
-    Vector3D halfSize = B1.getPropVect();
+    Vector3D halfSize = B1.normalOrhalfsize;
     Vector3D posEdge;
     for(int i=0;i<8;i++){
         switch(i){
@@ -149,9 +149,9 @@ void NarrowPhaseDetector::boxPlane(Actors *act1, Primitives B1, Actors *act2, Pr
         }
         }
 
-        float distance = posEdge.scalarProduct(P2.getPropVect())-P2.getPropFloat();
+        float distance = posEdge.scalarProduct(P2.normalOrhalfsize)-P2.radiusOroffset_;
         if(distance<0){
-            Collisiondata data = Collisiondata(act1->getId(),act2->getId(),posEdge,P2.getPropVect(),distance,1,1,act1->getRigidbody(),act2->getRigidbody());
+            Collisiondata data = Collisiondata(act1->getId(),act2->getId(),posEdge,P2.normalOrhalfsize,distance,1,1,act1->getRigidbody(),act2->getRigidbody());
             detectedCols_->add(data);
         }
     }
@@ -160,7 +160,7 @@ void NarrowPhaseDetector::boxPlane(Actors *act1, Primitives B1, Actors *act2, Pr
 void NarrowPhaseDetector::boxSphere(Actors *act1, Primitives B1, Actors *act2, Primitives S2)
 {
     Vector3D centerLocal = act1->getRigidbody()->getTransformMatrix()*(*act2->getRigidbody()->getPosition());
-    Vector3D halfSize=B1.getPropVect();
+    Vector3D halfSize=B1.normalOrhalfsize;
 
     Vector3D closePoint=Vector3D(0,0,0);
     closePoint.setX(clamp(centerLocal,halfSize,0));
@@ -170,25 +170,25 @@ void NarrowPhaseDetector::boxSphere(Actors *act1, Primitives B1, Actors *act2, P
      TYPE_COLLISION type=whichTypeCollision(closePoint,halfSize);
      switch(type){
      case TYPE_COLLISION::FACE_FACE_X:{
-         Vector3D pos = *(act1->getRigidbody()->getPosition())+(closePoint.normalize())*S2.getPropFloat();
-         Collisiondata data = Collisiondata(act1->getId(),act2->getId(),pos,closePoint.normalize(),halfSize.getX()+S2.getPropFloat()-closePoint.norm(),1,1,act1->getRigidbody(),act2->getRigidbody());
+         Vector3D pos = *(act1->getRigidbody()->getPosition())+(closePoint.normalize())*S2.radiusOroffset_;
+         Collisiondata data = Collisiondata(act1->getId(),act2->getId(),pos,closePoint.normalize(),halfSize.getX()+S2.radiusOroffset_-closePoint.norm(),1,1,act1->getRigidbody(),act2->getRigidbody());
          detectedCols_->add(data);
      }
      case TYPE_COLLISION::FACE_FACE_Y:{
-         Vector3D pos = *(act1->getRigidbody()->getPosition())+(closePoint.normalize())*S2.getPropFloat();
-         Collisiondata data = Collisiondata(act1->getId(),act2->getId(),pos,closePoint.normalize(),halfSize.getY()+S2.getPropFloat()-closePoint.norm(),1,1,act1->getRigidbody(),act2->getRigidbody());
+         Vector3D pos = *(act1->getRigidbody()->getPosition())+(closePoint.normalize())*S2.radiusOroffset_;
+         Collisiondata data = Collisiondata(act1->getId(),act2->getId(),pos,closePoint.normalize(),halfSize.getY()+S2.radiusOroffset_-closePoint.norm(),1,1,act1->getRigidbody(),act2->getRigidbody());
          detectedCols_->add(data);
      }
      case TYPE_COLLISION::FACE_FACE_Z:{
-         Vector3D pos = *(act1->getRigidbody()->getPosition())+(closePoint.normalize())*S2.getPropFloat();
-         Collisiondata data = Collisiondata(act1->getId(),act2->getId(),pos,closePoint.normalize(),halfSize.getZ()+S2.getPropFloat()-closePoint.norm(),1,1,act1->getRigidbody(),act2->getRigidbody());
+         Vector3D pos = *(act1->getRigidbody()->getPosition())+(closePoint.normalize())*S2.radiusOroffset_;
+         Collisiondata data = Collisiondata(act1->getId(),act2->getId(),pos,closePoint.normalize(),halfSize.getZ()+S2.radiusOroffset_-closePoint.norm(),1,1,act1->getRigidbody(),act2->getRigidbody());
          detectedCols_->add(data);
      }
      case TYPE_COLLISION::EDGE_FACE_XY:{
          Vector3D pos = Vector3D(halfSize.getX(),halfSize.getY(),closePoint.getZ());
          Vector3D posWorld = act1->getRigidbody()->getTransformMatrix().Inverse()*(*act1->getRigidbody()->getPosition());
          Vector3D posLocalSphere = act2->getRigidbody()->getTransformMatrix()*posWorld;
-         Vector3D penetration = S2.getPropVect()-posLocalSphere;
+         Vector3D penetration = S2.normalOrhalfsize-posLocalSphere;
          Collisiondata data = Collisiondata(act1->getId(),act2->getId(),pos,penetration.normalize(),penetration.norm(),1,1,act1->getRigidbody(),act2->getRigidbody());
          detectedCols_->add(data);
      }
@@ -196,7 +196,7 @@ void NarrowPhaseDetector::boxSphere(Actors *act1, Primitives B1, Actors *act2, P
          Vector3D pos = Vector3D(closePoint.getX(),halfSize.getY(),halfSize.getZ());
          Vector3D posWorld = act1->getRigidbody()->getTransformMatrix().Inverse()*(*act1->getRigidbody()->getPosition());
          Vector3D posLocalSphere = act2->getRigidbody()->getTransformMatrix()*posWorld;
-         Vector3D penetration = S2.getPropVect()-posLocalSphere;
+         Vector3D penetration = S2.normalOrhalfsize-posLocalSphere;
          Collisiondata data = Collisiondata(act1->getId(),act2->getId(),pos,penetration.normalize(),penetration.norm(),1,1,act1->getRigidbody(),act2->getRigidbody());
          detectedCols_->add(data);
      }
@@ -204,7 +204,7 @@ void NarrowPhaseDetector::boxSphere(Actors *act1, Primitives B1, Actors *act2, P
          Vector3D pos = Vector3D(halfSize.getX(),closePoint.getY(),halfSize.getZ());
          Vector3D posWorld = act1->getRigidbody()->getTransformMatrix().Inverse()*(*act1->getRigidbody()->getPosition());
          Vector3D posLocalSphere = act2->getRigidbody()->getTransformMatrix()*posWorld;
-         Vector3D penetration = S2.getPropVect()-posLocalSphere;
+         Vector3D penetration = S2.normalOrhalfsize-posLocalSphere;
          Collisiondata data = Collisiondata(act1->getId(),act2->getId(),pos,penetration.normalize(),penetration.norm(),1,1,act1->getRigidbody(),act2->getRigidbody());
          detectedCols_->add(data);
      }
@@ -212,7 +212,7 @@ void NarrowPhaseDetector::boxSphere(Actors *act1, Primitives B1, Actors *act2, P
          Vector3D pos = Vector3D(halfSize.getX(),halfSize.getY(),halfSize.getZ());
          Vector3D posWorld = act1->getRigidbody()->getTransformMatrix().Inverse()*(*act1->getRigidbody()->getPosition());
          Vector3D posLocalSphere = act2->getRigidbody()->getTransformMatrix()*posWorld;
-         Vector3D penetration = S2.getPropVect()-posLocalSphere;
+         Vector3D penetration = S2.normalOrhalfsize-posLocalSphere;
          Collisiondata data = Collisiondata(act1->getId(),act2->getId(),pos,penetration.normalize(),penetration.norm(),1,1,act1->getRigidbody(),act2->getRigidbody());
          detectedCols_->add(data);
      }
