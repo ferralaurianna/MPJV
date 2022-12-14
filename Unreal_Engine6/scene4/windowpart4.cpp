@@ -171,7 +171,16 @@ void Windowpart4::keyPressEvent(QKeyEvent * event)
         {
             //timerFakeCollision->stop();
             ui->gameGui4->demo();
-            actorlist_.getActor(0)->getRigidbody()->addForcesAtBodyPoint(Vector3D(100000,100000,0),Vector3D(10,10,10));
+            break;
+        }
+        case Qt::Key_2:
+        {
+            actorlist_.getActor(0)->getRigidbody()->addForcesAtBodyPoint(Vector3D(120000,120000,0),Vector3D(1.5,1.5,1.5));
+            break;
+        }
+        case Qt::Key_3:
+        {
+            actorlist_.getActor(0)->getRigidbody()->addForcesAtBodyPoint(Vector3D(0,120000,0),Vector3D(0,0,0));
             break;
         }
         // Default case

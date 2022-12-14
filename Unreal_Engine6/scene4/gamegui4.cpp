@@ -257,11 +257,11 @@ void gamegui4::DrawPolygone(Polygone polygone, int id)
     }
 
     if (id == 1){
-        GLfloat colorAmbient_tab[] = {0.24725f,0.1995f,0.0745f,0.4};
+        GLfloat colorAmbient_tab[] = {0.24725f,0.1995f,0.2745f,0.4};
         glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient_tab);
-        GLfloat colorDiffuse_tab[] = {0.75164f,0.60648f,0.22648f,0.4};
+        GLfloat colorDiffuse_tab[] = {0.75164f,0.20648f,0.272648f,0.4};
         glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuse_tab);
-        GLfloat colorSpecular_tab[] = {0.628281,0.555802,0.366065,0.4};
+        GLfloat colorSpecular_tab[] = {0.628281,0.555802,0.766065,0.4};
         glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tab);
         glMaterialf(GL_FRONT, GL_SHININESS, 76.f);
     }
@@ -269,9 +269,9 @@ void gamegui4::DrawPolygone(Polygone polygone, int id)
     if (id == 2){
         GLfloat colorAmbient_tab[] = {0.19125, 0.0735, 0.0225, 0.1};
         glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient_tab);
-        GLfloat colorDiffuse_tab[] = {0.7038, 0.27048,	0.0828,0.1};
+        GLfloat colorDiffuse_tab[] = {0.038, 0.27048,	0.0828,0.1};
         glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuse_tab);
-        GLfloat colorSpecular_tab[] = {0.256777, 0.137622, 0.086014, 0.1};
+        GLfloat colorSpecular_tab[] = {0.256777, 0.137622, 0.286014, 0.1};
         glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecular_tab);
         glMaterialf(GL_FRONT, GL_SHININESS, 76.f);
     }
@@ -314,14 +314,19 @@ void gamegui4::demo()
         ind++;
     }
 
-    float valueDiagCuboidX = float(1)/float(12)*float(100)*float(800);
-    float valueDiagCuboidY = float(1)/float(12)*float(100)*float(800);
-    float valueDiagCuboidZ = float(1)/float(12)*float(100)*float(800);
-    float cuboidInertia[9] = {valueDiagCuboidX,0,0,0,valueDiagCuboidY,0,0,0,valueDiagCuboidZ};
+    float valueDiagCuboid = float(1)/float(12)*float(118.125)*(float(9) + float(9));
+    float cuboidInertia[9] = {valueDiagCuboid,0,0,0,valueDiagCuboid,0,0,0,valueDiagCuboid};
+
+    // Cube de carton
+    // V = 3.375 m3
+    // rho = 35 kg/m3
+    // m = 118.125 kg
+    // l = 3m de côté
+    // I = 1/12 * m * (3²+3²) = 177.188 kg/m2
 
     Matrix * inertiaInitializer = new Matrix(3,cuboidInertia);
-    Rigidbody bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(1,0,0,0),inertiaInitializer);
-    std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,4,1,1,1);
+    Rigidbody bodyInitializer = Rigidbody(0,0,0, 118.125, new Quaternion(), inertiaInitializer);
+    std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,4,1.5,1.5,1.5);
     std::vector<Primitives> box;
     Box b = Box(Vector3D(1.5,1.5,1.5), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}));
     std::cout << "Type de la primitive boite (gamegui4.cpp:327)" << std::endl;
@@ -336,31 +341,31 @@ void gamegui4::demo()
     pactorList->addActor(actorInitializer);
     delete inertiaInitializer;
 
-    valueDiagCuboidX = float(1)/float(12)*float(200)*float(325);
-    valueDiagCuboidY = float(1)/float(12)*float(200)*float(1000);
-    valueDiagCuboidZ = float(1)/float(12)*float(200)*float(1125);
-    float cuboidInertia2[9] = {valueDiagCuboidX,0,0,0,valueDiagCuboidY,0,0,0,valueDiagCuboidZ};
+    valueDiagCuboid = float(1)/float(12)*float(200)*float(325);
+    //valueDiagCuboidY = float(1)/float(12)*float(200)*float(1000);
+    //valueDiagCuboidZ = float(1)/float(12)*float(200)*float(1125);
+    float cuboidInertia2[9] = {valueDiagCuboid,0,0,0,valueDiagCuboid,0,0,0,valueDiagCuboid};
 
     inertiaInitializer = new Matrix(3,cuboidInertia2);
 
-    bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(0,0,0,0),inertiaInitializer);
+    bodyInitializer = Rigidbody(0,0,3,100,new Quaternion(1,0,0,0),inertiaInitializer);
 
     // Plans de la boîte
     polygonesInitializer = std::vector<Polygone>();
-    polygonesInitializer.push_back(CreatePlane(5,0,0,1,10,10,0));
-    polygonesInitializer.push_back(CreatePlane(-5,0,0,1,10,10,0));
-    polygonesInitializer.push_back(CreatePlane(0,5,0,10,1,10,1));
-    polygonesInitializer.push_back(CreatePlane(0,-5,0,10,1,10,1));
-    polygonesInitializer.push_back(CreatePlane(0,0,5,10,10,1,2));
-    polygonesInitializer.push_back(CreatePlane(0,0,-5,10,10,1,2));
+    polygonesInitializer.push_back(CreatePlane(5,0,0,1,9.5,9.5,0));
+    polygonesInitializer.push_back(CreatePlane(-5,0,0,1,9.5,9.5,0));
+    //polygonesInitializer.push_back(CreatePlane(0,5,0,10,1,10,1));
+    polygonesInitializer.push_back(CreatePlane(0,-5,0,9.5,1,9.5,1));
+    polygonesInitializer.push_back(CreatePlane(0,0,5,9.5,9.5,1,2));
+    //polygonesInitializer.push_back(CreatePlane(0,0,-5,10,10,1,2));
 
     // Primitives des plans
     std::vector<Primitives> planes;
-    planes.push_back(Plane(Vector3D( 1,0,0), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}), 5));
+    planes.push_back(Plane(Vector3D( 1,0,0), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}), -5));
     planes.push_back(Plane(Vector3D(-1,0,0), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}), -5));
-    planes.push_back(Plane(Vector3D(0, 1,0), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}), 5));
+    planes.push_back(Plane(Vector3D(0, 1,0), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}), -5));
     planes.push_back(Plane(Vector3D(0,-1,0), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}), -5));
-    planes.push_back(Plane(Vector3D(0,0, 1), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}), 5));
+    planes.push_back(Plane(Vector3D(0,0, 1), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}), -5));
     planes.push_back(Plane(Vector3D(0,0,-1), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}), -5));
 
     actorInitializer = Actors(bodyInitializer, polygonesInitializer, 1, false, planes);
