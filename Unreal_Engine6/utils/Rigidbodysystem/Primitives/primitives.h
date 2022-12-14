@@ -24,8 +24,10 @@ public:
 
     float radiusOroffset_ = 0;
     Vector3D normalOrhalfsize = Vector3D(0,0,0);
-
-    Primitives & operator= (const Primitives &prim);
+    Primitives(const Primitives&);
+    Primitives(Primitives&&) = default;
+    Primitives& operator=(const Primitives&);
+    Primitives& operator=(Primitives&&) = default;
 };
 
 #endif // PRIMITIVES_H

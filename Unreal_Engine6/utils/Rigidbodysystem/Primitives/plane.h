@@ -13,7 +13,6 @@ public:
 
     Vector3D normal_;
     float offset_;
-    TYPE type=TYPE::PLANE;
 };
 
 #endif // PLANE_H

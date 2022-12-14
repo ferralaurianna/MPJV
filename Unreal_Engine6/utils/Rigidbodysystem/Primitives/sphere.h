@@ -12,7 +12,6 @@ public:
                                                                       0,0,0,1}));
 
     float radius_;
-    TYPE type=TYPE::SPHERE;
 };
 
 #endif // SPHERE_H
