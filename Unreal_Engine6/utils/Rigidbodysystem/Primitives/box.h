@@ -12,7 +12,6 @@ public:
                                                                                  0,0,0,1}));
 
     Vector3D halfSize_;
-    TYPE type=TYPE::BOX;
 };
 
 #endif // BOX_H
