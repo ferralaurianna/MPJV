@@ -74,6 +74,8 @@ public:
 
     std::vector<Polygone> CreateCubePolygone(float x,float y,float z,float lx,float ly,float lz);
 
+    Polygone CreatePlane(float x,float y,float z,float lx,float ly,float lz, int xyz);
+
     void demo();
 
 protected:
@@ -130,7 +132,7 @@ private:
      * GLfloats that store the intensity and positions of the lights
      */
     GLfloat light_tab[4]={1.0,1.0,1.0,1.0};
-    GLfloat light_tab_pos[4]= {0,9.0,0.0,1}; // modif pour une lumière en (0,9,0) (1 pour qu'elle soit positionnelle
+    GLfloat light_tab_pos[4]= {0,4.0,0.0,0.0}; // modif pour une lumière en (0,9,0) (1 pour qu'elle soit positionnelle
 
     ActorList* pactorList;
 

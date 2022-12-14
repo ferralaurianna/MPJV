@@ -1,4 +1,5 @@
 #include "gamegui4.h"
+#include "utils/Rigidbodysystem/Primitives/plane.h"
 
 //const float PI=3.14159;
 
@@ -25,7 +26,7 @@ void gamegui4::initializeGL()
     glEnable(GL_DEPTH_TEST);
 
     // Ambiant light
-    glLightfv(GL_LIGHT0,GL_AMBIENT,light_tab);
+    //glLightfv(GL_LIGHT0,GL_AMBIENT,light_tab);
     glLightfv(GL_LIGHT0,GL_DIFFUSE,light_tab);
     glLightfv(GL_LIGHT0,GL_SPECULAR,light_tab);
 
@@ -81,6 +82,63 @@ void gamegui4::paintGL()
         ind++;
     }
 }
+
+Polygone gamegui4::CreatePlane(float x,float y,float z,float lx,float ly,float lz, int xyz) {
+
+    //Polygone polygone;
+
+    Vector3D v1 = Vector3D();
+
+    Vector3D v2 = Vector3D();
+
+    Vector3D v3 = Vector3D();
+
+    Vector3D v4 = Vector3D();
+
+    //plan sur x mur de coté
+    if (xyz == 0) {
+
+        v1 = Vector3D( x, y - ly/2, z + lz/2);
+
+        v2 = Vector3D( x, y - ly/2, z - lz/2);
+
+        v3 = Vector3D( x, y + ly/2, z - lz/2);
+
+        v4 = Vector3D( x, y + ly/2, z + lz/2);
+    }
+
+    //plan sur y ( plafond et sol )
+    if (xyz == 1){
+
+        v1 = Vector3D(x + lx/2, y, z + lz/2);
+
+        v2 = Vector3D(x + lx/2, y, z - lz/2);
+
+        v3 = Vector3D(x - lx/2, y, z - lz/2);
+
+        v4 = Vector3D(x - lx/2, y, z + lz/2);
+    }
+
+    //plan sur z ( mur avant et arrière )
+    if (xyz == 2){
+
+        v1 = Vector3D(x + lx/2, y - ly/2, z);
+
+        v2 = Vector3D(x + lx/2, y + ly/2, z);
+
+        v3 = Vector3D(x - lx/2, y + ly/2, z);
+
+        v4 = Vector3D(x - lx/2, y - ly/2, z);
+    }
+
+
+    Polygone plan = Polygone(v1, v2, v3, v4);
+
+    //polygones.push_back(plan);
+
+    return plan;
+}
+
 
 std::vector<Polygone> gamegui4::CreateCubePolygone(float x,float y,float z,float lx,float ly,float lz){
 
@@ -186,13 +244,14 @@ void gamegui4::DrawPolygone(Polygone polygone, int id)
    // glTranslatef(pactorList->getActor(id)->getRigidbody()->getPosition()->getX(),pactorList->getActor(id)->getRigidbody()->getPosition()->getY(),
    //              pactorList->getActor(id)->getRigidbody()->getPosition()->getZ());
 
-
    if (id == 0){
+        glClearColor (0.0, 0.0, 0.0, 0.0);
+        glShadeModel (GL_SMOOTH);
         GLfloat colorAmbientBl_tab[] = {0.25,0.25,0.5,1.0};
         glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbientBl_tab);
         GLfloat colorDiffuseBl_tab[] = {0.5,0.5,1.0,0.0};
         glMaterialfv(GL_FRONT, GL_DIFFUSE, colorDiffuseBl_tab);
-        GLfloat colorSpecularBl_tab[] = {0.0,0.0,0.0,0.0};
+        GLfloat colorSpecularBl_tab[] = {1.0,1.0,1.0,1.0};
         glMaterialfv(GL_FRONT, GL_SPECULAR, colorSpecularBl_tab);
     }
 
@@ -261,7 +320,7 @@ void gamegui4::demo()
 
     Matrix * inertiaInitializer = new Matrix(3,cuboidInertia);
     Rigidbody bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(1,0,0,0),inertiaInitializer);
-    std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,0,1,1,1);
+    std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,4,1,1,1);
     Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, true);
 
     pactorList->addActor(actorInitializer);
@@ -275,11 +334,30 @@ void gamegui4::demo()
     inertiaInitializer = new Matrix(3,cuboidInertia2);
 
     bodyInitializer = Rigidbody(-100,-5,0,200,new Quaternion(1,0,0,0),inertiaInitializer);
-    polygonesInitializer = CreateCubePolygone(0,0,0,10,10,10);
-    actorInitializer = Actors(bodyInitializer, polygonesInitializer, 1, false);
+
+    // Plans de la boîte
+    polygonesInitializer = std::vector<Polygone>();
+    polygonesInitializer.push_back(CreatePlane(5,0,0,1,10,10,0));
+    polygonesInitializer.push_back(CreatePlane(-5,0,0,1,10,10,0));
+    polygonesInitializer.push_back(CreatePlane(0,5,0,10,1,10,1));
+    polygonesInitializer.push_back(CreatePlane(0,-5,0,10,1,10,1));
+    polygonesInitializer.push_back(CreatePlane(0,0,5,10,10,1,2));
+    polygonesInitializer.push_back(CreatePlane(0,0,-5,10,10,1,2));
+
+    // Primitives des plans
+    std::vector<Primitives> planes;
+    planes.push_back(Plane(Vector3D( 1,0,0), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}), 5));
+    planes.push_back(Plane(Vector3D(-1,0,0), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}), -5));
+    planes.push_back(Plane(Vector3D(0, 1,0), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}), 5));
+    planes.push_back(Plane(Vector3D(0,-1,0), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}), -5));
+    planes.push_back(Plane(Vector3D(0,0, 1), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}), 5));
+    planes.push_back(Plane(Vector3D(0,0,-1), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}), -5));
+
+    actorInitializer = Actors(bodyInitializer, polygonesInitializer, 1, false, planes);
 
     pactorList->addActor(actorInitializer);
     delete inertiaInitializer;
+
 }
 
 void gamegui4::setactorList(ActorList* actorlist_) {

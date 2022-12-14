@@ -25,7 +25,7 @@ Windowpart4::Windowpart4(QWidget *parent) :
     timerRender->start(deltatimeRender);
 
     //connect(this->timerFakeCollision, &QTimer::timeout, this, &Windowpart4::FakeCollision);
-    connect(ui->gameGui4, SIGNAL(collisionFoundSignal()), this, SLOT(endSimulation()));
+    //connect(physic_, SIGNAL(collisionFoundSignal()), this, SLOT(endSimulation()));
 }
 
 Windowpart4::~Windowpart4()

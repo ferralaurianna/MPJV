@@ -55,6 +55,7 @@ void PhysicSystem::handleCollisions(float duration)
 
     // Stop the sim and print the collision results
     if(collisions_.hasCollisions()) {
+        // emit collisionFound();
         collisions_.printCollisions();
     }
 

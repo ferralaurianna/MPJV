@@ -142,7 +142,7 @@ FORMS += \
     scene2\windowgameover2.ui \
     scene2\windowpart2.ui \
     scene3/windowpart3.ui \
-    scene4/windowpart4.ui \
+    scene4\windowpart4.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
