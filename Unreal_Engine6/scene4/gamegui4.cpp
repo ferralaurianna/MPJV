@@ -343,7 +343,7 @@ void gamegui4::demo()
 
     inertiaInitializer = new Matrix(3,cuboidInertia2);
 
-    bodyInitializer = Rigidbody(-100,-5,0,200,new Quaternion(1,0,0,0),inertiaInitializer);
+    bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(0,0,0,0),inertiaInitializer);
 
     // Plans de la boîte
     polygonesInitializer = std::vector<Polygone>();
