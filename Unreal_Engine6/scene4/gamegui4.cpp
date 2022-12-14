@@ -27,7 +27,6 @@ void gamegui4::initializeGL()
     glEnable(GL_DEPTH_TEST);
 
     // Ambiant light
-    //glLightfv(GL_LIGHT0,GL_AMBIENT,light_tab);
     glLightfv(GL_LIGHT0,GL_DIFFUSE,light_tab);
     glLightfv(GL_LIGHT0,GL_SPECULAR,light_tab);
 
@@ -86,7 +85,6 @@ void gamegui4::paintGL()
 
 Polygone gamegui4::CreatePlane(float x,float y,float z,float lx,float ly,float lz, int xyz) {
 
-    //Polygone polygone;
 
     Vector3D v1 = Vector3D();
 
@@ -96,7 +94,6 @@ Polygone gamegui4::CreatePlane(float x,float y,float z,float lx,float ly,float l
 
     Vector3D v4 = Vector3D();
 
-    //plan sur x mur de coté
     if (xyz == 0) {
 
         v1 = Vector3D( x, y - ly/2, z + lz/2);
@@ -108,7 +105,6 @@ Polygone gamegui4::CreatePlane(float x,float y,float z,float lx,float ly,float l
         v4 = Vector3D( x, y + ly/2, z + lz/2);
     }
 
-    //plan sur y ( plafond et sol )
     if (xyz == 1){
 
         v1 = Vector3D(x + lx/2, y, z + lz/2);
@@ -120,7 +116,6 @@ Polygone gamegui4::CreatePlane(float x,float y,float z,float lx,float ly,float l
         v4 = Vector3D(x - lx/2, y, z + lz/2);
     }
 
-    //plan sur z ( mur avant et arrière )
     if (xyz == 2){
 
         v1 = Vector3D(x + lx/2, y - ly/2, z);
@@ -134,8 +129,6 @@ Polygone gamegui4::CreatePlane(float x,float y,float z,float lx,float ly,float l
 
 
     Polygone plan = Polygone(v1, v2, v3, v4);
-
-    //polygones.push_back(plan);
 
     return plan;
 }
@@ -232,19 +225,8 @@ void gamegui4::DrawPolygone(Polygone polygone, int id)
     m[14] = transformMatrix->operator()(2,3);
     m[15] = transformMatrix->operator()(3,3);
 
-    //for(int i=0;i<16;i++){
-    //std::cout<<m[i]<<std::endl;}
-
     glPushMatrix();
-//    float angle = qRadiansToDegrees(2*qAcos(pactorList->getActor(id)->getRigidbody()->getOrientation()->getW()));
-//    float rx = qRadiansToDegrees(2*qAsin(pactorList->getActor(id)->getRigidbody()->getOrientation()->getI()));
-//    float ry = qRadiansToDegrees(2*qAsin(pactorList->getActor(id)->getRigidbody()->getOrientation()->getJ()));
-//    float rz = qRadiansToDegrees(2*qAsin(pactorList->getActor(id)->getRigidbody()->getOrientation()->getK()));
     glMultMatrixf(m);
-
-   // glTranslatef(pactorList->getActor(id)->getRigidbody()->getPosition()->getX(),pactorList->getActor(id)->getRigidbody()->getPosition()->getY(),
-   //              pactorList->getActor(id)->getRigidbody()->getPosition()->getZ());
-
    if (id == 0){
         glClearColor (0.0, 0.0, 0.0, 0.0);
         glShadeModel (GL_SMOOTH);
@@ -317,33 +299,18 @@ void gamegui4::demo()
     float valueDiagCuboid = float(1)/float(12)*float(118.125)*(float(9) + float(9));
     float cuboidInertia[9] = {valueDiagCuboid,0,0,0,valueDiagCuboid,0,0,0,valueDiagCuboid};
 
-    // Cube de carton
-    // V = 3.375 m3
-    // rho = 35 kg/m3
-    // m = 118.125 kg
-    // l = 3m de côté
-    // I = 1/12 * m * (3²+3²) = 177.188 kg/m2
-
     Matrix * inertiaInitializer = new Matrix(3,cuboidInertia);
     Rigidbody bodyInitializer = Rigidbody(0,0,0, 118.125, new Quaternion(), inertiaInitializer);
     std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,4,1.5,1.5,1.5);
     std::vector<Primitives> box;
     Box b = Box(Vector3D(1.5,1.5,1.5), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}));
-    std::cout << "Type de la primitive boite (gamegui4.cpp:327)" << std::endl;
-    std::cout << b.type << " (SHOULD BE 3)" << std::endl;
     box.push_back(b);
-    // C'est ici qu'on perd l'information*
-    // TODO trouver pourquoi
-    std::cout << box.front().type << " (SHOULD BE 3)" << std::endl;
     Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, true, box);
-    std::cout << actorInitializer.getPrimitives()->front().type << " (SHOULD BE 3)" << std::endl;
 
     pactorList->addActor(actorInitializer);
     delete inertiaInitializer;
 
     valueDiagCuboid = float(1)/float(12)*float(200)*float(325);
-    //valueDiagCuboidY = float(1)/float(12)*float(200)*float(1000);
-    //valueDiagCuboidZ = float(1)/float(12)*float(200)*float(1125);
     float cuboidInertia2[9] = {valueDiagCuboid,0,0,0,valueDiagCuboid,0,0,0,valueDiagCuboid};
 
     inertiaInitializer = new Matrix(3,cuboidInertia2);
@@ -354,10 +321,8 @@ void gamegui4::demo()
     polygonesInitializer = std::vector<Polygone>();
     polygonesInitializer.push_back(CreatePlane(5,0,0,1,9.5,9.5,0));
     polygonesInitializer.push_back(CreatePlane(-5,0,0,1,9.5,9.5,0));
-    //polygonesInitializer.push_back(CreatePlane(0,5,0,10,1,10,1));
     polygonesInitializer.push_back(CreatePlane(0,-5,0,9.5,1,9.5,1));
     polygonesInitializer.push_back(CreatePlane(0,0,5,9.5,9.5,1,2));
-    //polygonesInitializer.push_back(CreatePlane(0,0,-5,10,10,1,2));
 
     // Primitives des plans
     std::vector<Primitives> planes;

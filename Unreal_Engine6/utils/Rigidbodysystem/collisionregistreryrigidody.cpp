@@ -9,7 +9,6 @@ collisionRegistreryRigidody::collisionRegistreryRigidody()
 void collisionRegistreryRigidody::add(Collisiondata collision)
 {
     std::cout << "Collision found:  " << collision << std::endl;
-    std::cout << "vector size: " << register_.size() << std::endl;
     register_.push_back(collision);
     std::cout << "COLLISION RESOLVED" << std::endl;
 

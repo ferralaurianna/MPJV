@@ -7,12 +7,6 @@ NarrowPhaseDetector::NarrowPhaseDetector(collisionRegistreryRigidody* detectedCo
     toTest_ = toTest;
 }
 
-//NarrowPhaseDetector::NarrowPhaseDetector(collisionRegistreryRigidody* detectedCols, std::vector<Actors*[2]>* toTest)
-//{
-//    detectedCols_ = detectedCols;
-//    toTest_ = toTest;
-//}
-
 void NarrowPhaseDetector::DetectCollision(std::vector<std::tuple<Actors*, Actors*>>* toTest)
 {
     toTest_ = toTest;
@@ -22,7 +16,6 @@ void NarrowPhaseDetector::DetectCollision(std::vector<std::tuple<Actors*, Actors
         {
             for(Primitives primAct2 : *std::get<1>(*pCol)->getPrimitives())
             {
-                //std::cout << primAct1.type << " && " << primAct2.type << std::endl;
                 switch (primAct1.type) {
                 case Primitives::SPHERE:
                     switch (primAct2.type) {
@@ -80,11 +73,6 @@ void NarrowPhaseDetector::DetectCollision(std::vector<std::tuple<Actors*, Actors
 
                     break;
                 default:
-                    std::cout << "Le programme va sans doutes crash: (cf narrowphasedetector.cpp:83)" << std::endl;
-                    // Pour l'instant les types sont tous en undefined pour une raison obscure (cf gamegui4)
-                    // Alors comme on connaît le type exact des acteurs on appelle boxPlane par défaut
-                    // POUR EMPÊCHER LE CRASH, COMMENTER LA LIGNE CI-DESSOUS
-                    boxPlane(std::get<0>(*pCol),primAct1,std::get<1>(*pCol),primAct2);
                     break;
                 }
             }
@@ -92,80 +80,6 @@ void NarrowPhaseDetector::DetectCollision(std::vector<std::tuple<Actors*, Actors
     }
 }
 
-//void NarrowPhaseDetector::DetectCollision(std::vector<Actors*[2]>* toTest)
-//{
-//    if(toTest->size() >= 1) std::cout << "AAAAA" << std::endl;
-//    toTest_ = toTest;
-//    for(Actors** pCol : *toTest_)
-//    {
-//        for(Primitives primAct1 : *pCol[0]->getPrimitives())
-//        {
-//            for(Primitives primAct2 : *pCol[1]->getPrimitives())
-//            {
-//                //std::cout << primAct1.type << "&&" << primAct2.type << std::endl;
-//                switch (primAct1.type) {
-//                case Primitives::SPHERE:
-//                    switch (primAct2.type) {
-//                    case Primitives::SPHERE:
-//                        sphereSphere(pCol[0],primAct1,pCol[1],primAct2);
-
-//                        break;
-//                    case Primitives::BOX:
-//                        boxSphere(pCol[1],primAct2,pCol[0],primAct1);
-
-//                        break;
-//                    case Primitives::PLANE:
-//                        spherePlane(pCol[0],primAct1,pCol[1],primAct2);
-
-//                        break;
-//                    default:
-//                        break;
-//                    }
-
-//                    break;
-//                case Primitives::BOX:
-//                    switch (primAct2.type) {
-//                    case Primitives::SPHERE:
-//                        boxSphere(pCol[0],primAct1,pCol[1],primAct2);
-
-//                        break;
-//                    case Primitives::BOX:
-
-//                        break;
-//                    case Primitives::PLANE:
-//                        boxPlane(pCol[0],primAct1,pCol[1],primAct2);
-
-//                        break;
-//                    default:
-//                        break;
-//                    }
-
-//                    break;
-//                case Primitives::PLANE:
-//                    switch (primAct2.type) {
-//                    case Primitives::SPHERE:
-//                        spherePlane(pCol[1],primAct2,pCol[0],primAct1);
-
-//                        break;
-//                    case Primitives::BOX:
-//                        boxPlane(pCol[1],primAct2,pCol[0],primAct1);
-
-//                        break;
-//                    case Primitives::PLANE:
-
-//                        break;
-//                    default:
-//                        break;
-//                    }
-
-//                    break;
-//                default:
-//                    break;
-//                }
-//            }
-//        }
-//    }
-//}
 
 void NarrowPhaseDetector::sphereSphere(Actors* act1, Primitives S1, Actors* act2, Primitives S2)
 {
