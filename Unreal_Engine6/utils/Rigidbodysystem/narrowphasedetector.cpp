@@ -18,14 +18,11 @@ void NarrowPhaseDetector::DetectCollision(std::vector<std::tuple<Actors*, Actors
     toTest_ = toTest;
     for(std::vector<std::tuple<Actors*, Actors*>>::iterator pCol = toTest->begin(); pCol != toTest->end(); ++pCol)
     {
-        std::cout << std::get<0>(*pCol)->getPrimitives()->size() << std::endl;
         for(Primitives primAct1 : *std::get<0>(*pCol)->getPrimitives())
         {
-            //std::cout << "B" << std::endl;
             for(Primitives primAct2 : *std::get<1>(*pCol)->getPrimitives())
             {
-                //std::cout << "C" << std::endl;
-                //std::cout << primAct1.type << "&&" << primAct2.type << std::endl;
+                //std::cout << primAct1.type << " && " << primAct2.type << std::endl;
                 switch (primAct1.type) {
                 case Primitives::SPHERE:
                     switch (primAct2.type) {
@@ -83,6 +80,11 @@ void NarrowPhaseDetector::DetectCollision(std::vector<std::tuple<Actors*, Actors
 
                     break;
                 default:
+                    std::cout << "Le programme va sans doutes crash: (cf narrowphasedetector.cpp:83)" << std::endl;
+                    // Pour l'instant les types sont tous en undefined pour une raison obscure (cf gamegui4)
+                    // Alors comme on connaît le type exact des acteurs on appelle boxPlane par défaut
+                    // POUR EMPÊCHER LE CRASH, COMMENTER LA LIGNE CI-DESSOUS
+                    boxPlane(std::get<0>(*pCol),primAct1,std::get<1>(*pCol),primAct2);
                     break;
                 }
             }
@@ -197,7 +199,6 @@ void NarrowPhaseDetector::spherePlane(Actors *act1, Primitives S1, Actors *act2,
 
 void NarrowPhaseDetector::boxPlane(Actors *act1, Primitives B1, Actors *act2, Primitives P2)
 {
-    std::cout << "EWWO" << std::endl;
     Vector3D pos1 = *(act1->getRigidbody()->getPosition())+Vector3D(B1.localPosition_(0,0),B1.localPosition_(0,1),B1.localPosition_(0,2));
     Vector3D halfSize = B1.normalOrhalfsize;
     Vector3D posEdge;

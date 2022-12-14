@@ -7,4 +7,5 @@ Plane::Plane(Vector3D normal,Matrix localPosition,float offset)
         offset_=offset;
         radiusOroffset_=offset_;
         normalOrhalfsize=normal_;
+        type = TYPE::PLANE;
 }

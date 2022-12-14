@@ -21,12 +21,12 @@ struct Collisiondata{
 
 inline std::ostream& operator << (std::ostream& os, const Collisiondata& data)
 {
-   return os << "CollisionData{ Position:["
+   return os << "CollisionData { Position: ["
              << data.position.getX() << "," << data.position.getY() << "," << data.position.getZ() << "], "
-             << "Normal:" << data.normal.getX() << "," << data.normal.getY() << "," << data.normal.getZ() << "], "
-             << "Penetration:" << data.penetration << ", "
-             << "Restitution:" << data.restitution << ", "
-             << "Friction" << data.friction << " }";
+             << "Normal: [" << data.normal.getX() << "," << data.normal.getY() << "," << data.normal.getZ() << "], "
+             << "Penetration: " << data.penetration << ", "
+             << "Restitution: " << data.restitution << ", "
+             << "Friction: " << data.friction << " }";
 }
 
 #endif // COLLISIONDATA_H

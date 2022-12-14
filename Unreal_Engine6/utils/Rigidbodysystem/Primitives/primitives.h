@@ -20,10 +20,12 @@ public:
                                                  0,0,0,0,
                                                  0,0,0,0,
                                                  0,0,0,1});
-    TYPE type=TYPE::UNDEFINED;
+    TYPE type = TYPE::UNDEFINED;
 
     float radiusOroffset_ = 0;
     Vector3D normalOrhalfsize = Vector3D(0,0,0);
+
+    Primitives & operator= (const Primitives &prim);
 };
 
 #endif // PRIMITIVES_H

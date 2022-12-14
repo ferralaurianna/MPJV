@@ -323,8 +323,15 @@ void gamegui4::demo()
     Rigidbody bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(1,0,0,0),inertiaInitializer);
     std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,4,1,1,1);
     std::vector<Primitives> box;
-    box.push_back(Box(Vector3D(1.5,1.5,1.5), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1})));
+    Box b = Box(Vector3D(1.5,1.5,1.5), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}));
+    std::cout << "Type de la primitive boite (gamegui4.cpp:327)" << std::endl;
+    std::cout << b.type << " (SHOULD BE 3)" << std::endl;
+    box.push_back(b);
+    // C'est ici qu'on perd l'information*
+    // TODO trouver pourquoi
+    std::cout << box.front().type << " (SHOULD BE 3)" << std::endl;
     Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, true, box);
+    std::cout << actorInitializer.getPrimitives()->front().type << " (SHOULD BE 3)" << std::endl;
 
     pactorList->addActor(actorInitializer);
     delete inertiaInitializer;
