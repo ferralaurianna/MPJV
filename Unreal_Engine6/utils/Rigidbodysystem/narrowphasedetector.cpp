@@ -1,33 +1,44 @@
 #include "narrowphasedetector.h"
+#include <tuple>
 
-NarrowPhaseDetector::NarrowPhaseDetector(collisionRegistreryRigidody* detectedCols, std::vector<Actors*[2]>* toTest)
+NarrowPhaseDetector::NarrowPhaseDetector(collisionRegistreryRigidody* detectedCols, std::vector<std::tuple<Actors*, Actors*>>* toTest)
 {
     detectedCols_ = detectedCols;
     toTest_ = toTest;
 }
 
-void NarrowPhaseDetector::DetectCollision(std::vector<Actors*[2]>* toTest)
+//NarrowPhaseDetector::NarrowPhaseDetector(collisionRegistreryRigidody* detectedCols, std::vector<Actors*[2]>* toTest)
+//{
+//    detectedCols_ = detectedCols;
+//    toTest_ = toTest;
+//}
+
+void NarrowPhaseDetector::DetectCollision(std::vector<std::tuple<Actors*, Actors*>>* toTest)
 {
     toTest_ = toTest;
-    for(Actors** pCol : *toTest_)
+    for(std::vector<std::tuple<Actors*, Actors*>>::iterator pCol = toTest->begin(); pCol != toTest->end(); ++pCol)
     {
-        for(Primitives primAct1 : *pCol[0]->getPrimitives())
+        std::cout << std::get<0>(*pCol)->getPrimitives()->size() << std::endl;
+        for(Primitives primAct1 : *std::get<0>(*pCol)->getPrimitives())
         {
-            for(Primitives primAct2 : *pCol[1]->getPrimitives())
+            //std::cout << "B" << std::endl;
+            for(Primitives primAct2 : *std::get<1>(*pCol)->getPrimitives())
             {
+                //std::cout << "C" << std::endl;
+                //std::cout << primAct1.type << "&&" << primAct2.type << std::endl;
                 switch (primAct1.type) {
                 case Primitives::SPHERE:
                     switch (primAct2.type) {
                     case Primitives::SPHERE:
-                        sphereSphere(pCol[0],primAct1,pCol[1],primAct2);
+                        sphereSphere(std::get<0>(*pCol),primAct1,std::get<1>(*pCol),primAct2);
 
                         break;
                     case Primitives::BOX:
-                        boxSphere(pCol[1],primAct2,pCol[0],primAct1);
+                        boxSphere(std::get<1>(*pCol),primAct2,std::get<0>(*pCol),primAct1);
 
                         break;
                     case Primitives::PLANE:
-                        spherePlane(pCol[0],primAct1,pCol[1],primAct2);
+                        spherePlane(std::get<0>(*pCol),primAct1,std::get<1>(*pCol),primAct2);
 
                         break;
                     default:
@@ -38,14 +49,14 @@ void NarrowPhaseDetector::DetectCollision(std::vector<Actors*[2]>* toTest)
                 case Primitives::BOX:
                     switch (primAct2.type) {
                     case Primitives::SPHERE:
-                        boxSphere(pCol[0],primAct1,pCol[1],primAct2);
+                        boxSphere(std::get<0>(*pCol),primAct1,std::get<1>(*pCol),primAct2);
 
                         break;
                     case Primitives::BOX:
 
                         break;
                     case Primitives::PLANE:
-                        boxPlane(pCol[0],primAct1,pCol[1],primAct2);
+                        boxPlane(std::get<0>(*pCol),primAct1,std::get<1>(*pCol),primAct2);
 
                         break;
                     default:
@@ -56,11 +67,11 @@ void NarrowPhaseDetector::DetectCollision(std::vector<Actors*[2]>* toTest)
                 case Primitives::PLANE:
                     switch (primAct2.type) {
                     case Primitives::SPHERE:
-                        spherePlane(pCol[1],primAct2,pCol[0],primAct1);
+                        spherePlane(std::get<1>(*pCol),primAct2,std::get<0>(*pCol),primAct1);
 
                         break;
                     case Primitives::BOX:
-                        boxPlane(pCol[1],primAct2,pCol[0],primAct1);
+                        boxPlane(std::get<1>(*pCol),primAct2,std::get<0>(*pCol),primAct1);
 
                         break;
                     case Primitives::PLANE:
@@ -78,6 +89,81 @@ void NarrowPhaseDetector::DetectCollision(std::vector<Actors*[2]>* toTest)
         }
     }
 }
+
+//void NarrowPhaseDetector::DetectCollision(std::vector<Actors*[2]>* toTest)
+//{
+//    if(toTest->size() >= 1) std::cout << "AAAAA" << std::endl;
+//    toTest_ = toTest;
+//    for(Actors** pCol : *toTest_)
+//    {
+//        for(Primitives primAct1 : *pCol[0]->getPrimitives())
+//        {
+//            for(Primitives primAct2 : *pCol[1]->getPrimitives())
+//            {
+//                //std::cout << primAct1.type << "&&" << primAct2.type << std::endl;
+//                switch (primAct1.type) {
+//                case Primitives::SPHERE:
+//                    switch (primAct2.type) {
+//                    case Primitives::SPHERE:
+//                        sphereSphere(pCol[0],primAct1,pCol[1],primAct2);
+
+//                        break;
+//                    case Primitives::BOX:
+//                        boxSphere(pCol[1],primAct2,pCol[0],primAct1);
+
+//                        break;
+//                    case Primitives::PLANE:
+//                        spherePlane(pCol[0],primAct1,pCol[1],primAct2);
+
+//                        break;
+//                    default:
+//                        break;
+//                    }
+
+//                    break;
+//                case Primitives::BOX:
+//                    switch (primAct2.type) {
+//                    case Primitives::SPHERE:
+//                        boxSphere(pCol[0],primAct1,pCol[1],primAct2);
+
+//                        break;
+//                    case Primitives::BOX:
+
+//                        break;
+//                    case Primitives::PLANE:
+//                        boxPlane(pCol[0],primAct1,pCol[1],primAct2);
+
+//                        break;
+//                    default:
+//                        break;
+//                    }
+
+//                    break;
+//                case Primitives::PLANE:
+//                    switch (primAct2.type) {
+//                    case Primitives::SPHERE:
+//                        spherePlane(pCol[1],primAct2,pCol[0],primAct1);
+
+//                        break;
+//                    case Primitives::BOX:
+//                        boxPlane(pCol[1],primAct2,pCol[0],primAct1);
+
+//                        break;
+//                    case Primitives::PLANE:
+
+//                        break;
+//                    default:
+//                        break;
+//                    }
+
+//                    break;
+//                default:
+//                    break;
+//                }
+//            }
+//        }
+//    }
+//}
 
 void NarrowPhaseDetector::sphereSphere(Actors* act1, Primitives S1, Actors* act2, Primitives S2)
 {
@@ -111,6 +197,7 @@ void NarrowPhaseDetector::spherePlane(Actors *act1, Primitives S1, Actors *act2,
 
 void NarrowPhaseDetector::boxPlane(Actors *act1, Primitives B1, Actors *act2, Primitives P2)
 {
+    std::cout << "EWWO" << std::endl;
     Vector3D pos1 = *(act1->getRigidbody()->getPosition())+Vector3D(B1.localPosition_(0,0),B1.localPosition_(0,1),B1.localPosition_(0,2));
     Vector3D halfSize = B1.normalOrhalfsize;
     Vector3D posEdge;

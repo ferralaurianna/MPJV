@@ -40,6 +40,7 @@ void Windowpart4::updateLogic()
         updateInputs();
         physic_.UpdateForces(deltatimeLogic/1000);
         actorlist_.integrateAll(deltatimeLogic/1000);
+        physic_.CalculateCollision();
     //    actorlist_.clearForces();
     }
 }

@@ -5,7 +5,8 @@ PhysicSystem::PhysicSystem()
 {
     forces_ = ForceRegistreryRigidbody();
     movedThisframe_ = std::vector<int>();
-    possibleCollisions_ = std::vector<Actors*[2]>();
+    possibleCollisions_ = std::vector<std::tuple<Actors*, Actors*>>();
+    //possibleCollisions_ = std::vector<Actors*[2]>();
     collisions_ = collisionRegistreryRigidody ();
     narrowPhase = NarrowPhaseDetector(&collisions_,&possibleCollisions_);
 }
@@ -79,7 +80,7 @@ void PhysicSystem::CalculateCollision()
     {
         octree.update(id);
     }
-    std::vector<std::tuple<Actors*, Actors*>> merde = octree.findPossibleCollision();
-    //se débrouiller pour passer des tuples aux tableaux
+    possibleCollisions_ = octree.findPossibleCollision();
+
     narrowPhase.DetectCollision(&possibleCollisions_);
 }

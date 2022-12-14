@@ -1,4 +1,5 @@
 #include "gamegui4.h"
+#include "utils/Rigidbodysystem/Primitives/box.h"
 #include "utils/Rigidbodysystem/Primitives/plane.h"
 
 //const float PI=3.14159;
@@ -321,7 +322,9 @@ void gamegui4::demo()
     Matrix * inertiaInitializer = new Matrix(3,cuboidInertia);
     Rigidbody bodyInitializer = Rigidbody(0,0,0,100,new Quaternion(1,0,0,0),inertiaInitializer);
     std::vector<Polygone> polygonesInitializer = CreateCubePolygone(0,0,4,1,1,1);
-    Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, true);
+    std::vector<Primitives> box;
+    box.push_back(Box(Vector3D(1.5,1.5,1.5), Matrix(4,new float[16]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1})));
+    Actors actorInitializer = Actors(bodyInitializer, polygonesInitializer, 0, true, box);
 
     pactorList->addActor(actorInitializer);
     delete inertiaInitializer;

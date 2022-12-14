@@ -41,7 +41,7 @@ private:
 
     std::vector<int> movedThisframe_;
 
-    std::vector<Actors*[2]> possibleCollisions_;
+    std::vector<std::tuple<Actors*, Actors*>> possibleCollisions_;
 
     collisionRegistreryRigidody collisions_;
 

@@ -8,6 +8,7 @@ collisionRegistreryRigidody::collisionRegistreryRigidody()
 void collisionRegistreryRigidody::add(Collisiondata collision)
 {
     register_.push_back(collision);
+    std::cout << "COLLISION" << std::endl;
 }
 
 void collisionRegistreryRigidody::remove(int idSujet, int idOther)
