@@ -2,6 +2,7 @@
 #define PHYSICSYSTEM_H
 
 #include "qtmetamacros.h"
+#include <QObject>
 #include "utils/Rigidbodysystem/collisionregistreryrigidody.h"
 #include "utils/Rigidbodysystem/forceregistreryrigidbody.h"
 #include "utils/Rigidbodysystem/narrowphasedetector.h"
@@ -47,9 +48,6 @@ private:
     NarrowPhaseDetector narrowPhase = NarrowPhaseDetector(&collisions_,&possibleCollisions_);
 
     Octree octree = Octree(-100,-100,-100,100,100,100);
-
-signals:
-    void collisionFoundSignal();
 
 };
 
