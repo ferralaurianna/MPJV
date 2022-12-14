@@ -1,6 +1,7 @@
 #ifndef PHYSICSYSTEM_H
 #define PHYSICSYSTEM_H
 
+#include <QObject>
 #include "utils/Rigidbodysystem/collisionregistreryrigidody.h"
 #include "utils/Rigidbodysystem/forceregistreryrigidbody.h"
 #include "utils/Rigidbodysystem/narrowphasedetector.h"
@@ -8,6 +9,7 @@
 
 class PhysicSystem
 {
+
 public:
     PhysicSystem();
 
@@ -32,18 +34,23 @@ public:
 
     void removeCollisions(int id);
 
+    void CalculateCollision();
+
 private:
     ForceRegistreryRigidbody forces_;
 
     std::vector<int> movedThisframe_;
 
-    std::vector<Actors*[2]> possibleCollisions_;
+    std::vector<std::tuple<Actors*, Actors*>> possibleCollisions_;
 
     collisionRegistreryRigidody collisions_;
 
     NarrowPhaseDetector narrowPhase = NarrowPhaseDetector(&collisions_,&possibleCollisions_);
 
     Octree octree = Octree(-100,-100,-100,100,100,100);
+
+signals:
+    void collisionFound();
 
 };
 

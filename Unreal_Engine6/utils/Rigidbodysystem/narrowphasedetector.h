@@ -7,13 +7,16 @@
 class NarrowPhaseDetector
 {
 public:
-    NarrowPhaseDetector(collisionRegistreryRigidody* detectedCols, std::vector<Actors*[2]>* toTest);
+    NarrowPhaseDetector(collisionRegistreryRigidody* detectedCols, std::vector<std::tuple<Actors*, Actors*>>* toTest);
+    //NarrowPhaseDetector(collisionRegistreryRigidody* detectedCols, std::vector<Actors*[2]>* toTest);
 
-    void DetectCollision();
+    //void DetectCollision(std::vector<Actors*[2]>* toTest);
+    void DetectCollision(std::vector<std::tuple<Actors*, Actors*>>* toTest);
 
 private:
     collisionRegistreryRigidody* detectedCols_;
-    std::vector<Actors*[2]>* toTest_;
+    //std::vector<Actors*[2]>* toTest_;
+    std::vector<std::tuple<Actors*, Actors*>>* toTest_;
 
     void sphereSphere(Actors *act1, Primitives S1, Actors *act2, Primitives S2);
     void spherePlane(Actors *act1, Primitives S1, Actors *act2, Primitives P2);

@@ -5,7 +5,8 @@ PhysicSystem::PhysicSystem()
 {
     forces_ = ForceRegistreryRigidbody();
     movedThisframe_ = std::vector<int>();
-    possibleCollisions_ = std::vector<Actors*[2]>();
+    possibleCollisions_ = std::vector<std::tuple<Actors*, Actors*>>();
+    //possibleCollisions_ = std::vector<Actors*[2]>();
     collisions_ = collisionRegistreryRigidody ();
     narrowPhase = NarrowPhaseDetector(&collisions_,&possibleCollisions_);
 }
@@ -51,7 +52,14 @@ void PhysicSystem::UpdateForces(float duration)
 
 void PhysicSystem::handleCollisions(float duration)
 {
-    collisions_.handleCollisions(duration);
+    //collisions_.handleCollisions(duration);
+
+    // Stop the sim and print the collision results
+    if(collisions_.hasCollisions()) {
+        // emit collisionFound();
+        collisions_.printCollisions();
+    }
+
 }
 
 void PhysicSystem::addToCollision(Actors* actor)
@@ -64,4 +72,15 @@ void PhysicSystem::removeCollisions(int id)
 {
     //remove the object from the octree, it will not collide with anything
     octree.remove(id);
+}
+
+void PhysicSystem::CalculateCollision()
+{
+    for(int id : movedThisframe_)
+    {
+        octree.update(id);
+    }
+    possibleCollisions_ = octree.findPossibleCollision();
+
+    narrowPhase.DetectCollision(&possibleCollisions_);
 }

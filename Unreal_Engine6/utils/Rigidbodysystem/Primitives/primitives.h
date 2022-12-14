@@ -20,10 +20,14 @@ public:
                                                  0,0,0,0,
                                                  0,0,0,0,
                                                  0,0,0,1});
-    TYPE type=TYPE::UNDEFINED;
+    TYPE type = TYPE::UNDEFINED;
 
-    virtual float getPropFloat();
-    virtual Vector3D getPropVect();
+    float radiusOroffset_ = 0;
+    Vector3D normalOrhalfsize = Vector3D(0,0,0);
+    Primitives(const Primitives&);
+    Primitives(Primitives&&) = default;
+    Primitives& operator=(const Primitives&);
+    Primitives& operator=(Primitives&&) = default;
 };
 
 #endif // PRIMITIVES_H

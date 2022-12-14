@@ -28,6 +28,8 @@ private slots:
 
     void on_phase3Button_clicked();
 
+    void on_phase4Button_clicked();
+
 private:
     Ui::WindowMainMenu *ui;
 };

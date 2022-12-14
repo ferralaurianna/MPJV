@@ -2,6 +2,7 @@
 #include "scene1/windowpart1.h"
 #include "scene2/windowpart2.h"
 #include "scene3/windowpart3.h"
+#include "scene4/windowpart4.h"
 #include "ui_windowmainmenu.h"
 
 QString hoverStyleSheet = "color: white;\nfont-size: 24px;\nbackground-color: #404040;\nborder-radius: 6px;\nborder: 1px solid #808080;\nbackground-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0  #505050, stop:1 #606060);";
@@ -33,6 +34,12 @@ void startPhase2()
 void startPhase3()
 {
     WindowPart3 *window = new WindowPart3;
+    window->show();
+}
+
+void startPhase4()
+{
+    Windowpart4 *window = new Windowpart4;
     window->show();
 }
 
@@ -73,3 +80,8 @@ void WindowMainMenu::on_phase3Button_clicked()
     this->hide();
 }
 
+void WindowMainMenu::on_phase4Button_clicked()
+{
+    startPhase4();
+    this->hide();
+}
