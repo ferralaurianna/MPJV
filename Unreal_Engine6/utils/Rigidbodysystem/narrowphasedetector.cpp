@@ -7,9 +7,10 @@ NarrowPhaseDetector::NarrowPhaseDetector(collisionRegistreryRigidody* detectedCo
     toTest_ = toTest;
 }
 
-void NarrowPhaseDetector::DetectCollision(std::vector<std::tuple<Actors*, Actors*>>* toTest)
+void NarrowPhaseDetector::DetectCollision(std::vector<std::tuple<Actors*, Actors*>>* toTest,collisionRegistreryRigidody *detectedCols)
 {
     toTest_ = toTest;
+    detectedCols_ = detectedCols;
     for(std::vector<std::tuple<Actors*, Actors*>>::iterator pCol = toTest->begin(); pCol != toTest->end(); ++pCol)
     {
         for(Primitives primAct1 : *std::get<0>(*pCol)->getPrimitives())

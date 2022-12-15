@@ -8,7 +8,7 @@ class NarrowPhaseDetector
 {
 public:
     NarrowPhaseDetector(collisionRegistreryRigidody* detectedCols, std::vector<std::tuple<Actors*, Actors*>>* toTest);
-    void DetectCollision(std::vector<std::tuple<Actors*, Actors*>>* toTest);
+    void DetectCollision(std::vector<std::tuple<Actors*, Actors*>>* toTest, collisionRegistreryRigidody *detectedCols);
 
 private:
     collisionRegistreryRigidody* detectedCols_;

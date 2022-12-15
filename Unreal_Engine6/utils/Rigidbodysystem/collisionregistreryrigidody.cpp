@@ -11,10 +11,10 @@ void collisionRegistreryRigidody::add(Collisiondata collision)
     std::cout << "Collision found:  " << collision << std::endl;
 
     // Crash intentionnel
-    std::cout << "size" << register_.size() << std::endl;
+    //std::cout << "size" << register_.size() << std::endl;
 
     register_.push_back(collision);
-    std::cout << "COLLISION RESOLVED" << std::endl;
+    std::cout << "COLLISION ADDED" << std::endl;
 
 }
 

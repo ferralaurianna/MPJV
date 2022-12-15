@@ -41,6 +41,7 @@ void Windowpart4::updateLogic()
         physic_.UpdateForces(deltatimeLogic/1000);
         actorlist_.integrateAll(deltatimeLogic/1000);
         physic_.CalculateCollision();
+        runSim = !physic_.handleCollisions(deltatimeLogic/1000);
     //    actorlist_.clearForces();
     }
 }
@@ -171,6 +172,7 @@ void Windowpart4::keyPressEvent(QKeyEvent * event)
         {
             //timerFakeCollision->stop();
             ui->gameGui4->demo();
+            runSim = true;
             break;
         }
         case Qt::Key_2:

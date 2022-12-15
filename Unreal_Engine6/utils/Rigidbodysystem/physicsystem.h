@@ -24,7 +24,7 @@ public:
 
     void UpdateForces(float duration);
 
-    void handleCollisions(float duration);
+    bool handleCollisions(float duration);
 
     void removeForces(int id);
 

@@ -50,16 +50,18 @@ void PhysicSystem::UpdateForces(float duration)
     forces_.updateForces(duration);
 }
 
-void PhysicSystem::handleCollisions(float duration)
+bool PhysicSystem::handleCollisions(float duration)
 {
     //collisions_.handleCollisions(duration);
 
     // Stop the sim and print the collision results
     if(collisions_.hasCollisions()) {
         // emit collisionFound();
-        collisions_.printCollisions();
+        //collisions_.printCollisions();
+        collisions_.clear();
+        return true;
     }
-
+    return false;
 }
 
 void PhysicSystem::addToCollision(Actors* actor)
@@ -82,5 +84,5 @@ void PhysicSystem::CalculateCollision()
     }
     possibleCollisions_ = octree.findPossibleCollision();
 
-    narrowPhase.DetectCollision(&possibleCollisions_);
+    narrowPhase.DetectCollision(&possibleCollisions_,&collisions_);
 }
